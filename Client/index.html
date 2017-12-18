@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Oh Europa!</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+        <link rel="stylesheet" href="./node_modules/font-awesome/css/font-awesome.css">
+        <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="./js/schmodal/css/schmodal.css">
+        <script>
+            try {
+                $ = jQuery = module.exports;
+            } catch(e) {}
+
+            require('bootstrap');            
+        </script>
+        <style type="text/css">
+            #map {
+                position: absolute;
+                left:0px;
+                right:0px;
+                top:0px;
+                bottom:0px;
+
+            }
+
+            #overview {
+                position:fixed;
+                top:34px;
+                left:0px;
+                right:0px;
+                height:195px;
+                display:inline-block;
+                background: #06beb6;  /* fallback for old browsers */
+                background: -webkit-linear-gradient(to left, #48b1bf, #06beb6);  /* Chrome 10-25, Safari 5.1-6 */
+                background: linear-gradient(to left, #48b1bf, #06beb6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                
+            }
+
+            #headingbar {
+                position: fixed;
+                top:0px;
+                left:0px;
+                right:0px;
+                height: 34px;
+                background: #06beb6;  /* fallback for old browsers */
+                background: -webkit-linear-gradient(to left, #48b1bf, #06beb6);  /* Chrome 10-25, Safari 5.1-6 */
+                background: linear-gradient(to left, #48b1bf, #06beb6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                
+            }
+            h5 {
+                color:white;
+            }
+
+            #mapmanager {
+                padding-top: 34px;
+            }
+            p {
+                display:inline-flex;
+            }
+            .list-group-item {
+                background: none;
+                /* background: #06beb6;  
+                background: -webkit-linear-gradient(to left, #48b1bf, #06beb6);  
+                background: linear-gradient(to left, #48b1bf, #06beb6); */
+                border: none;
+            }
+
+            li {
+                color:white;
+                width:30%;
+            }
+
+            .tab {
+                position: fixed;
+                top: 217px;
+                left: 400px;
+                border-radius: 50%;
+                background-color: aliceblue;
+                width: 22px;
+                height: 22px;
+                text-align:center;
+                vertical-align:middle;
+                display:table-cell;
+                background: #F2994A;  /* fallback for old browsers */
+                background: -webkit-linear-gradient(to bottom, #F2C94C, #F2994A);  /* Chrome 10-25, Safari 5.1-6 */
+                background: linear-gradient(to bottom, #F2C94C, #F2994A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                
+            }
+            .info {
+                top: 35px;
+                position: absolute;
+                left: 300px;
+                color: white;
+                /* background: #06beb6;  
+                background: -webkit-linear-gradient(to left, #48b1bf, #06beb6);  
+                background: linear-gradient(to left, #48b1bf, #06beb6); */
+            }
+
+        </style>
+    </head>
+    <body style="">
+
+        <div id="mapmanager"></div>
+        <div class="display:none" id="songmanager"></div>
+        <div id="headingbar">
+            <h5 style="margin-left:5px; display:inline-flex;">Radio is </h5>
+            <h5 style="display:inline-flex;" id="radiostatus"></h5>
+            <h5 style="position:absolute; display:inline-flex; right:5px;" id="currenttrack"></h5>
+            
+        </div>
+        <div id="overview">
+            <h5 style="margin-left:10px;">Overview</h5>
+                <ul id="overviewdetails" class="list-group">
+                    <li class="list-group-item"><span class="badge" id="numberofsongs">0</span>Number of Songs</li>
+                    <li class="list-group-item"><span class="badge" id="numberofmarkers">0</span>Number of Markers</li>
+                    <li class="list-group-item"><span class="badge" id="numberofusers">0</span>Number of Users</li>
+                    <li class="list-group-item"><span class="badge" id="numberofinteractions">0</span>Number of Interactions</li>
+                </ul>
+                <p class="info" >Double Click the Map to Create a New Beacon. <br>Click the Beacons For More Information</p>
+                
+            </div>
+        <div id="sidebar"></div>
+        <div id="overviewtrigger" class="tab overviewclose"><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
+        <!-- <button type="button" class="btn btn-primary" style="position:fixed; right:5px; top:10px;" id='song'>Upload Song</button> -->
+    </body>
+    <script>
+     
+    </script>
+    <script src="./js/schmodal/js/schmodal.js"></script>
+    <script src="./index.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtDF51cGEl-FN0vSOx7ns4NdPSS-ApYvY"></script>
+</html>

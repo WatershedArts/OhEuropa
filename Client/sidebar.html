@@ -1,0 +1,92 @@
+<div class="schmodal fade" id="mySchmodal" tabindex="-1" role="dialog" aria-labelledby="mySchmodalLabel" aria-hidden="true">
+    <div class="schmodal-dialog">
+        <div class="schmodal-content">
+            <div class="schmodal-header">
+                <button id="closemodalx" type="button" class="close" data-dismiss="schmodal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="schmodal-title" id="titlelabel">Add New Song</h4>
+            </div>
+            
+            <div id="hotspot">
+                <div class="schmodal-body">
+                    <form id="myform" action="https://www.davidhaylock.co.uk/oheuropa/upload.php" method="POST" target="this-iframe" enctype="multipart/form-data">
+                        <div class="form-group">
+                                <label for="placename">Place Name</label>
+                                <input type="text" name="placename" id="placename" class="form-control" aria-describedby="placename" placeholder="Place Name">
+                        </div>
+
+                        <div class="form-group">
+                                <label for="placeid">Unique Place Identifier</label>
+                                <input type="text" name="placeid" id="placeid" class="form-control" aria-describedby="placeid" placeholder="Place Identifier">
+                                <small id="placeinfo" class="form-text text-muted">This must be unique as it will be used to identify locations.</small>
+                        </div>
+                        
+                        <div class="form-group">
+                                <label for="lat">Latitude</label>
+                                <input type="text" name="lat" id="lat" class="form-control" aria-describedby="placeid">
+                        </div>
+
+                        <div class="form-group">
+                                <label for="lng">Longitude</label>
+                                <input type="text" name="lng" id="lng" class="form-control" aria-describedby="placeid">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="area">Area Size</label>
+                            <input type="text" name="area" id="area" class="form-control" aria-describedby="area">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="area">No Of Zones</label>
+                            <input type="text" name="zonenum" id="zonenum" class="form-control" aria-describedby="zonenum">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tuning">Tuning Number</label>
+                            <input type="text" name="tunning" id="tunning" class="form-control" aria-describedby="tunning">
+                        </div>
+                        <input type="submit" name="submit" class="btn btn-primary"></button>
+                    </form>
+                    
+                </div>
+            </div>
+            <div id="song">
+                <div class="schmodal-body">
+                    <form action="https://www.davidhaylock.co.uk/oheuropa/upload.php" method="POST" target="this-iframe" enctype="multipart/form-data">
+                        <div class="form-group">
+                                <label for="songname">Song Name</label>
+                                <input type="text" name="songname" id="songname" class="form-control" aria-describedby="songname" placeholder="Song Name">
+                        </div>
+                        <div class="form-group">
+                                <label for="artistname">Artist Name</label>
+                                <input type="text" name="artistname" id="artistname" class="form-control" aria-describedby="artistname" placeholder="Artists Name">
+                        </div>
+                        <div class="form-group">
+                                <label for="placerecorded">Place Recorded</label>
+                                <input type="text" name="placerecorded" id="placerecorded" class="form-control" aria-describedby="placerecorded" placeholder="Place Recorded">
+                        </div>
+                        <div class="form-group">
+                                <label for="file">Song</label>
+                                <input type="file" name="file" id="file" class="form-control" aria-describedby="file">
+                        </div>
+                        
+                        <input type="submit" name="uploadsong" class="btn btn-primary"></button>
+                    </form>
+                </div>
+            </div>
+            <iframe style="display:none;" src="" name="this-iframe" id="this-iframe" onLoad="iframeChanged(this)" frameborder="0"></iframe>
+            <div class="schmodal-footer">
+                <button id="closemodal" type="button" class="btn btn-default" data-dismiss="schmodal">Close</button>  
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.close').click(function(){
+        $("#mySchmodal").modal('hide');
+    });
+
+    $('#closemodal').click(function(){
+        $("#mySchmodal").modal('hide');
+    });
+
+</script>

@@ -12,10 +12,11 @@
         "electron-rebuild": "^1.6.0"
     },
     "dependencies": {
-        "gmaps": "^0.4.24",
         "bootstrap": "^3.3.7",
         "bootstrap-beta": "4.0.0-beta",
+        "electron-fetch": "^1.1.0",
         "font-awesome": "^4.7.0",
+        "gmaps": "^0.4.24",
         "jquery": "^3.2.1",
         "tooltip.js": "^1.1.5"
     }

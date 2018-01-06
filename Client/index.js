@@ -7,18 +7,18 @@ var beacons = [];
  * Get the Songs from the Server
 */
 function getSongs() {
-    $.getJSON("https://www.davidhaylock.co.uk/oheuropa/getdata.php?getsongs", function(json){
-        $.each(json['data'], function(key,data){
-            $("#songlist").append('<tr><td>'+data.id+'</td><td>'+data.songname+'</td><td>'+data.recorded+'</td><td><button style="margin-right:5px;" class="btn btn-primary">Misc</button><button style="margin-right:5px;" class="btn btn-success">Edit</button><button style="margin-right:5px;" class="btn btn-danger">Delete</button></td></tr>');
-        });
-    });
+    // $.getJSON("https://www.davidhaylock.co.uk/oheuropa/getdata.php?getsongs", function(json){
+    //     $.each(json['data'], function(key,data){
+    //         $("#songlist").append('<tr><td>'+data.id+'</td><td>'+data.songname+'</td><td>'+data.recorded+'</td><td><button style="margin-right:5px;" class="btn btn-primary">Misc</button><button style="margin-right:5px;" class="btn btn-success">Edit</button><button style="margin-right:5px;" class="btn btn-danger">Delete</button></td></tr>');
+    //     });
+    // });
 }
 
 /**
  * Get an Overview from the Server
 */
 function getOverview() {
-    $.getJSON("https://www.davidhaylock.co.uk/oheuropa/getdata.php?getoverview", function(json) {             
+    $.getJSON("https://www.davidhaylock.co.uk/oheuropa/getdata.php?getoverview", function(json) {
         console.log(json);
         document.getElementById("numberofsongs").innerHTML = json.data['numberofsongs'];
         document.getElementById("numberofmarkers").innerHTML = json.data['numberofmarkers'];
@@ -30,13 +30,7 @@ function getOverview() {
         document.getElementById("currenttrack").innerHTML = "Current Track: " + data.current_track.title;
         document.getElementById("radiostatus").innerHTML = data.status.toUpperCase();
     });
-       
-    // $.getJSON("https://studio.radio.co/api/v1/stations/s02776f249/tracks?page=1&order=desc&order_by=id",function(data) {
-    //     console.log(data);
-    // });
 }
-
-
 
 /**
  * Create New Markers Information
@@ -62,7 +56,7 @@ function getBeacons(map) {
     var image = './marker.png';
     $.getJSON("https://www.davidhaylock.co.uk/oheuropa/getdata.php?getplaces", function(json) {
         $.each(json['data'], function(key,data){
-            
+
             var infoWindowContent = createMarkerInfoWindow(data);
             var infowindow = new google.maps.InfoWindow({
                 content: infoWindowContent
@@ -91,7 +85,7 @@ function getBeacons(map) {
 * Initialize The Map
 */
 function initializeMap() {
-    
+
     map = new google.maps.Map(document.getElementById('map'), {
         styles: contraststyle,
         minZone: 4,
@@ -129,6 +123,9 @@ function initializeMap() {
     getOverview();
     getSongs();
     setInterval(getOverview,(10000*1));
+
+
+
 }
 
 /**
@@ -141,9 +138,80 @@ function clearBeacons(map) {
     beacons = [];
 }
 
+
 /**
- * Get Places from the Server
+ * Login to Radio.co
 */
+function loginToRadio() {
+    console.log("Logging Into Radio.co!");
+    $.ajax(
+        {
+            type: "POST",
+            url: 'https://davidhaylock.co.uk/oheuropa/test.php',
+            data: { 'login' : 1 },
+            success: function(res) {
+                console.log(res);
+                getRadioPlaylist();
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        }
+    );
+}
+
+/**
+ * Login to Radio.co
+*/
+function getRadioPlaylist() {
+    console.log("Getting Playlist Information");
+    $.ajax(
+        {
+            type: "GET",
+            url: 'https://davidhaylock.co.uk/oheuropa/test.php',
+            data: { 'getplaylist' : 1 },
+            done: function(res) {
+                console.log("Done: " + JSON.stringify(res));
+            },
+            error: function(res) {
+                // Slice the end character from response.
+                var returnString = res.responseText.substring(0,res.responseText.length-1)
+                var parsedData = JSON.parse(returnString);
+                // console.log(parseData.tracks);
+                for (var i = 0; i < parsedData.tracks.length; i++) {
+                    console.log(parsedData.tracks[i])
+                    var t = "<tr>"+
+                    "<td>"+parsedData.tracks[i].id+"</td>"+
+                    "<td>"+parsedData.tracks[i].artist+"</td>"+
+                    "<td>"+parsedData.tracks[i].title+"</td>"+
+                    "</tr>";
+                    $('#songlist').append(t);
+                }
+
+            }
+        }
+    );
+}
+
+/**
+ * Logout of Radio.co
+*/
+function logoutOfRadio() {
+    console.log("Logging Out Of Radio.co!");
+    $.ajax(
+        {
+            type: "POST",
+            url: 'https://davidhaylock.co.uk/oheuropa/test.php',
+            data: { 'logout' : 1 },
+            success: function(res) {
+                console.log(res);
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        }
+    );
+}
 
 
 $(document).ready(function(e) {
@@ -151,14 +219,16 @@ $(document).ready(function(e) {
         console.log("Loaded Map Manager");
         initializeMap();
     });
-    // $('#songmanager').load('songmanager.html',function(){
-    //     console.log("Loaded Song Manager");
-    // });
+
+    $('#songmanager').load('songmanager.html',function(){
+        console.log("Loaded Song Manager");
+        loginToRadio();
+    });
 
 
     $('#sidebar').load('sidebar.html',function(){
         console.log("Loaded Sidebar");
-    });    
+    });
 
 
     $('#sidebar').on('show.bs.modal', function (event) {
@@ -166,7 +236,7 @@ $(document).ready(function(e) {
         var modal = $(this)
 
         switch(object['mode']) {
-            case 0: 
+            case 0:
             {
                 $('#hotspot').show();
                 $('#song').hide();
@@ -175,7 +245,7 @@ $(document).ready(function(e) {
                 document.getElementById('titlelabel').innerHTML = "Add New Beacon";
             }
             break;
-            case 1: 
+            case 1:
             {
                 $('#hotspot').hide();
                 $('#song').show();
@@ -211,15 +281,15 @@ $(document).ready(function(e) {
             $(this).children('i:first').removeClass('fa-chevron-up')
             $(this).children('i:first').addClass('fa-chevron-down')
         }
-    }); 
+    });
 });
 
 
 function iframeChanged(obj) {
     var iframecontents = $(obj).contents()[0];
     var info = iframecontents.body.outerText;
-    
-    if(!info) { 
+
+    if(!info) {
         console.log("No Action Required!");
         return;
     } else {
@@ -239,5 +309,5 @@ function iframeChanged(obj) {
               });
         }
     }
-    
+
 }

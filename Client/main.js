@@ -1,11 +1,11 @@
 'use strict'
 
 // Import Electron Data
-const {app,BrowserWindow,ipcMain,Menu} = require('electron');
+const {app,BrowserWindow,ipcMain,Menu,net} = require('electron');
 
 let main_window = null;
 
-const menu_template = [ 
+const menu_template = [
     {
         label: "View",
         submenu: [
@@ -21,6 +21,15 @@ const menu_template = [
         ]
     }
 ];
+//----------------------------------------------------------------
+// * When App is Ready
+//----------------------------------------------------------------
+app.on('ready',function() {
+
+    console.log('App Is Ready');
+    createWindow();
+    // loginToRadio();
+});
 
 //----------------------------------------------------------------
 // * Create New Window
@@ -35,24 +44,12 @@ function createWindow()
     });
 
     main_window.loadURL('file://' + __dirname + '/index.html');
-
-
-    console.log('Logging User On');
+    // main_window.webContents.openDevTools()
 
     // Emit Event On Close
     main_window.on('closed', function() {
         console.log('Closing Window');
+        // logoutOfRadio();
         main_window = null;
     });
 }
-//----------------------------------------------------------------
-// * When App is Ready
-//----------------------------------------------------------------
-app.on('ready',function() {
-    
-    console.log('App Is Ready');
-    createWindow();
-    // const menu = Menu.buildFromTemplate(menu_template)
-    // Menu.setApplicationMenu(menu)
-    
-});

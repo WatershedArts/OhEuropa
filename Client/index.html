@@ -13,7 +13,7 @@
                 $ = jQuery = module.exports;
             } catch(e) {}
 
-            require('bootstrap');            
+            require('bootstrap');
         </script>
         <style type="text/css">
             #map {
@@ -35,7 +35,7 @@
                 background: #06beb6;  /* fallback for old browsers */
                 background: -webkit-linear-gradient(to left, #48b1bf, #06beb6);  /* Chrome 10-25, Safari 5.1-6 */
                 background: linear-gradient(to left, #48b1bf, #06beb6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-                
+
             }
 
             #headingbar {
@@ -47,7 +47,7 @@
                 background: #06beb6;  /* fallback for old browsers */
                 background: -webkit-linear-gradient(to left, #48b1bf, #06beb6);  /* Chrome 10-25, Safari 5.1-6 */
                 background: linear-gradient(to left, #48b1bf, #06beb6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-                
+
             }
             h5 {
                 color:white;
@@ -61,8 +61,8 @@
             }
             .list-group-item {
                 background: none;
-                /* background: #06beb6;  
-                background: -webkit-linear-gradient(to left, #48b1bf, #06beb6);  
+                /* background: #06beb6;
+                background: -webkit-linear-gradient(to left, #48b1bf, #06beb6);
                 background: linear-gradient(to left, #48b1bf, #06beb6); */
                 border: none;
             }
@@ -86,15 +86,15 @@
                 background: #F2994A;  /* fallback for old browsers */
                 background: -webkit-linear-gradient(to bottom, #F2C94C, #F2994A);  /* Chrome 10-25, Safari 5.1-6 */
                 background: linear-gradient(to bottom, #F2C94C, #F2994A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-                
+
             }
             .info {
                 top: 35px;
                 position: absolute;
                 left: 300px;
                 color: white;
-                /* background: #06beb6;  
-                background: -webkit-linear-gradient(to left, #48b1bf, #06beb6);  
+                /* background: #06beb6;
+                background: -webkit-linear-gradient(to left, #48b1bf, #06beb6);
                 background: linear-gradient(to left, #48b1bf, #06beb6); */
             }
 
@@ -102,31 +102,29 @@
     </head>
     <body style="">
 
-        <div id="mapmanager"></div>
-        <div class="display:none" id="songmanager"></div>
+        <div style="display:block;" id="mapmanager"></div>
+        <div style="display:none; padding-top:34px;" id="songmanager"></div>
         <div id="headingbar">
             <h5 style="margin-left:5px; display:inline-flex;">Radio is </h5>
             <h5 style="display:inline-flex;" id="radiostatus"></h5>
             <h5 style="position:absolute; display:inline-flex; right:5px;" id="currenttrack"></h5>
-            
         </div>
         <div id="overview">
             <h5 style="margin-left:10px;">Overview</h5>
-                <ul id="overviewdetails" class="list-group">
-                    <li class="list-group-item"><span class="badge" id="numberofsongs">0</span>Number of Songs</li>
-                    <li class="list-group-item"><span class="badge" id="numberofmarkers">0</span>Number of Markers</li>
-                    <li class="list-group-item"><span class="badge" id="numberofusers">0</span>Number of Users</li>
-                    <li class="list-group-item"><span class="badge" id="numberofinteractions">0</span>Number of Interactions</li>
-                </ul>
-                <p class="info" >Double Click the Map to Create a New Beacon. <br>Click the Beacons For More Information</p>
-                
-            </div>
+            <ul id="overviewdetails" class="list-group">
+                <li class="list-group-item"><span class="badge" id="numberofsongs">0</span>Number of Songs</li>
+                <li class="list-group-item"><span class="badge" id="numberofmarkers">0</span>Number of Markers</li>
+                <li class="list-group-item"><span class="badge" id="numberofusers">0</span>Number of Users</li>
+                <li class="list-group-item"><span class="badge" id="numberofinteractions">0</span>Number of Interactions</li>
+            </ul>
+            <p class="info" >Double Click the Map to Create a New Beacon. <br>Click the Beacons For More Information</p>
+        </div>
         <div id="sidebar"></div>
         <div id="overviewtrigger" class="tab overviewclose"><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
-        <!-- <button type="button" class="btn btn-primary" style="position:fixed; right:5px; top:10px;" id='song'>Upload Song</button> -->
+
     </body>
     <script>
-     
+
     </script>
     <script src="./js/schmodal/js/schmodal.js"></script>
     <script src="./index.js"></script>

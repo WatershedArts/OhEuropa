@@ -49,3 +49,6 @@ OhEuropa-darwin-x64/
 node_modules/
 SHASUMS256.txt
 **/package-lock.json
+Server/cookie.txt
+Server/dev.php
+Server/test.php

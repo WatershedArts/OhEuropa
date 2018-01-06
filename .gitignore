@@ -1,4 +1,6 @@
 OhEuropa/
+OhEuropa-darwin-x64.zip
+OhEuropa-darwin-x64/
 .DS_Store
 .env
 .gclient_done

@@ -12,7 +12,10 @@ import CoreLocation
 let EarthRadius = 6371.0 // Km
 
 class OEMapBeacon {
-	var userInside: Bool = false
+	var userInsideBeacon: Bool = false
+	var userInsideInnerBeaconPerimeter: Bool = false
+	var userInsideOuterBeaconPerimeter: Bool = false
+	
 	var centerCoordinate = CLLocationCoordinate2D()
 	var radius:Double = 0
 	var datecreated: String!
@@ -78,24 +81,68 @@ class OEMapBeacon {
 	///------------------------------------------------------------------------------------------
 	func checkBeaconDistance(userlocation: CLLocationCoordinate2D!) {
 		distanceFromUser = computeDistance(coord: userlocation)
-		print(distanceFromUser)
-		if !userInside && distanceFromUser < (radius / 1000)  {
+		
+		// Beacon
+		if !userInsideBeacon && distanceFromUser < (radius / 1000)  {
 			let info = [
 				"placeid": self.placeid,
 				"name": self.name
 			]
 			NotificationCenter.default.post(name: Notification.Name.EnteredBeacon, object: nil, userInfo: info)
-			userInside = true
+			userInsideBeacon = true
 		}
-		else if userInside && distanceFromUser > (radius / 1000) {
+		else if userInsideBeacon && distanceFromUser > (radius / 1000) {
 			
 			let info = [
 				"placeid": self.placeid,
 				"name": self.name
 			]
 			NotificationCenter.default.post(name: Notification.Name.ExitedBeacon, object: nil, userInfo: info)
-			userInside = false
+			userInsideBeacon = false
 		}
+		
+		///-----------------------------------------------
+		// Inner Perimeter
+		///-----------------------------------------------
+		if !userInsideInnerBeaconPerimeter && distanceFromUser < ((radius*2) / 1000)  {
+			let info = [
+				"placeid": self.placeid + "P",
+				"name": self.name
+			]
+			NotificationCenter.default.post(name: Notification.Name.EnteredBeaconInnerPerimeter, object: nil, userInfo: info)
+			userInsideInnerBeaconPerimeter = true
+		}
+		else if userInsideInnerBeaconPerimeter && distanceFromUser > ((radius*2) / 1000) {
+			
+			let info = [
+				"placeid": self.placeid + "P",
+				"name": self.name
+			]
+			NotificationCenter.default.post(name: Notification.Name.ExitedBeaconInnerPerimeter, object: nil, userInfo: info)
+			userInsideInnerBeaconPerimeter = false
+		}
+		
+		///-----------------------------------------------
+		// Outer Perimeter
+		///-----------------------------------------------
+		if !userInsideOuterBeaconPerimeter && distanceFromUser < ((radius*3) / 1000)  {
+			let info = [
+				"placeid": self.placeid + "P",
+				"name": self.name
+			]
+			NotificationCenter.default.post(name: Notification.Name.EnteredBeaconOuterPerimeter, object: nil, userInfo: info)
+			userInsideOuterBeaconPerimeter = true
+		}
+		else if userInsideOuterBeaconPerimeter && distanceFromUser > ((radius*3) / 1000) {
+			
+			let info = [
+				"placeid": self.placeid + "P",
+				"name": self.name
+			]
+			NotificationCenter.default.post(name: Notification.Name.ExitedBeaconOuterPerimeter, object: nil, userInfo: info)
+			userInsideOuterBeaconPerimeter = false
+		}
+		
 	}
 	
 	///------------------------------------------------------------------------------------------

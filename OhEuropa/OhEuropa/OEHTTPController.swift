@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 class OEHTTPController: NSObject {
 	
@@ -62,6 +63,35 @@ class OEHTTPController: NSObject {
 					break;
 				}
 		}
+	}
+	
+	///------------------------------------------------------------------------------------------
+	/// Get Radio Track
+	///
+	/// - Returns: returns the current radio track
+	///------------------------------------------------------------------------------------------
+	public func getCurrentRadioTrack() -> String {
+		var returnValue = ""
+		Alamofire.request("https://public.radio.co/stations/s02776f249/status", method: .get)
+			.responseJSON { response in
+				switch response.result {
+					case .failure(let error):
+						print("Failed to Get Radio Song \(error)")
+						break;
+					case .success(let data):
+						print("Got Radio Track \(data)")
+						
+						if let data = response.result.value {
+							var json = JSON(data)
+							print(json)
+						}
+						returnValue = "Hey"
+						break;
+					default:
+						break;
+				}
+		}
+		return returnValue
 	}
 	
 }

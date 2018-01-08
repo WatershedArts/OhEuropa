@@ -26,4 +26,10 @@ extension Double {
 extension NSNotification.Name {
 	static let EnteredBeacon = NSNotification.Name("EnteredBeacon")
 	static let ExitedBeacon = NSNotification.Name("ExitedBeacon")
+	
+	static let EnteredBeaconInnerPerimeter = NSNotification.Name("EnteredBeaconInnerPerimeter")
+	static let ExitedBeaconInnerPerimeter = NSNotification.Name("ExitedBeaconInnerPerimeter")
+	
+	static let EnteredBeaconOuterPerimeter = NSNotification.Name("EnteredBeaconOuterPerimeter")
+	static let ExitedBeaconOuterPerimeter = NSNotification.Name("ExitedBeaconOuterPerimeter")
 }

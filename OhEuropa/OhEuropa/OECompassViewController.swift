@@ -21,19 +21,54 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	var beacons = [OEMapBeacon]()
 	let audioManager = OEAudioController()
 	
+	var timer:Timer?
+	var change:CGFloat = 0.01
+	
+	var wave:SwiftSiriWaveformView!
+
+	@objc func refreshAudioView() {
+		if self.wave.amplitude <= self.wave.idleAmplitude || self.wave.amplitude > 1.0 {
+			self.change *= -1.0
+		}
+		
+		// Simply set the amplitude to whatever you need and the view will update itself.
+		self.wave.amplitude += self.change
+	}
+	
 	///------------------------------------------------------------------------------------------
 	/// Setup View Controller
 	///------------------------------------------------------------------------------------------
 	func setup() {
 		
+//		wave = SwiftSiriWaveformView(frame: CGRect(x: 0, y: 0, width: compassView.frame.width, height: compassView.frame.height))
+//		wave.backgroundColor = UIColor.clear
+//		wave.waveColor = UIColor.black
+//		wave.primaryLineWidth = 2
+//		wave.numberOfWaves = 1
+//		wave.amplitude = 0.25
+//		wave.frequency = 10
+//
+//
+//
+//
+//		self.view.addSubview(wave)
+//
+//		self.wave.density = 1.0
+//
+//		timer = Timer.scheduledTimer(timeInterval: 0.009, target: self, selector: #selector(refreshAudioView), userInfo: nil, repeats: true)
 		
 		OEGetBeacons(parseBeacons)
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(zoneEntered(_:)), name: NSNotification.Name.EnteredBeacon, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(zoneExited(_:)), name: NSNotification.Name.ExitedBeacon, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(beaconEntered(_:)), name: NSNotification.Name.EnteredBeacon, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(beaconExited(_:)), name: NSNotification.Name.ExitedBeacon, object: nil)
+		
+		NotificationCenter.default.addObserver(self, selector: #selector(innerBeaconPerimeterEntered(_:)), name: NSNotification.Name.EnteredBeaconInnerPerimeter, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(innerBeaconPerimeterExited(_:)), name: NSNotification.Name.ExitedBeaconInnerPerimeter, object: nil)
+		
+		NotificationCenter.default.addObserver(self, selector: #selector(outerBeaconPerimeterEntered(_:)), name: NSNotification.Name.EnteredBeaconOuterPerimeter, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(outerBeaconPerimeterExited(_:)), name: NSNotification.Name.ExitedBeaconOuterPerimeter, object: nil)
 		
 		enableLocationServices()
-		
 	}
 	
 	///------------------------------------------------------------------------------------------
@@ -94,7 +129,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		
 		if beacons.count > 0 {
 			self.nearestMarkerNameLabel.text = beacons.first?.name
-			self.nearestMarkerDistanceLabel.text = String(format: "%.3f km",(beacons.first?.distanceFromUser)!)
+			self.nearestMarkerDistanceLabel.text = String(format: "%.3f meters",((beacons.first?.distanceFromUser)! * 1000))
 			
 		}
 		
@@ -161,12 +196,10 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///
 	/// - Parameter n: <#n description#>
 	///------------------------------------------------------------------------------------------
-	@objc func zoneEntered(_ n:Notification) {
-		//		let t = CompassView as! Compass
-		print("Zone Entered")
+	@objc func beaconEntered(_ n:Notification) {
+		print("Beacon Entered")
 		print(n.userInfo!)
 		audioManager.startPlayingRadio()
-		//		t.insideBeaconZone(zonetype: "O")
 	}
 	
 	///------------------------------------------------------------------------------------------
@@ -174,10 +207,55 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///
 	/// - Parameter n: <#n description#>
 	///------------------------------------------------------------------------------------------
-	@objc func zoneExited(_ n:Notification) {
-		print("Zone Exited")
+	@objc func beaconExited(_ n:Notification) {
+		print("Beacon Exited")
 		print(n.userInfo!)
 		audioManager.stopPlayingRadio()
+	}
+	
+	///------------------------------------------------------------------------------------------
+	/// Event Observer from the Beacons
+	///
+	/// - Parameter n: <#n description#>
+	///------------------------------------------------------------------------------------------
+	@objc func outerBeaconPerimeterEntered(_ n:Notification) {
+		print("Outer Beacon Perimeter Entered")
+		print(n.userInfo!)
+		audioManager.startPlayingStatic()
+	}
+	
+	///------------------------------------------------------------------------------------------
+	/// Event Observer from the Beacons
+	///
+	/// - Parameter n: <#n description#>
+	///------------------------------------------------------------------------------------------
+	@objc func outerBeaconPerimeterExited(_ n:Notification) {
+		print("Outer Beacon Perimeter Exited")
+		print(n.userInfo!)
+		audioManager.stopPlayingStatic()
+	}
+	
+	///------------------------------------------------------------------------------------------
+	/// Event Observer from the Beacons
+	///
+	/// - Parameter n: <#n description#>
+	///------------------------------------------------------------------------------------------
+	@objc func innerBeaconPerimeterEntered(_ n:Notification) {
+		print("Inner Beacon Perimeter Entered")
+		print(n.userInfo!)
+		audioManager.crossFadeStaticAndRadio()
+	}
+	
+	///------------------------------------------------------------------------------------------
+	/// Event Observer from the Beacons
+	///
+	/// - Parameter n: <#n description#>
+	///------------------------------------------------------------------------------------------
+	@objc func innerBeaconPerimeterExited(_ n:Notification) {
+		print("Inner Beacon Perimeter Exited")
+		print(n.userInfo!)
+		audioManager.stopPlayingRadio()
+		audioManager.startPlayingStatic()
 	}
 	
 	///------------------------------------------------------------------------------------------
@@ -195,4 +273,12 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if segue.identifier == "showMap" {
+			let destinationVC = segue.destination as! OEMapViewController
+			destinationVC.beacons = self.beacons
+			print("Sending You Some Data")
+		}
+	}
 }

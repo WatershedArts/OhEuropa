@@ -38,7 +38,6 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 			staticAudio = try AVAudioPlayer(contentsOf: url)
 			staticAudio.volume = 0.0
 			staticAudio.numberOfLoops = 10
-//			staticAudio.play()
 		}
 		catch {
 			print("Can't Load Static.mp3")

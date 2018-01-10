@@ -13,6 +13,7 @@ PODS:
   - StreamingKit (0.1.29)
   - SwiftyJSON (4.0.0)
   - SWXMLHash (4.2.5)
+  - Sync (4.0.3)
   - TweenKit (0.3.1)
 
 DEPENDENCIES:
@@ -24,6 +25,7 @@ DEPENDENCIES:
   - ReachabilitySwift
   - StreamingKit
   - SwiftyJSON
+  - Sync (~> 4)
   - TweenKit
 
 SPEC CHECKSUMS:
@@ -36,8 +38,9 @@ SPEC CHECKSUMS:
   StreamingKit: c329785aaef3ac142d4ae388345bfe1ed23cfd45
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
   SWXMLHash: eb16013c6f654853980822e0a778c9d66e017dde
+  Sync: 0490b72e3322ba86095f603d7230bec36749f249
   TweenKit: eae162e1c18598ffd09097c3fc628fbc62036742
 
-PODFILE CHECKSUM: 31e4a5a7f4a1e519328dfce93ec9c141789a5354
+PODFILE CHECKSUM: cddaabf629e6dac4dc648df571e14020839f114f
 
 COCOAPODS: 1.2.0

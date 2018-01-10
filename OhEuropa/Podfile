@@ -17,6 +17,7 @@ target 'OhEuropa' do
   pod 'Macaw', '0.9.1'
   pod "Floaty", "~> 4.0.0"
   pod 'FontAwesome.swift'
+  pod 'Sync', '~> 4'
   
   target 'OhEuropaTests' do
     inherit! :search_paths

@@ -60,10 +60,10 @@ class OECompass: MacawView {
 			let drx = centerX + ((compassRadius) * sin(Double(i).toRadians()))
 			let dry = centerY - ((compassRadius) * cos(Double(i).toRadians()))
 			
-			if i == 0 { northIcon = Text(text: "N", align: .mid, baseline:.mid, place: .move(dx: rx, dy: ry)) }
-			else if i == 90 { eastIcon = Text(text: "E", align: .mid, baseline:.mid, place: .move(dx: rx, dy: ry)) }
-			else if i == 180 { southIcon = Text(text: "S", align: .mid, baseline:.mid, place: .move(dx: rx, dy: ry)) }
-			else if i == 270 { westIcon = Text(text: "W", align: .mid, baseline:.mid, place: .move(dx: rx, dy: ry)) }
+			if i == 0 { northIcon = Text(text: "N", align: .mid, baseline:.top, place: .move(dx: rx, dy: ry)) }
+			else if i == 90 { eastIcon = Text(text: "E", align: .max, baseline:.mid, place: .move(dx: rx, dy: ry)) }
+			else if i == 180 { southIcon = Text(text: "S", align: .mid, baseline:.bottom, place: .move(dx: rx, dy: ry)) }
+			else if i == 270 { westIcon = Text(text: "W", align: .min, baseline:.mid, place: .move(dx: rx, dy: ry)) }
 			else if i == 360 { }
 			else {
 				lineArray.append(Shape(form: Line(x1: rx, y1: ry, x2: drx, y2: dry),

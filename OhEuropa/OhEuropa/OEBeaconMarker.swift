@@ -60,7 +60,7 @@ class OEBeaconMarker: Group {
 		let rx = originX + (radius * sin(heading))
 		let ry = originY - (radius * cos(heading))
 		
-		var tmpAngle = (360 - heading).toRadians()
+        let tmpAngle = (360 - heading).toRadians()
 		
 //		self.placeVar.animate(from: Transform.rotate(angle: currentAngle,x:x,y:y), to: Transform.rotate(angle: tmpAngle,x:x,y:y), during: 0.5, delay: 0.0)
 		self.place = Transform.move(dx: rx, dy: ry)

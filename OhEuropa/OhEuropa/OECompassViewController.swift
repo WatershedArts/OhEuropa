@@ -23,6 +23,9 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	var beacons = [OEMapBeacon]()
 	let audioManager = OEAudioController()
 	
+	let httpManager = OEHTTPController()
+	
+	
 	var timer:Timer?
 	var change:CGFloat = 0.01
 	
@@ -41,6 +44,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// Setup View Controller
 	///------------------------------------------------------------------------------------------
 	func setup() {
+			
 		OEGetBeacons(parseBeacons)
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(beaconEntered(_:)), name: NSNotification.Name.EnteredBeacon, object: nil)
@@ -233,6 +237,11 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		print("Outer Beacon Perimeter Entered")
 		print(n.userInfo!)
 		audioManager.startPlayingStatic()
+		
+		
+		
+		
+//		httpManager.uploadUserInteraction(userid: USER_ID, placeid: , zoneid: <#T##String#>, action: <#T##String#>)
 	}
 	
 	///------------------------------------------------------------------------------------------

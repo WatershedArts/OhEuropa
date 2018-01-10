@@ -10,6 +10,8 @@ import UIKit
 import AVFoundation
 import Foundation
 import CoreLocation
+import Floaty
+import FontAwesome_swift
 
 class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	
@@ -51,6 +53,33 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		NotificationCenter.default.addObserver(self, selector: #selector(outerBeaconPerimeterExited(_:)), name: NSNotification.Name.ExitedBeaconOuterPerimeter, object: nil)
 		
 		enableLocationServices()
+        
+        
+        let floaty = Floaty()
+        
+        floaty.size = 40
+        floaty.itemSize = 40
+        floaty.plusColor = DEFAULT_COLOR_OPPOSED
+        floaty.buttonColor = DEFAULT_COLOR
+
+        let info  = FloatyItem()
+        info.buttonColor = DEFAULT_COLOR
+        info.icon = UIImage.fontAwesomeIcon(name: .infoCircle, textColor: DEFAULT_COLOR_OPPOSED, size: CGSize(width: 60, height: 60), backgroundColor: UIColor.clear)
+        info.handler = { item in
+            self.performSegue(withIdentifier: "showInfomation", sender: self)
+        }
+        floaty.addItem(item: info)
+        
+        let map  = FloatyItem()
+        map.buttonColor = DEFAULT_COLOR
+        map.icon = UIImage.fontAwesomeIcon(name: .globe, textColor: DEFAULT_COLOR_OPPOSED, size: CGSize(width: 60, height: 60), backgroundColor: UIColor.clear)
+        map.handler = { item in
+            self.performSegue(withIdentifier: "showMap", sender: self)
+        }
+        floaty.addItem(item: map)
+
+        floaty.openAnimationType = .pop
+        self.view.addSubview(floaty)
 	}
 	
 	///------------------------------------------------------------------------------------------

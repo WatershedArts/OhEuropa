@@ -280,5 +280,8 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 			destinationVC.beacons = self.beacons
 			print("Sending You Some Data")
 		}
+        else if segue.identifier == "showInformation" {
+            let destinationVC = segue.destination as! OEInformationViewController
+        }
 	}
 }

@@ -31,6 +31,9 @@ class OEMapViewController: UIViewController, CLLocationManagerDelegate {
         // Dispose of any resources that can be recreated.
     }
 	
+    ///------------------------------------------------------------------------------------------
+    /// Dismiss the View Controller
+    ///------------------------------------------------------------------------------------------
 	@objc func dismissViewController() {
 		print("Dismissing Popover")
 		self.dismiss(animated: true, completion: nil)

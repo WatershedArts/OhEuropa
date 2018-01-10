@@ -10,29 +10,31 @@ import UIKit
 import Macaw
 
 class OEBeaconMarker: Group {
-	var currentAngle: Double = 0.0
+	var currentAngle: Double = 90.0
 	var col:Color!
 	var radius:Double!
 	var x:Double!
 	var y:Double!
+	var name:String!
 	
 	///------------------------------------------------------------------------------------------
 	/// Initilize Beacon
 	///
 	/// - Parameter beaconName:
 	///------------------------------------------------------------------------------------------
-	init(beaconName:String,x:Double,y:Double,radius:Double) {
+	init(beaconName:String,x:Double,y:Double,radius:Double,name:String) {
 		col = Color.rgb(r: Int(arc4random_uniform(255)), g:Int(arc4random_uniform(255)), b: Int(arc4random_uniform(255)))
 		
 		self.x = x
-		self.y = y
+		self.y = y - radius
 		
+		self.name = name
 //		let shape = Shape(form: Circle(cx:x,cy:y,r:10), fill: col, stroke: Stroke(fill: col, width: 3))
 		let shape = Shape(form:
 						  Polygon(points: [
-							x,y-7.5,
-							x+7.5,y+7.5,
-							x-7.5,y+7.5
+							self.x,self.y-15.0,
+							self.x+7.5,self.y+7.5,
+							self.x-7.5,self.y+7.5
 						  ]),
 						  fill: col,
 						  stroke: Stroke(fill: col, width: 1))
@@ -60,13 +62,16 @@ class OEBeaconMarker: Group {
 		let rx = originX + (radius * sin(heading))
 		let ry = originY - (radius * cos(heading))
 		
-        let tmpAngle = (360 - heading).toRadians()
+        let tmpAngle = (heading).toRadians()
 		
-//		self.placeVar.animate(from: Transform.rotate(angle: currentAngle,x:x,y:y), to: Transform.rotate(angle: tmpAngle,x:x,y:y), during: 0.5, delay: 0.0)
-		self.place = Transform.move(dx: rx, dy: ry)
+		self.placeVar.animate(from: Transform.rotate(angle: currentAngle, x:x, y:y+radius),
+							  to: Transform.rotate(angle: tmpAngle ,x:x, y:y+radius),
+							  during: 0.5,
+							  delay: 0.0)
+//		self.place = Transform.move(dx: rx, dy: ry)
 		
 		currentAngle = tmpAngle
-		
+		print("Beacon Name \(name) Angle: \(currentAngle)")
 	}
 	
 	func returnColor() -> Color {

@@ -77,7 +77,7 @@ class OECompass: MacawView {
 		
 		// Make a Crap Array of Markers for now
 		for i in 1...10 {
-			markers.append(OEBeaconMarker(beaconName:"\(i)",x:centerX,y:centerY,radius:compassRadius+25))
+			markers.append(OEBeaconMarker(beaconName:"\(i)",x:centerX,y:centerY,radius:compassRadius+25,name:"\(i)"))
 		}
 		let markerGroup = Group(contents:markers)
 		
@@ -161,9 +161,9 @@ class OECompass: MacawView {
 	///------------------------------------------------------------------------------------------
 	public func insideBeaconZone(zonetype:String) {
 		
-//		indicator.contentsVar.animation({ t in
+//		compassGroup.contentsVar.animation({ t in
 //			let color = Color.rgba(r: 255, g: 0, b: 0, a: 1 - t)
 //			return [Circle(cx:150,cy:150,r: t * 60).stroke(fill: color, width: 5)]
-//		}, during: 1.5, delay: 0.1).easing(.easeInOut).cycle().play()
+//		}, during: 1.5, delay: 0.1).easing(.easeInOut).play()
 	}
 }

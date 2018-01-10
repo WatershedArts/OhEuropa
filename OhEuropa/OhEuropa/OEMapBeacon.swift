@@ -106,7 +106,7 @@ class OEMapBeacon {
 		///-----------------------------------------------
 		if !userInsideInnerBeaconPerimeter && distanceFromUser < ((radius*2) / 1000)  {
 			let info = [
-				"placeid": self.placeid + "P",
+				"placeid": self.placeid,
 				"name": self.name
 			]
 			NotificationCenter.default.post(name: Notification.Name.EnteredBeaconInnerPerimeter, object: nil, userInfo: info)
@@ -115,7 +115,7 @@ class OEMapBeacon {
 		else if userInsideInnerBeaconPerimeter && distanceFromUser > ((radius*2) / 1000) {
 			
 			let info = [
-				"placeid": self.placeid + "P",
+				"placeid": self.placeid,
 				"name": self.name
 			]
 			NotificationCenter.default.post(name: Notification.Name.ExitedBeaconInnerPerimeter, object: nil, userInfo: info)
@@ -127,7 +127,7 @@ class OEMapBeacon {
 		///-----------------------------------------------
 		if !userInsideOuterBeaconPerimeter && distanceFromUser < ((radius*3) / 1000)  {
 			let info = [
-				"placeid": self.placeid + "P",
+				"placeid": self.placeid,
 				"name": self.name
 			]
 			NotificationCenter.default.post(name: Notification.Name.EnteredBeaconOuterPerimeter, object: nil, userInfo: info)
@@ -136,7 +136,7 @@ class OEMapBeacon {
 		else if userInsideOuterBeaconPerimeter && distanceFromUser > ((radius*3) / 1000) {
 			
 			let info = [
-				"placeid": self.placeid + "P",
+				"placeid": self.placeid,
 				"name": self.name
 			]
 			NotificationCenter.default.post(name: Notification.Name.ExitedBeaconOuterPerimeter, object: nil, userInfo: info)

@@ -23,6 +23,17 @@ class OEMapViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
     }
 
+	override func viewDidLayoutSubviews() {
+		print(self.view.bounds)
+		let backButton = UIButton(frame: CGRect(x: self.view.bounds.width-(14+40), y: self.view.bounds.height-(14+40), width: 40, height: 40))
+		backButton.setImage(UIImage.fontAwesomeIcon(name: .compass, textColor: DEFAULT_COLOR_OPPOSED, size: CGSize(width: 25, height: 25), backgroundColor: UIColor.clear), for: UIControlState.normal)
+		
+		backButton.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
+		backButton.layer.cornerRadius = 0.5 * backButton.bounds.size.width
+		backButton.backgroundColor = DEFAULT_COLOR
+		self.view.addSubview(backButton)
+	}
+	
 	///------------------------------------------------------------------------------------------
 	/// Load The View
 	///------------------------------------------------------------------------------------------

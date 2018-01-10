@@ -15,7 +15,9 @@ target 'OhEuropa' do
   pod 'StreamingKit'
   pod 'TweenKit'
   pod 'Macaw', '0.9.1'
-
+  pod "Floaty", "~> 4.0.0"
+  pod 'FontAwesome.swift'
+  
   target 'OhEuropaTests' do
     inherit! :search_paths
     # Pods for testing

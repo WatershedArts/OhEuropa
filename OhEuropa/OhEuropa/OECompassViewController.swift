@@ -13,17 +13,20 @@ import CoreLocation
 import Floaty
 import FontAwesome_swift
 
+
 class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	
 	@IBOutlet weak var compassView: OECompass!
 	@IBOutlet weak var nearestMarkerNameLabel: UILabel!
 	@IBOutlet weak var nearestMarkerDistanceLabel: UILabel!
 
+	
+	
 	var locationManager = CLLocationManager()
 	var beacons = [OEMapBeacon]()
 	let audioManager = OEAudioController()
 	
-	let httpManager = OEHTTPController()
+//	let httpManager = OEHTTPController()
 	
 	
 	var timer:Timer?
@@ -44,8 +47,12 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// Setup View Controller
 	///------------------------------------------------------------------------------------------
 	func setup() {
-			
+		
+		
+		
 		OEGetBeacons(parseBeacons)
+		
+		
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(beaconEntered(_:)), name: NSNotification.Name.EnteredBeacon, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(beaconExited(_:)), name: NSNotification.Name.ExitedBeacon, object: nil)
@@ -238,7 +245,8 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		print(n.userInfo!)
 		audioManager.startPlayingStatic()
 		
-		
+		let compassView = self.compassView as OECompass
+		compassView.insideBeaconZone(zonetype: "O")
 		
 		
 //		httpManager.uploadUserInteraction(userid: USER_ID, placeid: , zoneid: <#T##String#>, action: <#T##String#>)

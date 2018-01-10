@@ -9,21 +9,18 @@
 import UIKit
 import GoogleMaps
 
+var USER_ID: String! = ""
 let GOOGLE_API_KEY = "AIzaSyB07Q_QcWvaIc9mMm1DN-hPM-_Rl2CpO18"
-var USER_ID: String = ""
-
 
 let DEFAULT_COLOR = UIColor(red:0.10, green:0.16, blue:0.52, alpha:1.0)
 let DEFAULT_COLOR_OPPOSED = UIColor(red:0.99, green:0.75, blue:0.07, alpha:1.0)
+let httpController = OEHTTPController()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-	var window: UIWindow?
-
-	let httpController = OEHTTPController()
 	
-    
+	var window: UIWindow?
+	
 	///------------------------------------------------------------------------------------------
 	/// Generate a Random String as the Users ID
 	///

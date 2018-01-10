@@ -47,7 +47,10 @@ class OECompass: MacawView {
 							cy: centerY,
 							r: compassRadius),
 						fill: Color.clear,
-						stroke: Stroke(fill: Color.navy, width: 3.0))
+						stroke: Stroke(fill: Color.rgba(r: 20, g: 24, b: 107, a: 1.0),
+									   width: 5.0))
+		
+		
 		
 		var lineArray = [Shape!]()
 		
@@ -63,7 +66,10 @@ class OECompass: MacawView {
 			else if i == 270 { westIcon = Text(text: "W", align: .mid, baseline:.mid, place: .move(dx: rx, dy: ry)) }
 			else if i == 360 { }
 			else {
-				lineArray.append(Shape(form: Line(x1: rx, y1: ry, x2: drx, y2: dry)))
+				lineArray.append(Shape(form: Line(x1: rx, y1: ry, x2: drx, y2: dry),
+					fill: Color.rgba(r: 248, g: 98, b: 62, a: 1.0),
+					stroke: Stroke(fill: Color.rgba(r: 248, g: 98, b: 62, a: 1.0),
+								   width: 2.0)))
 			}
 		}
 		let compassLines = Group(contents: lineArray)
@@ -77,7 +83,6 @@ class OECompass: MacawView {
 		
 		return Group(contents:[compassRing,compassLines,compassPoints,markerGroup,compassCenter])
 	}
-	
 	///------------------------------------------------------------------------------------------
 	/// Init
 	///

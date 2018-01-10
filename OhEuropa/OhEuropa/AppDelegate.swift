@@ -12,6 +12,10 @@ import GoogleMaps
 let GOOGLE_API_KEY = "AIzaSyB07Q_QcWvaIc9mMm1DN-hPM-_Rl2CpO18"
 var USER_ID: String = ""
 
+
+let DEFAULT_COLOR = UIColor(red:0.10, green:0.16, blue:0.52, alpha:1.0)
+let DEFAULT_COLOR_OPPOSED = UIColor(red:0.99, green:0.75, blue:0.07, alpha:1.0)
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -19,11 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	let httpController = OEHTTPController()
 	
+    
 	///------------------------------------------------------------------------------------------
-	/// <#Description#>
+	/// Generate a Random String as the Users ID
 	///
-	/// - Parameter length: <#length description#>
-	/// - Returns: <#return value description#>
+	/// - Parameter length: how long the string should be
+	/// - Returns: id string
 	///------------------------------------------------------------------------------------------
 	func randomString(length: Int) -> String {
 		
@@ -42,19 +47,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	///------------------------------------------------------------------------------------------
-	/// <#Description#>
+	/// Get the Users ID from the Setting Bundle
 	///------------------------------------------------------------------------------------------
 	func getUserIdentifier() {
 		// Look for the Settings Bundle
 		let settingsBundle: NSString = Bundle.main.path(forResource: "UserSettings", ofType: "bundle")! as NSString
+		
+		// Check if the bundle exists
 		if(settingsBundle.contains("")){
 			print("Could not find UserSettings.bundle")
 			return;
 		}
-		
+
 		let userDefaults = UserDefaults.standard
 		userDefaults.synchronize()
-		
+
+		// Check if we have the userid key in the bundle
 		if userDefaults.object(forKey: "userid") != nil {
 			USER_ID = userDefaults.object(forKey: "userid")! as! String
 			print("Found User ID: \(USER_ID)")
@@ -67,27 +75,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			httpController.uploadNewUserId(userid: USER_ID)
 		}
 		
-		userDefaults.removeObject(forKey: "userid")
-		userDefaults.synchronize()
+		// Dev Function
+//		userDefaults.removeObject(forKey: "userid")
+//		userDefaults.synchronize()
 	}
 	
 	///------------------------------------------------------------------------------------------
-	/// <#Description#>
+	/// Finished Launching With Options
 	///
 	/// - Parameters:
-	///   - application: <#application description#>
-	///   - launchOptions: <#launchOptions description#>
-	/// - Returns: <#return value description#>
+	///   - application: which application
+	///   - launchOptions: launch options
+	/// - Returns: boolean
 	///------------------------------------------------------------------------------------------
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		GMSServices.provideAPIKey(GOOGLE_API_KEY);
+		getUserIdentifier()
 		return true
 	}
 
 	///------------------------------------------------------------------------------------------
-	/// <#Description#>
+	/// Application Will Resign Active
 	///
-	/// - Parameter application: <#application description#>
+	/// - Parameter application: which application
 	///------------------------------------------------------------------------------------------
 	func applicationWillResignActive(_ application: UIApplication) {
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -95,9 +105,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	///------------------------------------------------------------------------------------------
-	/// <#Description#>
+	/// Application Did Enter Background
 	///
-	/// - Parameter application: <#application description#>
+	/// - Parameter application: which application
 	///------------------------------------------------------------------------------------------
 	func applicationDidEnterBackground(_ application: UIApplication) {
 		// Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
@@ -105,27 +115,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	///------------------------------------------------------------------------------------------
-	/// <#Description#>
+	/// Application Will Enter Foreground
 	///
-	/// - Parameter application: <#application description#>
+	/// - Parameter application: which application
 	///------------------------------------------------------------------------------------------
 	func applicationWillEnterForeground(_ application: UIApplication) {
 		// Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
 	}
 
 	///------------------------------------------------------------------------------------------
-	/// <#Description#>
+	/// Application Did Become Active
 	///
-	/// - Parameter application: <#application description#>
+	/// - Parameter application: which application
 	///------------------------------------------------------------------------------------------
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 	}
 
 	///------------------------------------------------------------------------------------------
-	/// <#Description#>
+	/// Application Will Terminate
 	///
-	/// - Parameter application: <#application description#>
+	/// - Parameter application: which application
 	///------------------------------------------------------------------------------------------
 	func applicationWillTerminate(_ application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.

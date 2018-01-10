@@ -39,24 +39,6 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// Setup View Controller
 	///------------------------------------------------------------------------------------------
 	func setup() {
-		
-//		wave = SwiftSiriWaveformView(frame: CGRect(x: 0, y: 0, width: compassView.frame.width, height: compassView.frame.height))
-//		wave.backgroundColor = UIColor.clear
-//		wave.waveColor = UIColor.black
-//		wave.primaryLineWidth = 2
-//		wave.numberOfWaves = 1
-//		wave.amplitude = 0.25
-//		wave.frequency = 10
-//
-//
-//
-//
-//		self.view.addSubview(wave)
-//
-//		self.wave.density = 1.0
-//
-//		timer = Timer.scheduledTimer(timeInterval: 0.009, target: self, selector: #selector(refreshAudioView), userInfo: nil, repeats: true)
-		
 		OEGetBeacons(parseBeacons)
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(beaconEntered(_:)), name: NSNotification.Name.EnteredBeacon, object: nil)

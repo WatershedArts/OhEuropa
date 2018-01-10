@@ -11,11 +11,7 @@ import CoreLocation
 
 let EarthRadius = 6371.0 // Km
 
-class OEMapBeacon {
-	var userInsideBeacon: Bool = false
-	var userInsideInnerBeaconPerimeter: Bool = false
-	var userInsideOuterBeaconPerimeter: Bool = false
-	
+struct OEMapBeaconModel {
 	var centerCoordinate = CLLocationCoordinate2D()
 	var radius:Double = 0
 	var datecreated: String!
@@ -24,8 +20,16 @@ class OEMapBeacon {
 	var placeid:String!
 	var radioplays:Int!
 	var zonenumber:Int!
+}
+
+class OEMapBeacon {
+	var userInsideBeacon: Bool = false
+	var userInsideInnerBeaconPerimeter: Bool = false
+	var userInsideOuterBeaconPerimeter: Bool = false
 	var heading:Double = 0.0
 	var distanceFromUser: Double = 1000.0
+	
+	
 	
 	///------------------------------------------------------------------------------------------
 	/// <#Description#>

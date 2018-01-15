@@ -26,7 +26,7 @@ class OEBeaconMarker: Group {
 		col = Color.rgb(r: Int(arc4random_uniform(255)), g:Int(arc4random_uniform(255)), b: Int(arc4random_uniform(255)))
 		
 		self.x = x
-		self.y = y - radius
+		self.y = y
 		
 		self.name = name
 //		let shape = Shape(form: Circle(cx:x,cy:y,r:10), fill: col, stroke: Stroke(fill: col, width: 3))
@@ -64,14 +64,14 @@ class OEBeaconMarker: Group {
 		
         let tmpAngle = (heading).toRadians()
 		
-		self.placeVar.animate(from: Transform.rotate(angle: currentAngle, x:x, y:y+radius),
-							  to: Transform.rotate(angle: tmpAngle ,x:x, y:y+radius),
-							  during: 0.5,
-							  delay: 0.0)
-//		self.place = Transform.move(dx: rx, dy: ry)
+//		self.placeVar.animate(from: Transform.rotate(angle: currentAngle, x:x, y:y+radius),
+//							  to: Transform.rotate(angle: tmpAngle ,x:x, y:y+radius),
+//							  during: 0.5,
+//							  delay: 0.0)
+		self.place = Transform.move(dx: rx, dy: ry)
 		
 		currentAngle = tmpAngle
-		print("Beacon Name \(name) Angle: \(currentAngle)")
+//		print("Beacon Name \(name) Angle: \(currentAngle)")
 	}
 	
 	func returnColor() -> Color {

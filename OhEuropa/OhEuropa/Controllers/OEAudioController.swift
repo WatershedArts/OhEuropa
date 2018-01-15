@@ -73,6 +73,16 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 	/// When the user is inside the inner perimeter
 	///------------------------------------------------------------------------------------------
 	public func fadeOutStaticAndFadeUpRadio() {
+		let streamingAction = InterpolationAction(from: self.streamer.volume, to: 0.15, duration: 5.0, easing: .sineInOut, update: { [unowned self] in self.streamer.volume = $0 })
+		let staticAction = InterpolationAction(from: self.staticAudio.volume, to: 0.0, duration: 5.0, easing: .sineInOut, update: { [unowned self] in self.staticAudio.volume = $0 })
+		scheduler.run(action: staticAction)
+		scheduler.run(action: streamingAction)
+	}
+	
+	///------------------------------------------------------------------------------------------
+	/// When the user is inside the inner perimeter
+	///------------------------------------------------------------------------------------------
+	public func fadeOutRadioAndFadeUpStatic() {
 		let streamingAction = InterpolationAction(from: self.streamer.volume, to: 0.75, duration: 5.0, easing: .sineInOut, update: { [unowned self] in self.streamer.volume = $0 })
 		let staticAction = InterpolationAction(from: self.staticAudio.volume, to: 0.0, duration: 5.0, easing: .sineInOut, update: { [unowned self] in self.staticAudio.volume = $0 })
 		scheduler.run(action: staticAction)

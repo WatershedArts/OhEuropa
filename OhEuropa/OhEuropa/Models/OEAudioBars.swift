@@ -13,8 +13,7 @@ class Bar : Group {
 	var currentHeight: Double = 0.0
 	
 	init(x:Double,y: Double, width: Double, height:Double) {
-		
-		//		let shape = Shape(form: Circle(cx:x,cy:y,r:10), fill: col, stroke: Stroke(fill: col, width: 3))
+	
 		let shape = Shape(form: Rect(x: x, y: y, w: width, h: height),fill:Color.black)
 		
 		currentHeight = height
@@ -28,7 +27,9 @@ class Bar : Group {
 //			during: 0.1,
 //			delay: 0.0)
 //		self.place = Transform.move(dx: 0, dy: height)
-		self.placeVar.animate(from: Transform.move(dx: 1, dy: currentHeight), to: Transform.move(dx: 1, dy: height), during: 0.075, delay: 0.0 )//		self.place =
+//		Transform.shear(shx: <#T##Double#>, shy: <#T##Double#>)
+		
+		self.placeVar.animate(from: Transform.move(dx: 0, dy: currentHeight), to: Transform.move(dx: 0, dy: height), during: 0.13, delay: 0.0 ) //		self.place =
 //			Transform.scale(sx: 1, sy: currentHeight), to: Transform.scale(sx: 1, sy: height), during: 0.1, delay: 0.0 )//		self.place = Transform.scale(sx: 1, sy: height)
 		currentHeight = height
 	}
@@ -49,8 +50,8 @@ class OEAudioBars: MacawView {
 	
 	@objc func timerFunc() {
 		for (index,bar) in bars.enumerated() {
-			var newHeight = 0.5 + 25 * tan(Double(Date().timeIntervalSince1970 * 1000.0))
-//			print(" Index \(index) \(newHeight)")
+			var rand = arc4random_uniform(25)
+			var newHeight = 10 + Double(rand) * abs(cos(Double(Date().timeIntervalSince1970 * 1000.0)))
 			bar.setNewHeight(height: newHeight)
 		}
 	}
@@ -68,18 +69,18 @@ class OEAudioBars: MacawView {
 		
 		
 		
-		let barwidth = 10.0
-		let spacing = 3.0
+		let barwidth = 5.0
+		let spacing = 0.5
 		var numberofbars = Double(self.bounds.width) / (barwidth + spacing)
 		
 		for i in 0...Int(numberofbars) {
 			bars.append(Bar(x: Double(i) * (barwidth + spacing), y: self.centerY, width: barwidth, height: 2))
 		}
 		
-		self.node = Group(contents: bars)
+//		self.node = Group(contents: bars)
 
 		
-//		Timer.scheduledTimer(timeInterval: 0.076, target: self, selector: #selector(timerFunc), userInfo: nil, repeats: true)
+//		Timer.scheduledTimer(timeInterval: 0.15, target: self, selector: #selector(timerFunc), userInfo: nil, repeats: true)
 		
 //		group.contentsVar.animation({ t in
 //			let color = Color.rgba(r: 0, g: 0, b: 255, a: 1 - t)

@@ -8,9 +8,12 @@
 
 import UIKit
 import GoogleMaps
+import Reachability
 
-var USER_ID: String! = ""
+var USER_ID: String = ""
 let GOOGLE_API_KEY = "AIzaSyB07Q_QcWvaIc9mMm1DN-hPM-_Rl2CpO18"
+
+let reachability = Reachability()!
 
 let DEFAULT_COLOR = UIColor(red:0.10, green:0.16, blue:0.52, alpha:1.0)
 let DEFAULT_COLOR_OPPOSED = UIColor(red:0.99, green:0.75, blue:0.07, alpha:1.0)
@@ -86,6 +89,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	/// - Returns: boolean
 	///------------------------------------------------------------------------------------------
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+		
+//		reachability.whenReachable = { reachability in
+//			if reachability.connection == .wifi {
+//				print("Reachable via WiFi")
+//			} else {
+//				print("Reachable via Cellular")
+//			}
+//		}
+//		reachability.whenUnreachable = { _ in
+//			print("Not reachable")
+//		}
+		
+		do {
+			try reachability.startNotifier()
+		} catch {
+			print("Unable to start notifier")
+		}
+		
 		GMSServices.provideAPIKey(GOOGLE_API_KEY);
 		getUserIdentifier()
 		return true

@@ -83,6 +83,7 @@ class OECompass: MacawView {
 		
 		return Group(contents:[compassRing,compassLines,compassPoints,markerGroup,compassCenter])
 	}
+	
 	///------------------------------------------------------------------------------------------
 	/// Init
 	///
@@ -94,13 +95,14 @@ class OECompass: MacawView {
 	
 		centerX = Double(self.center.x)
 		centerY = Double(self.center.y)
-		compassRadius = Double(self.frame.width / 2 - 25)
 		
-		let tmpRadius = Double(compassRadius+60)
+		compassRadius = Double(self.frame.width / 2 - 35)
+		
+		let tmpRadius = Double(compassRadius + 80)
 		let tmpX = centerX-3
 		let arrow = Shape(form: Polygon(points:
 			[
-				centerX,compassRadius+40,
+				centerX,compassRadius + 70,
 				centerX+8,tmpRadius,
 				tmpX+6,tmpRadius,
 				tmpX+6,centerY,

@@ -29,7 +29,7 @@ class OEMapBeacon {
 	var heading:Double = 0.0
 	var distanceFromUser: Double = 1000.0
 	
-	
+	var beaconData = OEMapBeaconModel()
 	
 	///------------------------------------------------------------------------------------------
 	/// <#Description#>
@@ -46,27 +46,28 @@ class OEMapBeacon {
 	///------------------------------------------------------------------------------------------
 	init(centerCoordinate: CLLocationCoordinate2D, radius: Double, datecreated: String, name: String, nearbys: Int, placeid: String, radioplays: Int, zonenumber: Int) {
 		
-		self.centerCoordinate = centerCoordinate
-		self.radius = Double(radius)
-		self.datecreated = datecreated
-		self.name = name
-		self.nearbys = Int(nearbys)
-		self.placeid = placeid
-		self.radioplays = Int(radioplays)
-		self.zonenumber = Int(zonenumber)
+		beaconData.centerCoordinate = centerCoordinate
+		beaconData.radius = Double(radius)
+		beaconData.datecreated = datecreated
+		beaconData.name = name
+		beaconData.nearbys = Int(nearbys)
+		beaconData.placeid = placeid
+		beaconData.radioplays = Int(radioplays)
+		beaconData.zonenumber = Int(zonenumber)
 	}
 	
 	///------------------------------------------------------------------------------------------
-	/// <#Description#>
+	/// Check the Distance from the Beacon to the Users Location
+	/// This will be as the crow flies distance
 	///
-	/// - Parameter coord: <#coord description#>
-	/// - Returns: <#return value description#>
+	/// - Parameter coord: Users Location
+	/// - Returns: Distance in Meters
 	///------------------------------------------------------------------------------------------
 	private func computeDistance(coord: CLLocationCoordinate2D) -> Double {
 		let userLat: Double = coord.latitude
 		let userLng: Double = coord.longitude
-		let thisLat: Double = centerCoordinate.latitude
-		let thisLng: Double = centerCoordinate.longitude
+		let thisLat: Double = beaconData.centerCoordinate.latitude
+		let thisLng: Double = beaconData.centerCoordinate.longitude
 		
 		let deltaP = (thisLat.toRadians() - userLat.toRadians())
 		let deltaL = (thisLng.toRadians() - userLng.toRadians())
@@ -79,28 +80,22 @@ class OEMapBeacon {
 	}
 	
 	///------------------------------------------------------------------------------------------
-	/// <#Description#>
+	/// Check to see if the User has entered any of the Zones
 	///
-	/// - Parameter userlocation: <#userlocation description#>
+	/// - Parameter userlocation: users location
 	///------------------------------------------------------------------------------------------
 	func checkBeaconDistance(userlocation: CLLocationCoordinate2D!) {
 		distanceFromUser = computeDistance(coord: userlocation)
-		
+		let info = [
+			"placeid": self.beaconData.placeid,
+			"name": self.beaconData.name
+		]
 		// Beacon
-		if !userInsideBeacon && distanceFromUser < (radius / 1000)  {
-			let info = [
-				"placeid": self.placeid,
-				"name": self.name
-			]
+		if !userInsideBeacon && distanceFromUser < (beaconData.radius / 1000)  {
 			NotificationCenter.default.post(name: Notification.Name.EnteredBeacon, object: nil, userInfo: info)
 			userInsideBeacon = true
 		}
-		else if userInsideBeacon && distanceFromUser > (radius / 1000) {
-			
-			let info = [
-				"placeid": self.placeid,
-				"name": self.name
-			]
+		else if userInsideBeacon && distanceFromUser > (beaconData.radius / 1000) {
 			NotificationCenter.default.post(name: Notification.Name.ExitedBeacon, object: nil, userInfo: info)
 			userInsideBeacon = false
 		}
@@ -108,20 +103,11 @@ class OEMapBeacon {
 		///-----------------------------------------------
 		// Inner Perimeter
 		///-----------------------------------------------
-		if !userInsideInnerBeaconPerimeter && distanceFromUser < ((radius*2) / 1000)  {
-			let info = [
-				"placeid": self.placeid,
-				"name": self.name
-			]
+		if !userInsideInnerBeaconPerimeter && distanceFromUser < ((beaconData.radius*2) / 1000)  {
 			NotificationCenter.default.post(name: Notification.Name.EnteredBeaconInnerPerimeter, object: nil, userInfo: info)
 			userInsideInnerBeaconPerimeter = true
 		}
-		else if userInsideInnerBeaconPerimeter && distanceFromUser > ((radius*2) / 1000) {
-			
-			let info = [
-				"placeid": self.placeid,
-				"name": self.name
-			]
+		else if userInsideInnerBeaconPerimeter && distanceFromUser > ((beaconData.radius*2) / 1000) {
 			NotificationCenter.default.post(name: Notification.Name.ExitedBeaconInnerPerimeter, object: nil, userInfo: info)
 			userInsideInnerBeaconPerimeter = false
 		}
@@ -129,20 +115,11 @@ class OEMapBeacon {
 		///-----------------------------------------------
 		// Outer Perimeter
 		///-----------------------------------------------
-		if !userInsideOuterBeaconPerimeter && distanceFromUser < ((radius*3) / 1000)  {
-			let info = [
-				"placeid": self.placeid,
-				"name": self.name
-			]
+		if !userInsideOuterBeaconPerimeter && distanceFromUser < ((beaconData.radius*3) / 1000)  {
 			NotificationCenter.default.post(name: Notification.Name.EnteredBeaconOuterPerimeter, object: nil, userInfo: info)
 			userInsideOuterBeaconPerimeter = true
 		}
-		else if userInsideOuterBeaconPerimeter && distanceFromUser > ((radius*3) / 1000) {
-			
-			let info = [
-				"placeid": self.placeid,
-				"name": self.name
-			]
+		else if userInsideOuterBeaconPerimeter && distanceFromUser > ((beaconData.radius*3) / 1000) {
 			NotificationCenter.default.post(name: Notification.Name.ExitedBeaconOuterPerimeter, object: nil, userInfo: info)
 			userInsideOuterBeaconPerimeter = false
 		}

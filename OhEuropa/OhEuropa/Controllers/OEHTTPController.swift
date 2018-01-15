@@ -77,15 +77,16 @@ class OEHTTPController: NSObject {
 				switch response.result {
 					case .failure(let error):
 						print("Failed to Get Radio Song \(error)")
+						returnValue = "Failed to Get Radio Song \(error)"
 						break;
 					case .success(let data):
 						print("Got Radio Track \(data)")
 						
 						if let data = response.result.value {
-							var json = JSON(data)
+							let json = JSON(data)
 							print(json)
 						}
-						returnValue = "Hey"
+						returnValue = "Success"
 						break;
 					default:
 						break;

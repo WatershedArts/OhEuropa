@@ -20,52 +20,31 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	@IBOutlet weak var nearestMarkerNameLabel: UILabel!
 	@IBOutlet weak var nearestMarkerDistanceLabel: UILabel!
 
-	
-	
 	var locationManager = CLLocationManager()
 	var beacons = [OEMapBeacon]()
 	let audioManager = OEAudioController()
-	
-//	let httpManager = OEHTTPController()
-	
-	
-	var timer:Timer?
-	var change:CGFloat = 0.01
-	
-	var wave:SwiftSiriWaveformView!
 
-	@objc func refreshAudioView() {
-		if self.wave.amplitude <= self.wave.idleAmplitude || self.wave.amplitude > 1.0 {
-			self.change *= -1.0
-		}
-		
-		// Simply set the amplitude to whatever you need and the view will update itself.
-		self.wave.amplitude += self.change
-	}
-	
 	///------------------------------------------------------------------------------------------
 	/// Setup View Controller
 	///------------------------------------------------------------------------------------------
 	func setup() {
 		
-		
-		
 		OEGetBeacons(parseBeacons)
 		
+		enableLocationServices()
 		
-		
+		// Center of the Beacon
 		NotificationCenter.default.addObserver(self, selector: #selector(beaconEntered(_:)), name: NSNotification.Name.EnteredBeacon, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(beaconExited(_:)), name: NSNotification.Name.ExitedBeacon, object: nil)
 		
+		// Inner Area of the Beacon
 		NotificationCenter.default.addObserver(self, selector: #selector(innerBeaconPerimeterEntered(_:)), name: NSNotification.Name.EnteredBeaconInnerPerimeter, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(innerBeaconPerimeterExited(_:)), name: NSNotification.Name.ExitedBeaconInnerPerimeter, object: nil)
 		
+		// Outer Area of the Beacon
 		NotificationCenter.default.addObserver(self, selector: #selector(outerBeaconPerimeterEntered(_:)), name: NSNotification.Name.EnteredBeaconOuterPerimeter, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(outerBeaconPerimeterExited(_:)), name: NSNotification.Name.ExitedBeaconOuterPerimeter, object: nil)
 		
-		enableLocationServices()
-        
-        
         let floaty = Floaty()
         
         floaty.size = 40
@@ -94,9 +73,9 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	}
 	
 	///------------------------------------------------------------------------------------------
-	/// <#Description#>
+	/// Parse the Beacons
 	///
-	/// - Parameter com: <#com description#>
+	/// - Parameter com: the returning value from the async call
 	///------------------------------------------------------------------------------------------
 	func parseBeacons(com:[OEMapBeacon]!) {
 		print("Got Beacons")
@@ -123,10 +102,10 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	}
 	
 	///------------------------------------------------------------------------------------------
-	/// <#Description#>
+	/// Should we show the compass calibration message
 	///
-	/// - Parameter manager: <#manager description#>
-	/// - Returns: <#return value description#>
+	/// - Parameter manager: Location Manager Delegate
+	/// - Returns: boolean
 	///------------------------------------------------------------------------------------------
 	func locationManagerShouldDisplayHeadingCalibration(_ manager: CLLocationManager) -> Bool {
 		return true
@@ -143,20 +122,23 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		let compassView = self.compassView as OECompass
 		let userLocation:CLLocation = locations[0] as CLLocation
 		
+		// Check the Distance from the Beacon
 		for beacon in beacons {
 			beacon.checkBeaconDistance(userlocation: userLocation.coordinate)
 		}
 		
+		// Sort the Beacons in Ascending Order
 		self.beacons.sort { return $0.distanceFromUser < $1.distanceFromUser }
 		
+		// Show us the Nearest Marker in terms of distance
 		if beacons.count > 0 {
-			self.nearestMarkerNameLabel.text = beacons.first?.name
-			self.nearestMarkerDistanceLabel.text = String(format: "%.3f meters",((beacons.first?.distanceFromUser)! * 1000))
-			
+			self.nearestMarkerNameLabel.text = beacons.first?.beaconData.name
+			self.nearestMarkerDistanceLabel.text = String(format: "%.0f meters",((beacons.first?.distanceFromUser)! * 1000))
 		}
 		
+		// Update the Compass View
 		for (index, beacon) in beacons.enumerated() {
-			let newHeading = calculateRelativeHeading(userLocation: userLocation, beacons: beacon.centerCoordinate)
+			let newHeading = calculateRelativeHeading(userLocation: userLocation, beacons: beacon.beaconData.centerCoordinate)
 			compassView.setBeaconRotation(index: index, angle: newHeading)
 		}
 	}
@@ -169,7 +151,6 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///   - newHeading: Updated heading
 	///------------------------------------------------------------------------------------------
 	func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-//		headingindicator.text = "\(newHeading.magneticHeading)"
 		let compassView = self.compassView as OECompass
 		compassView.setCompassHeading(heading: newHeading.magneticHeading)
 	}
@@ -219,8 +200,15 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// - Parameter n: <#n description#>
 	///------------------------------------------------------------------------------------------
 	@objc func beaconEntered(_ n:Notification) {
-		print("Beacon Entered")
-		print(n.userInfo!)
+		
+		// Check if we have user info
+		if let userInfo = n.userInfo {
+			// Safely Unwrap the Value
+			if let placeId = userInfo["placeid"] as? String {
+				print("Beacon: \(placeId) Entered")
+				httpController.uploadUserInteraction(userid: USER_ID, placeid: placeId, zoneid: "C", action: "Entered")
+			}
+		}
 		audioManager.startPlayingRadio()
 	}
 	
@@ -230,9 +218,16 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// - Parameter n: <#n description#>
 	///------------------------------------------------------------------------------------------
 	@objc func beaconExited(_ n:Notification) {
-		print("Beacon Exited")
-		print(n.userInfo!)
-		audioManager.stopPlayingRadio()
+		
+		// Check if we have user info
+		if let userInfo = n.userInfo {
+			// Safely Unwrap the Value
+			if let placeId = userInfo["placeid"] as? String {
+				print("Beacon: \(placeId) Exited")
+				httpController.uploadUserInteraction(userid: USER_ID, placeid: placeId, zoneid: "C", action: "Exited")
+			}
+		}
+//		audioManager.stopPlayingRadio()
 	}
 	
 	///------------------------------------------------------------------------------------------
@@ -241,15 +236,18 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// - Parameter n: <#n description#>
 	///------------------------------------------------------------------------------------------
 	@objc func outerBeaconPerimeterEntered(_ n:Notification) {
-		print("Outer Beacon Perimeter Entered")
-		print(n.userInfo!)
-		audioManager.startPlayingStatic()
-		
 		let compassView = self.compassView as OECompass
 		compassView.insideBeaconZone(zonetype: "O")
 		
-		
-//		httpManager.uploadUserInteraction(userid: USER_ID, placeid: , zoneid: <#T##String#>, action: <#T##String#>)
+		// Check if we have user info
+		if let userInfo = n.userInfo {
+			// Safely Unwrap the Value
+			if let placeId = userInfo["placeid"] as? String {
+				print("Outer Beacon: \(placeId) Perimeter Entered")
+				httpController.uploadUserInteraction(userid: USER_ID, placeid: placeId, zoneid: "O", action: "Entered")
+			}
+		}
+		audioManager.startPlayingStatic()
 	}
 	
 	///------------------------------------------------------------------------------------------
@@ -258,8 +256,16 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// - Parameter n: <#n description#>
 	///------------------------------------------------------------------------------------------
 	@objc func outerBeaconPerimeterExited(_ n:Notification) {
-		print("Outer Beacon Perimeter Exited")
-		print(n.userInfo!)
+		
+		// Check if we have user info
+		if let userInfo = n.userInfo {
+			// Safely Unwrap the Value
+			if let placeId = userInfo["placeid"] as? String {
+				print("Outer Beacon: \(placeId) Perimeter Exited")
+				httpController.uploadUserInteraction(userid: USER_ID, placeid: placeId, zoneid: "O", action: "Exited")
+			}
+		}
+		
 		audioManager.stopPlayingStatic()
 	}
 	
@@ -269,8 +275,16 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// - Parameter n: <#n description#>
 	///------------------------------------------------------------------------------------------
 	@objc func innerBeaconPerimeterEntered(_ n:Notification) {
-		print("Inner Beacon Perimeter Entered")
-		print(n.userInfo!)
+		
+		// Check if we have user info
+		if let userInfo = n.userInfo {
+			// Safely Unwrap the Value
+			if let placeId = userInfo["placeid"] as? String {
+				print("Inner Beacon: \(placeId) Perimeter Entered")
+				httpController.uploadUserInteraction(userid: USER_ID, placeid: placeId, zoneid: "I", action: "Entered")
+			}
+		}
+		
 		audioManager.crossFadeStaticAndRadio()
 	}
 	
@@ -280,8 +294,16 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// - Parameter n: <#n description#>
 	///------------------------------------------------------------------------------------------
 	@objc func innerBeaconPerimeterExited(_ n:Notification) {
-		print("Inner Beacon Perimeter Exited")
-		print(n.userInfo!)
+		
+		// Check if we have user info
+		if let userInfo = n.userInfo {
+			// Safely Unwrap the Value
+			if let placeId = userInfo["placeid"] as? String {
+				print("Inner Beacon: \(placeId) Perimeter Exited")
+				httpController.uploadUserInteraction(userid: USER_ID, placeid: placeId, zoneid: "I", action: "Exited")
+			}
+		}
+		
 		audioManager.stopPlayingRadio()
 		audioManager.startPlayingStatic()
 	}
@@ -292,7 +314,6 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 		setup()
-		
     }
 
 	///------------------------------------------------------------------------------------------

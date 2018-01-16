@@ -92,7 +92,9 @@ class OECompass: MacawView {
 	required init?(coder aDecoder: NSCoder) {
 		// Call the View with blank content
 		super.init(node: Group(), coder: aDecoder)
+	}
 	
+	public func waitedForAdaptiveScreen() {
 		centerX = Double(self.center.x)
 		centerY = Double(self.center.y)
 		
@@ -111,7 +113,7 @@ class OECompass: MacawView {
 				centerX-8,tmpRadius
 			]
 			),
-			fill: Color.navy
+						  fill: Color.navy
 		)
 		
 		arrowIndicator = Group(contents: [arrow])
@@ -134,11 +136,13 @@ class OECompass: MacawView {
 		
 		if compassGroup != nil{
 			// Animate the group from previous rotation to new
-			compassGroup.placeVar.animate(
-				from: Transform.rotate(angle: currentAngle,x:centerX,y:centerY),
-				to: Transform.rotate(angle: tmpAngle,x:centerX,y:centerY),
-				during: 0.1,
-				delay: 0.0)
+//			compassGroup.place.rotate(angle: tmpAngle, x: centerX, y: centerY)
+			
+//			compassGroup.placeVar.animate(
+//				from: Transform.rotate(angle: currentAngle,x:centerX,y:centerY),
+//				to: Transform.rotate(angle: tmpAngle,x:centerX,y:centerY),
+//				during: 0.05,
+//				delay: 0.0)
 			
 			// Keep a reference to the current angle
 			currentAngle = tmpAngle

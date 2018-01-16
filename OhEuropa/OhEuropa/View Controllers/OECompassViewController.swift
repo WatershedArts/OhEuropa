@@ -13,7 +13,6 @@ import CoreLocation
 import Floaty
 import FontAwesome_swift
 
-
 class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	
 	@IBOutlet weak var compassView: OECompass!
@@ -95,6 +94,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 			print("Location Services Enabled")
 			locationManager.startUpdatingLocation()
 			locationManager.startUpdatingHeading()
+			locationManager.headingFilter = 2
 		}
 		else {
 			print("Location Services Disabled")
@@ -209,7 +209,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 				httpController.uploadUserInteraction(userid: USER_ID, placeid: placeId, zoneid: "C", action: "Entered")
 			}
 		}
-		audioManager.startPlayingRadio()
+		audioManager.fadeOutStaticAndFadeUpRadio()
 	}
 	
 	///------------------------------------------------------------------------------------------
@@ -227,7 +227,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 				httpController.uploadUserInteraction(userid: USER_ID, placeid: placeId, zoneid: "C", action: "Exited")
 			}
 		}
-//		audioManager.stopPlayingRadio()
+		audioManager.fadeOutRadioAndFadeUpStatic()
 	}
 	
 	///------------------------------------------------------------------------------------------
@@ -236,6 +236,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// - Parameter n: <#n description#>
 	///------------------------------------------------------------------------------------------
 	@objc func outerBeaconPerimeterEntered(_ n:Notification) {
+		
 		let compassView = self.compassView as OECompass
 		compassView.insideBeaconZone(zonetype: "O")
 		
@@ -286,6 +287,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		}
 		
 		audioManager.crossFadeStaticAndRadio()
+		
 	}
 	
 	///------------------------------------------------------------------------------------------
@@ -317,12 +319,27 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
     }
 
 	///------------------------------------------------------------------------------------------
+	/// Waited for the Views to properly scale before creating the compass elements
+	///------------------------------------------------------------------------------------------
+	override func viewDidLayoutSubviews() {
+		let compassView = self.compassView as OECompass
+		compassView.waitedForAdaptiveScreen()
+	}
+	
+	///------------------------------------------------------------------------------------------
 	/// View Did Load
 	///------------------------------------------------------------------------------------------
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 	
+	///------------------------------------------------------------------------------------------
+	/// <#Description#>
+	///
+	/// - Parameters:
+	///   - segue: <#segue description#>
+	///   - sender: <#sender description#>
+	///------------------------------------------------------------------------------------------
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if segue.identifier == "showMap" {
 			let destinationVC = segue.destination as! OEMapViewController

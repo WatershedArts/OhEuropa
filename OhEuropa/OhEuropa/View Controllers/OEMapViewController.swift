@@ -27,39 +27,40 @@ class OEMapViewController: UIViewController, CLLocationManagerDelegate {
 		
 		determineMyCurrentLocation()
 		
-		
         mapView = GMSMapView.map(withFrame: .zero, camera: camera)
         mapView.isMyLocationEnabled = true
 		
 		// Set the main view to be the map view
         self.view = mapView
-	
-        for beacon in beacons {
-			
+		
+        for beacon in self.beacons {
+		
             // This is for Debug purposes only
-            let outerCircle = GMSCircle(position: beacon.beaconData.centerCoordinate, radius: CLLocationDistance(beacon.beaconData.radius*3))
+			let outerCircle = GMSCircle(position: beacon.beaconData.centercoordinate, radius: CLLocationDistance(beacon.beaconData.outerradius))
             outerCircle.title = beacon.beaconData.name
             outerCircle.strokeColor = UIColor.red
             outerCircle.fillColor = UIColor.red
             outerCircle.isTappable = true
             outerCircle.map = mapView
             
-            let midCircle = GMSCircle(position: beacon.beaconData.centerCoordinate, radius: CLLocationDistance(beacon.beaconData.radius*2))
+            let midCircle = GMSCircle(position: beacon.beaconData.centercoordinate, radius: CLLocationDistance(beacon.beaconData.innerradius))
             midCircle.title = beacon.beaconData.name
             midCircle.strokeColor = UIColor.orange
             midCircle.fillColor = UIColor.orange
             midCircle.isTappable = true
             midCircle.map = mapView
             
-            let innerCirle = GMSCircle(position: beacon.beaconData.centerCoordinate, radius: CLLocationDistance(beacon.beaconData.radius))
+            let innerCirle = GMSCircle(position: beacon.beaconData.centercoordinate, radius: CLLocationDistance(beacon.beaconData.centerradius))
             innerCirle.title = beacon.beaconData.name
             innerCirle.strokeColor = UIColor.green
             innerCirle.fillColor = UIColor.green
             innerCirle.isTappable = true
             innerCirle.map = mapView
+			
+			
         }
     }
-
+	
 	///------------------------------------------------------------------------------------------
 	/// View Did Layout Subviews
 	///------------------------------------------------------------------------------------------

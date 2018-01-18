@@ -12,6 +12,7 @@ import Foundation
 import CoreLocation
 import Floaty
 import FontAwesome_swift
+import ProcessingKit
 
 class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	
@@ -22,6 +23,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	var locationManager = CLLocationManager()
 	var beacons = [OEMapBeacon]()
 	let audioManager = OEAudioController()
+	var trackTimer: Timer!
 
 	///------------------------------------------------------------------------------------------
 	/// Setup View Controller
@@ -119,7 +121,6 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///   - locations: Current Location
 	///------------------------------------------------------------------------------------------
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		let compassView = self.compassView as OECompass
 		let userLocation:CLLocation = locations[0] as CLLocation
 		
 		// Check the Distance from the Beacon
@@ -132,14 +133,15 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		
 		// Show us the Nearest Marker in terms of distance
 		if beacons.count > 0 {
-			self.nearestMarkerNameLabel.text = beacons.first?.beaconData.name
 			self.nearestMarkerDistanceLabel.text = String(format: "%.0f meters",((beacons.first?.distanceFromUser)! * 1000))
 		}
 		
 		// Update the Compass View
 		for (index, beacon) in beacons.enumerated() {
-			let newHeading = calculateRelativeHeading(userLocation: userLocation, beacons: beacon.beaconData.centerCoordinate)
-			compassView.setBeaconRotation(index: index, angle: newHeading)
+			let newHeading = calculateRelativeHeading(userLocation: userLocation, beacons: beacon.beaconData.centercoordinate)
+			if index == 0 {
+				compassView.setBeaconRotation(beaconAngle: newHeading)
+			}
 		}
 	}
 	
@@ -237,8 +239,8 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///------------------------------------------------------------------------------------------
 	@objc func outerBeaconPerimeterEntered(_ n:Notification) {
 		
-		let compassView = self.compassView as OECompass
-		compassView.insideBeaconZone(zonetype: "O")
+//		let compassView = self.compassView as OECompass
+//		compassView.insideBeaconZone(zonetype: "O")
 		
 		// Check if we have user info
 		if let userInfo = n.userInfo {
@@ -322,8 +324,8 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// Waited for the Views to properly scale before creating the compass elements
 	///------------------------------------------------------------------------------------------
 	override func viewDidLayoutSubviews() {
-		let compassView = self.compassView as OECompass
-		compassView.waitedForAdaptiveScreen()
+//		let compassView = self.compassView as OECompass
+//		compassView.waitedForAdaptiveScreen()
 	}
 	
 	///------------------------------------------------------------------------------------------
@@ -344,7 +346,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		if segue.identifier == "showMap" {
 			let destinationVC = segue.destination as! OEMapViewController
 			destinationVC.beacons = self.beacons
-			print("Sending You Some Data")
+			print("Sending You Some Data \(self.beacons)")
 		}
         else if segue.identifier == "showInformation" {
             let destinationVC = segue.destination as! OEInformationViewController

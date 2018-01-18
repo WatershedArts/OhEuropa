@@ -44,6 +44,7 @@ class OEGetBeacons  {
 					print("GETLOCATIONS: Got Return Data")
 					self.json = JSON(data)
 
+					print(self.json)
 					// If we get data from the server update the core data for backup incase of connection issues.
 					if let newdata = self.json["data"].arrayObject as? [[String:Any]] {
 						self.dataStack.sync(newdata, inEntityNamed: "Beacons") { error in
@@ -55,16 +56,17 @@ class OEGetBeacons  {
 					if let locationArray = self.json["data"].array {
 						for location in locationArray {
 							let loc = OEMapBeacon(
-								centerCoordinate: CLLocationCoordinate2D(
+								centercoordinate: CLLocationCoordinate2D(
 									latitude: Double(location["lat"].string!)!,
 									longitude: Double(location["lng"].string!)!),
-								radius: Double(location["areasize"].string!)!,
+								centerradius: Double(location["centerradius"].string!)!,
+								innerradius: Double(location["innerradius"].string!)!,
+								outerradius: Double(location["outerradius"].string!)!,
 								datecreated: location["datecreated"].string!,
 								name: location["name"].string!,
 								nearbys: Int(location["nearbys"].string!)!,
 								placeid: location["placeid"].string!,
-								radioplays: Int(location["radioplays"].string!)!,
-								zonenumber: Int(location["zonenumber"].string!)!)
+								radioplays: Int(location["radioplays"].string!)!)
 							beacons.append(loc)
 						}
 					}
@@ -89,16 +91,17 @@ class OEGetBeacons  {
 		if beaconData != nil {
 			for beacon in beaconData {
 				let loc = OEMapBeacon(
-							centerCoordinate: CLLocationCoordinate2D(
+							centercoordinate: CLLocationCoordinate2D(
 								latitude: beacon.lat,
 								longitude: beacon.lng),
-							radius: beacon.areasize,
+							centerradius: beacon.centerradius,
+							innerradius: beacon.innerradius,
+							outerradius: beacon.outerradius,
 							datecreated: beacon.datecreated!,
 							name: beacon.name!,
 							nearbys: 0,
 							placeid: beacon.placeid!,
-							radioplays: 1,
-							zonenumber: 3)
+							radioplays: 1)
 						beacons.append(loc)
 			}
 		}

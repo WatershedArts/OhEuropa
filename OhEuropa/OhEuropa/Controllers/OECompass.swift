@@ -7,121 +7,109 @@
 //
 
 import UIKit
-import Macaw
+import ProcessingKit
+import TweenKit
 
-class OECompass: MacawView {
+class OECompass : ProcessingView {
 
 	var markers = [OEBeaconMarker]()
-	var compassGroup: Group!
-	var arrowIndicator: Group!
-	
-	var wave: Polyline!
 	var currentAngle: Double = 0.0
 
-	var northIcon: Text!
-	var southIcon: Text!
-	var eastIcon: Text!
-	var westIcon: Text!
-
-	var centerX: Double!
-	var centerY: Double!
+	var centerX: CGFloat!
+	var centerY: CGFloat!
 	var compassRadius: Double!
+	var i = 0.0
+	var time = Timer()
+	var beaconMarker: Double = 0.0
 	
-	///------------------------------------------------------------------------------------------
-	/// <#Description#>
-	///
-	/// - Returns: <#return value description#>
-	///------------------------------------------------------------------------------------------
-	func createCompass() -> Group {
-		let compassCenter = Shape(form:
-							Circle(
-								cx: centerX,
-								cy: centerY,
-								r: 5),
-							fill: Color.navy,
-							stroke: Stroke(fill: Color.navy, width: 3.0))
+	var circleSize = 0.0
+	let fromSize = 0.0
+	let toSize = 1000.0
+	var value = 0.0
+	let scheduler = ActionScheduler()
+	
+	
+	func setup() {
+		background(UIColor.white)
+		frameRate(60);
+		centerX = self.frame.width / 2
+		centerY = self.frame.height / 2
+		compassRadius = Double(centerX) - 40.0
+		var move = InterpolationAction(from: fromSize, to: toSize, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.value = $0 }
 		
-		let compassRing = Shape(form:
-						Circle(
-							cx: centerX,
-							cy: centerY,
-							r: compassRadius),
-						fill: Color.clear,
-						stroke: Stroke(fill: Color.rgba(r: 20, g: 24, b: 107, a: 1.0),
-									   width: 5.0))
+		scheduler.run(action: move.yoyo().repeatedForever())
+	}
+	
+	func draw() {
+		background(UIColor.white)
+
+		ellipse(centerX, centerY, CGFloat(value),CGFloat(value))
 		
-		
-		
-		var lineArray = [Shape!]()
+		strokeWeight(3.0)
+		noFill()
+		stroke(DEFAULT_COLOR)
+		pushMatrix()
+		translate(x: centerX, y: centerY)
+		rotate(angle: CGFloat(currentAngle))
+		pushMatrix()
+		translate(x: -centerX, y: -centerY)
+		ellipse(centerX, centerY, CGFloat(compassRadius*2), CGFloat(compassRadius*2))
+		fill(DEFAULT_COLOR)
+		ellipse(centerX, centerY, 10, 10)
+		drawMarker()
+		strokeWeight(1.2)
 		
 		for i in stride(from: 0, to: 360, by: 10) {
-			let rx = centerX + ((compassRadius - 20.0) * sin(Double(i).toRadians()))
-			let ry = centerY - ((compassRadius - 20.0) * cos(Double(i).toRadians()))
-			let drx = centerX + ((compassRadius) * sin(Double(i).toRadians()))
-			let dry = centerY - ((compassRadius) * cos(Double(i).toRadians()))
-			
-			if i == 0 { northIcon = Text(text: "N", align: .mid, baseline:.top, place: .move(dx: rx, dy: ry)) }
-			else if i == 90 { eastIcon = Text(text: "E", align: .max, baseline:.mid, place: .move(dx: rx, dy: ry)) }
-			else if i == 180 { southIcon = Text(text: "S", align: .mid, baseline:.bottom, place: .move(dx: rx, dy: ry)) }
-			else if i == 270 { westIcon = Text(text: "W", align: .min, baseline:.mid, place: .move(dx: rx, dy: ry)) }
-			else if i == 360 { }
+			let rx = CGFloat(Double(centerX) + ((compassRadius - 20.0) * sin(Double(i).toRadians())))
+			let ry = CGFloat(Double(centerY) - ((compassRadius - 20.0) * cos(Double(i).toRadians())))
+			let drx = CGFloat(Double(centerX) + ((compassRadius) * sin(Double(i).toRadians())))
+			let dry = CGFloat(Double(centerY) - ((compassRadius) * cos(Double(i).toRadians())))
+
+			if i == 0 {
+				textFont(UIFont.systemFont(ofSize: 15.0))
+				fill(UIColor.black)
+				stroke(UIColor.black)
+				textAlign(.center)
+				text("N", rx, ry+10)
+			}
 			else {
-				lineArray.append(Shape(form: Line(x1: rx, y1: ry, x2: drx, y2: dry),
-					fill: Color.rgba(r: 248, g: 98, b: 62, a: 1.0),
-					stroke: Stroke(fill: Color.rgba(r: 248, g: 98, b: 62, a: 1.0),
-								   width: 2.0)))
+				line(rx, ry, drx, dry);
 			}
 		}
-		let compassLines = Group(contents: lineArray)
-		let compassPoints = Group(contents:[northIcon,southIcon,westIcon,eastIcon])
+		popMatrix()
+		popMatrix()
+
 		
-		// Make a Crap Array of Markers for now
-		for i in 1...10 {
-			markers.append(OEBeaconMarker(beaconName:"\(i)",x:centerX,y:centerY,radius:compassRadius+25,name:"\(i)"))
+		
+		if i > 500 {
+			i = 0.0
 		}
-		let markerGroup = Group(contents:markers)
-		
-		return Group(contents:[compassRing,compassLines,compassPoints,markerGroup,compassCenter])
+		i += 3.0
 	}
 	
-	///------------------------------------------------------------------------------------------
-	/// Init
-	///
-	/// - Parameter heading: Compass Heading
-	///------------------------------------------------------------------------------------------
-	required init?(coder aDecoder: NSCoder) {
-		// Call the View with blank content
-		super.init(node: Group(), coder: aDecoder)
+	func drawArrow() {
+		let tmpRadius = CGFloat(compassRadius + 80)
+		let tmpX = CGFloat(centerX - 3)
+		
+		stroke(DEFAULT_COLOR_OPPOSED)
+		fill(DEFAULT_COLOR)
+		beginShape()
+		vertex(centerX, CGFloat(compassRadius + 70))
+		vertex(centerX + 8.0, tmpRadius)
+		vertex(tmpX + 6.0, tmpRadius)
+		vertex(tmpX + 6.0, centerY)
+		vertex(tmpX, centerY)
+		vertex(tmpX, tmpRadius)
+		vertex(centerX - 8, tmpRadius)
+		endShape(EndShapeMode.close)
 	}
 	
-	public func waitedForAdaptiveScreen() {
-		centerX = Double(self.center.x)
-		centerY = Double(self.center.y)
+	func setAngle(newAngle: Double) {
+		currentAngle = newAngle
+	}
+
+	func drawNearestMarker() {
 		
-		compassRadius = Double(self.frame.width / 2 - 35)
-		
-		let tmpRadius = Double(compassRadius + 80)
-		let tmpX = centerX-3
-		let arrow = Shape(form: Polygon(points:
-			[
-				centerX,compassRadius + 70,
-				centerX+8,tmpRadius,
-				tmpX+6,tmpRadius,
-				tmpX+6,centerY,
-				tmpX,centerY,
-				tmpX,tmpRadius,
-				centerX-8,tmpRadius
-			]
-			),
-						  fill: Color.navy
-		)
-		
-		arrowIndicator = Group(contents: [arrow])
-		
-		compassGroup = createCompass()
-		let allGroups = Group(contents: [compassGroup,arrowIndicator])
-		
-		self.node = allGroups
 	}
 	
 	///------------------------------------------------------------------------------------------
@@ -132,21 +120,34 @@ class OECompass: MacawView {
 	public func setCompassHeading(heading:Double) {
 		
 		// Convert Angle and Switch to Radians
-		let tmpAngle = (360 - heading).toRadians()
+		currentAngle = (360 - heading).toRadians()
+		print(currentAngle)
+	}
+	
+	///------------------------------------------------------------------------------------------
+	/// Set the Compass Heading
+	///
+	/// - Parameter heading: Compass Heading
+	///------------------------------------------------------------------------------------------
+	public func drawMarker() {
 		
-		if compassGroup != nil{
-			// Animate the group from previous rotation to new
-//			compassGroup.place.rotate(angle: tmpAngle, x: centerX, y: centerY)
-			
-//			compassGroup.placeVar.animate(
-//				from: Transform.rotate(angle: currentAngle,x:centerX,y:centerY),
-//				to: Transform.rotate(angle: tmpAngle,x:centerX,y:centerY),
-//				during: 0.05,
-//				delay: 0.0)
-			
-			// Keep a reference to the current angle
-			currentAngle = tmpAngle
-		}
+		let tmpRadius = CGFloat(compassRadius+30)
+		let tmpX = CGFloat(centerX)
+		
+		pushMatrix()
+		translate(x: centerX, y: centerY)
+		rotate(angle: CGFloat(beaconMarker)) //CGFloat(Double(180.0 + 180.0 * sin(Double(millis()/100))).toRadians()))
+		pushMatrix()
+		translate(x: -centerX, y: -centerY)
+		stroke(DEFAULT_COLOR_OPPOSED)
+		fill(DEFAULT_COLOR)
+		beginShape()
+		vertex(centerX, CGFloat(compassRadius+30 - 20))
+		vertex(tmpX + 10.0, tmpRadius)
+		vertex(tmpX - 10.0, tmpRadius)
+		endShape(EndShapeMode.close)
+		popMatrix()
+		popMatrix()
 	}
 	
 	///------------------------------------------------------------------------------------------
@@ -156,8 +157,8 @@ class OECompass: MacawView {
 	///   - index: <#index description#>
 	///   - angle: <#angle description#>
 	///------------------------------------------------------------------------------------------
-	public func setBeaconRotation(index: Int, angle:Double) {
-		markers[index].setBeaconHeading(heading: angle)
+	public func setBeaconRotation(beaconAngle:Double) {
+		beaconMarker = beaconAngle
 	}
 	
 	///------------------------------------------------------------------------------------------
@@ -167,9 +168,5 @@ class OECompass: MacawView {
 	///------------------------------------------------------------------------------------------
 	public func insideBeaconZone(zonetype:String) {
 		
-//		compassGroup.contentsVar.animation({ t in
-//			let color = Color.rgba(r: 255, g: 0, b: 0, a: 1 - t)
-//			return [Circle(cx:150,cy:150,r: t * 60).stroke(fill: color, width: 5)]
-//		}, during: 1.5, delay: 0.1).easing(.easeInOut).play()
 	}
 }

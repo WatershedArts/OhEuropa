@@ -22,21 +22,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qpd-r7-tBK" customClass="OEAudioBars" customModule="OhEuropa" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <subviews>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nearest Marker" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idW-hA-BQe">
-                                        <rect key="frame" x="128.5" y="524.5" width="118" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="idW-hA-BQe" firstAttribute="centerX" secondItem="Qpd-r7-tBK" secondAttribute="centerX" id="zSP-aH-NM0"/>
-                                </constraints>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nearest Marker Distance" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5qR-xv-etc">
                                 <rect key="frame" x="87.5" y="548" width="200" height="20.5"/>
                                 <constraints>
@@ -51,25 +36,18 @@
                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="5qR-xv-etc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7wc-uH-BIx"/>
-                            <constraint firstItem="Qpd-r7-tBK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="CLD-82-SpG"/>
                             <constraint firstItem="7Lj-MX-Bsb" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="FoD-R4-lcw"/>
-                            <constraint firstItem="Qpd-r7-tBK" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Ive-iQ-77m"/>
                             <constraint firstItem="7Lj-MX-Bsb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ow6-rz-nb4"/>
-                            <constraint firstItem="Qpd-r7-tBK" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Xwu-H0-F0w"/>
                             <constraint firstItem="7Lj-MX-Bsb" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="fAj-Ih-J3g"/>
                             <constraint firstItem="7Lj-MX-Bsb" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="fs3-hT-cmk"/>
-                            <constraint firstItem="Qpd-r7-tBK" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="keO-p1-uFZ"/>
                             <constraint firstItem="7Lj-MX-Bsb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lx6-kY-AJD"/>
-                            <constraint firstItem="5qR-xv-etc" firstAttribute="top" secondItem="idW-hA-BQe" secondAttribute="bottom" constant="3" id="qkR-VW-Tgd"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5qR-xv-etc" secondAttribute="bottom" constant="98.5" id="rFu-ow-UAh"/>
-                            <constraint firstItem="Qpd-r7-tBK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="zaJ-n1-VrS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="compassView" destination="7Lj-MX-Bsb" id="x6d-76-KDW"/>
+                        <outlet property="compassView" destination="7Lj-MX-Bsb" id="xiY-hk-sOZ"/>
                         <outlet property="nearestMarkerDistanceLabel" destination="5qR-xv-etc" id="DJ6-QW-7of"/>
-                        <outlet property="nearestMarkerNameLabel" destination="idW-hA-BQe" id="DPr-W6-zdi"/>
                         <segue destination="3ju-mU-qY3" kind="popoverPresentation" identifier="showMap" popoverAnchorView="7Lj-MX-Bsb" id="VqO-my-tJB">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>

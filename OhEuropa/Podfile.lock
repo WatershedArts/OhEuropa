@@ -7,12 +7,10 @@ PODS:
   - GoogleMaps/Base (2.5.0)
   - GoogleMaps/Maps (2.5.0):
     - GoogleMaps/Base
-  - Macaw (0.9.1):
-    - SWXMLHash
+  - ProcessingKit (0.4.0)
   - ReachabilitySwift (4.1.0)
   - StreamingKit (0.1.29)
   - SwiftyJSON (4.0.0)
-  - SWXMLHash (4.2.5)
   - Sync (4.0.3)
   - TweenKit (0.3.1)
 
@@ -21,7 +19,7 @@ DEPENDENCIES:
   - Floaty (~> 4.0.0)
   - FontAwesome.swift
   - GoogleMaps (~> 2.5)
-  - Macaw (= 0.9.1)
+  - ProcessingKit
   - ReachabilitySwift
   - StreamingKit
   - SwiftyJSON
@@ -33,14 +31,13 @@ SPEC CHECKSUMS:
   Floaty: 4f88811bbf08521807f42355db6a9c0db85d5d78
   FontAwesome.swift: b4e4c8ccbbecb12f9b592bc533ff237af3706667
   GoogleMaps: c087b8e5dfe87ca6ebf59adb9b4894a4146bec4f
-  Macaw: 8b13bb7ae2f527b3c7b2787988bbc5461a1c66e3
+  ProcessingKit: 171e906e205b24863e72972c99bd82538fa5f096
   ReachabilitySwift: 6849231cd4e06559f3b9ef4a97a0a0f96d41e09f
   StreamingKit: c329785aaef3ac142d4ae388345bfe1ed23cfd45
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
-  SWXMLHash: eb16013c6f654853980822e0a778c9d66e017dde
   Sync: 0490b72e3322ba86095f603d7230bec36749f249
   TweenKit: eae162e1c18598ffd09097c3fc628fbc62036742
 
-PODFILE CHECKSUM: cddaabf629e6dac4dc648df571e14020839f114f
+PODFILE CHECKSUM: f3dbb6090449bc1f1edef4f6a0ab8f7ae744c36a
 
 COCOAPODS: 1.2.0

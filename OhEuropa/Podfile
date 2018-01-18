@@ -1,7 +1,7 @@
 project 'OhEuropa.xcodeproj'
 
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '10.0'
 
 target 'OhEuropa' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -14,7 +14,8 @@ target 'OhEuropa' do
   pod 'Alamofire'
   pod 'StreamingKit'
   pod 'TweenKit'
-  pod 'Macaw', '0.9.1'
+#   pod 'Macaw', '0.9.1'
+  pod "ProcessingKit"
   pod "Floaty", "~> 4.0.0"
   pod 'FontAwesome.swift'
   pod 'Sync', '~> 4'

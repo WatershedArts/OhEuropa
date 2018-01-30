@@ -13,6 +13,8 @@ import CoreLocation
 import Floaty
 import FontAwesome_swift
 import ProcessingKit
+import MarqueeLabel
+import TweenKit
 
 class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	
@@ -24,7 +26,9 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	var beacons = [OEMapBeacon]()
 	let audioManager = OEAudioController()
 	var trackTimer: Timer!
-
+	var scrollingLabel: MarqueeLabel!
+	let scheduler = ActionScheduler()
+	
 	///------------------------------------------------------------------------------------------
 	/// Setup View Controller
 	///------------------------------------------------------------------------------------------
@@ -33,6 +37,9 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		OEGetBeacons(parseBeacons)
 		
 		enableLocationServices()
+//		getTrackName()
+		
+		trackTimer = Timer.scheduledTimer(timeInterval: 30.0, target: self, selector: #selector(getTrackName), userInfo: nil, repeats: true)
 		
 		// Center of the Beacon
 		NotificationCenter.default.addObserver(self, selector: #selector(beaconEntered(_:)), name: NSNotification.Name.EnteredBeacon, object: nil)
@@ -81,7 +88,15 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	func parseBeacons(com:[OEMapBeacon]!) {
 		print("Got Beacons")
 		beacons = com
+		
 	}
+	
+	///------------------------------------------------------------------------------------------
+//	/// Timer Return Function
+//	///------------------------------------------------------------------------------------------
+//	@objc func getTrackName(com:String!) {
+//		print("Get Track Name")
+//	}
 	
 	///------------------------------------------------------------------------------------------
 	/// Enable the Location Services
@@ -140,7 +155,9 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		for (index, beacon) in beacons.enumerated() {
 			let newHeading = calculateRelativeHeading(userLocation: userLocation, beacons: beacon.beaconData.centercoordinate)
 			if index == 0 {
-				compassView.setBeaconRotation(beaconAngle: newHeading)
+				if compassView != nil {
+					compassView.setBeaconRotation(beaconAngle: newHeading)
+				}
 			}
 		}
 	}
@@ -153,8 +170,9 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///   - newHeading: Updated heading
 	///------------------------------------------------------------------------------------------
 	func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-		let compassView = self.compassView as OECompass
-		compassView.setCompassHeading(heading: newHeading.magneticHeading)
+		if compassView != nil {
+			compassView.setCompassHeading(heading: newHeading.magneticHeading)
+		}
 	}
 	
 	///------------------------------------------------------------------------------------------
@@ -196,12 +214,21 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		return radiansValue
 	}
 	
+	// MARK: Beacon Events.
+	
 	///------------------------------------------------------------------------------------------
 	/// Event Observer from the Beacons
 	///
 	/// - Parameter n: <#n description#>
 	///------------------------------------------------------------------------------------------
 	@objc func beaconEntered(_ n:Notification) {
+	
+		let move = InterpolationAction(from: UIColor.clear, to: UIColor.black, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.scrollingLabel.textColor = $0 }
+		scheduler.run(action: move)
+		
+		if compassView != nil {
+			compassView.enteredBeaconZone(zonetype: "C")
+		}
 		
 		// Check if we have user info
 		if let userInfo = n.userInfo {
@@ -211,6 +238,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 				httpController.uploadUserInteraction(userid: USER_ID, placeid: placeId, zoneid: "C", action: "Entered")
 			}
 		}
+	
 		audioManager.fadeOutStaticAndFadeUpRadio()
 	}
 	
@@ -221,6 +249,13 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///------------------------------------------------------------------------------------------
 	@objc func beaconExited(_ n:Notification) {
 		
+		let move = InterpolationAction(from: UIColor.black, to: UIColor.clear, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.scrollingLabel.textColor = $0 }
+		scheduler.run(action: move)
+		
+		if compassView != nil {
+			compassView.exittedBeaconZone(zonetype: "C")
+		}
+		
 		// Check if we have user info
 		if let userInfo = n.userInfo {
 			// Safely Unwrap the Value
@@ -229,6 +264,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 				httpController.uploadUserInteraction(userid: USER_ID, placeid: placeId, zoneid: "C", action: "Exited")
 			}
 		}
+		
 		audioManager.fadeOutRadioAndFadeUpStatic()
 	}
 	
@@ -238,9 +274,10 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// - Parameter n: <#n description#>
 	///------------------------------------------------------------------------------------------
 	@objc func outerBeaconPerimeterEntered(_ n:Notification) {
-		
-//		let compassView = self.compassView as OECompass
-//		compassView.insideBeaconZone(zonetype: "O")
+
+		if compassView != nil {
+			compassView.enteredBeaconZone(zonetype: "O")
+		}
 		
 		// Check if we have user info
 		if let userInfo = n.userInfo {
@@ -259,6 +296,10 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// - Parameter n: <#n description#>
 	///------------------------------------------------------------------------------------------
 	@objc func outerBeaconPerimeterExited(_ n:Notification) {
+		
+		if compassView != nil {
+			compassView.exittedBeaconZone(zonetype: "O")
+		}
 		
 		// Check if we have user info
 		if let userInfo = n.userInfo {
@@ -279,6 +320,10 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///------------------------------------------------------------------------------------------
 	@objc func innerBeaconPerimeterEntered(_ n:Notification) {
 		
+		if compassView != nil {
+			compassView.enteredBeaconZone(zonetype: "I")
+		}
+		
 		// Check if we have user info
 		if let userInfo = n.userInfo {
 			// Safely Unwrap the Value
@@ -289,7 +334,6 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		}
 		
 		audioManager.crossFadeStaticAndRadio()
-		
 	}
 	
 	///------------------------------------------------------------------------------------------
@@ -298,6 +342,10 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// - Parameter n: <#n description#>
 	///------------------------------------------------------------------------------------------
 	@objc func innerBeaconPerimeterExited(_ n:Notification) {
+		
+		if compassView != nil {
+			compassView.exittedBeaconZone(zonetype: "I")
+		}
 		
 		// Check if we have user info
 		if let userInfo = n.userInfo {
@@ -312,20 +360,50 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		audioManager.startPlayingStatic()
 	}
 	
+	// MARK: View Events.
+	
 	///------------------------------------------------------------------------------------------
     /// View Did Load
 	///------------------------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
 		setup()
+		
+
     }
 
 	///------------------------------------------------------------------------------------------
 	/// Waited for the Views to properly scale before creating the compass elements
 	///------------------------------------------------------------------------------------------
 	override func viewDidLayoutSubviews() {
-//		let compassView = self.compassView as OECompass
-//		compassView.waitedForAdaptiveScreen()
+		
+		scrollingLabel = MarqueeLabel.init(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50),duration:8.0,fadeLength:10.0)
+		scrollingLabel.backgroundColor = UIColor.clear
+		scrollingLabel.textColor = UIColor.clear
+		scrollingLabel.font = UIFont.systemFont(ofSize: 20)
+		scrollingLabel.animationDelay = 1.0
+		scrollingLabel.textAlignment = .left
+		scrollingLabel.fadeLength = 15
+		scrollingLabel.type = .left
+		scrollingLabel.text = ""
+		self.view.addSubview(scrollingLabel)
+		getTrackName()
+	}
+	
+	///------------------------------------------------------------------------------------------
+	/// Get the track name for the scroll bar
+	///------------------------------------------------------------------------------------------
+	@objc func getTrackName() {
+		httpController.getCurrentRadioTrack(setScrollBarText)
+	}
+	
+	///------------------------------------------------------------------------------------------
+	/// Get the track name for the scroll bar
+	///------------------------------------------------------------------------------------------
+	func setScrollBarText(name: String) {
+		print("Setting Scrollbar to \(name)")
+		self.scrollingLabel.resetLabel()
+		self.scrollingLabel.text = name
 	}
 	
 	///------------------------------------------------------------------------------------------
@@ -333,7 +411,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///------------------------------------------------------------------------------------------
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
+    }	
 	
 	///------------------------------------------------------------------------------------------
 	/// <#Description#>

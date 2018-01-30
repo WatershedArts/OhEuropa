@@ -15,8 +15,8 @@ let GOOGLE_API_KEY = "AIzaSyB07Q_QcWvaIc9mMm1DN-hPM-_Rl2CpO18"
 
 let reachability = Reachability()!
 
-let DEFAULT_COLOR = UIColor(red:0.10, green:0.16, blue:0.52, alpha:1.0)
-let DEFAULT_COLOR_OPPOSED = UIColor(red:0.99, green:0.75, blue:0.07, alpha:1.0)
+let DEFAULT_COLOR = UIColor(red:0.129, green:0.490, blue:0.603, alpha:1.0)
+let DEFAULT_COLOR_OPPOSED = UIColor(red:0.964, green:0.803, blue:0.592, alpha:1.0)
 let httpController = OEHTTPController()
 
 @UIApplicationMain

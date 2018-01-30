@@ -14,7 +14,7 @@ target 'OhEuropa' do
   pod 'Alamofire'
   pod 'StreamingKit'
   pod 'TweenKit'
-#   pod 'Macaw', '0.9.1'
+  pod 'MarqueeLabel/Swift'
   pod "ProcessingKit"
   pod "Floaty", "~> 4.0.0"
   pod 'FontAwesome.swift'

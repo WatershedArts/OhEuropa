@@ -54,10 +54,10 @@ class OEHTTPController: NSObject {
 			.responseString { response in
 				switch response.result {
 				case .failure(let error):
-					print("Failed to Upload User ID \(error)")
+					print("Failed to Upload User Interaction \(error)")
 					break;
 				case .success(let data):
-					print("Uploaded User ID \(data)")
+					print("Uploaded User Interaction \(data)")
 					break;
 				default:
 					break;
@@ -70,29 +70,31 @@ class OEHTTPController: NSObject {
 	///
 	/// - Returns: returns the current radio track
 	///------------------------------------------------------------------------------------------
-	public func getCurrentRadioTrack() -> String {
+	public func getCurrentRadioTrack(_ completion: @escaping (String) -> Void) {
 		var returnValue = ""
 		Alamofire.request("https://public.radio.co/stations/s02776f249/status", method: .get)
 			.responseJSON { response in
 				switch response.result {
 					case .failure(let error):
 						print("Failed to Get Radio Song \(error)")
-						returnValue = "Failed to Get Radio Song \(error)"
+						returnValue = "Failed to Get Song Name \(error)"
+						completion(returnValue)
 						break;
 					case .success(let data):
-						print("Got Radio Track \(data)")
+						print("Got Radio Track")
 						
 						if let data = response.result.value {
 							let json = JSON(data)
-							print(json)
+							returnValue = json["current_track"]["title"].string!
+							completion(returnValue)
 						}
-						returnValue = "Success"
+						
 						break;
 					default:
 						break;
 				}
 		}
-		return returnValue
+		completion(returnValue)
 	}
 	
 }

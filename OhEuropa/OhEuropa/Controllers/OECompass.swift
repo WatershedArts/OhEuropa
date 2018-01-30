@@ -79,14 +79,6 @@ class OECompass : ProcessingView {
 	///------------------------------------------------------------------------------------------
 	func draw() {
 		background(UIColor.white)
-
-//		for (index,zone) in zoneData.enumerated() {
-//			if zone.0 {
-//				fill(zone.2)
-//				ellipse(centerX, centerY, CGFloat(zone.1),CGFloat(zone.1))
-//			}
-//		}
-	
 	
 		noStroke()
 		strokeWeight(3.0)
@@ -136,43 +128,8 @@ class OECompass : ProcessingView {
 	///
 	/// - Parameter heading: Compass Heading
 	///------------------------------------------------------------------------------------------
-	func drawArrow() {
-		let tmpRadius = CGFloat(compassRadius + 80)
-		let tmpX = CGFloat(centerX - 3)
-		
-		
-		
-		noFill()
-		stroke(UIColor.black)
-		strokeWeight(4)
-//		fill(UIColor.black)
-		beginShape()
-		vertex(centerX, CGFloat(compassRadius + 70))
-		vertex(centerX + 8.0, tmpRadius)
-		vertex(tmpX + 6.0, tmpRadius)
-		vertex(tmpX + 6.0, centerY)
-		vertex(tmpX, centerY)
-		vertex(tmpX, tmpRadius)
-		vertex(centerX - 8, tmpRadius)
-		endShape(EndShapeMode.close)
-	}
-	
-	///------------------------------------------------------------------------------------------
-	/// Set the Compass Heading
-	///
-	/// - Parameter heading: Compass Heading
-	///------------------------------------------------------------------------------------------
 	func setAngle(newAngle: Double) {
 		currentAngle = newAngle
-	}
-
-	///------------------------------------------------------------------------------------------
-	/// Set the Compass Heading
-	///
-	/// - Parameter heading: Compass Heading
-	///------------------------------------------------------------------------------------------
-	func drawNearestMarker() {
-		
 	}
 	
 	///------------------------------------------------------------------------------------------

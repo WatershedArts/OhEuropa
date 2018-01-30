@@ -17,7 +17,7 @@ class OEMapViewController: UIViewController, CLLocationManagerDelegate {
 	let centerBox = GMSMutablePath()
 	var mapView: GMSMapView!
 	var beacons = [OEMapBeacon]()
-	var camera = GMSCameraPosition.camera(withLatitude: 51.45105, longitude: -2.30456, zoom: 14)
+	var camera = GMSCameraPosition.camera(withLatitude: 51.45105, longitude: -2.30456, zoom: 3.5)
 
 	///------------------------------------------------------------------------------------------
 	/// Load The View
@@ -30,34 +30,28 @@ class OEMapViewController: UIViewController, CLLocationManagerDelegate {
         mapView = GMSMapView.map(withFrame: .zero, camera: camera)
         mapView.isMyLocationEnabled = true
 		
+		
+		do {
+			if let styleURL = Bundle.main.url(forResource: "style", withExtension: "json") {
+				mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+			} else {
+				print("Whoa There! There is no Style.json")
+			}
+			
+		} catch {
+			print("Style Failed")
+		}
+		
+		
+		
 		// Set the main view to be the map view
         self.view = mapView
 		
         for beacon in self.beacons {
-		
-            // This is for Debug purposes only
-			let outerCircle = GMSCircle(position: beacon.beaconData.centercoordinate, radius: CLLocationDistance(beacon.beaconData.outerradius))
-            outerCircle.title = beacon.beaconData.name
-            outerCircle.strokeColor = UIColor.red
-            outerCircle.fillColor = UIColor.red
-            outerCircle.isTappable = true
-            outerCircle.map = mapView
-            
-            let midCircle = GMSCircle(position: beacon.beaconData.centercoordinate, radius: CLLocationDistance(beacon.beaconData.innerradius))
-            midCircle.title = beacon.beaconData.name
-            midCircle.strokeColor = UIColor.orange
-            midCircle.fillColor = UIColor.orange
-            midCircle.isTappable = true
-            midCircle.map = mapView
-            
-            let innerCirle = GMSCircle(position: beacon.beaconData.centercoordinate, radius: CLLocationDistance(beacon.beaconData.centerradius))
+			let innerCirle = GMSMarker(position: beacon.beaconData.centercoordinate)
             innerCirle.title = beacon.beaconData.name
-            innerCirle.strokeColor = UIColor.green
-            innerCirle.fillColor = UIColor.green
-            innerCirle.isTappable = true
+			innerCirle.isFlat = true
             innerCirle.map = mapView
-			
-			
         }
     }
 	

@@ -61,5 +61,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>CooperHewitt-Heavy.otf</string>
+		<string>NimbusSanL-Reg.otf</string>
+	</array>
 </dict>
 </plist>

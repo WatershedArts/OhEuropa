@@ -30,6 +30,8 @@ class OECompass : ProcessingView {
 	
 	var zoneData = [(false,0.0,UIColor.red),(false,0.0,UIColor.yellow),(false,0.0,UIColor.green)]
 	
+	var line = [Dictionary<Double,Double>]()
+	
 	var theta = 0.0
 	var amplitude = 75.0
 	var period = 500.0
@@ -43,6 +45,7 @@ class OECompass : ProcessingView {
 	///
 	///------------------------------------------------------------------------------------------
 	func setup() {
+		
 		background(UIColor.white)
 		frameRate(60);
 		centerX = self.frame.width / 2
@@ -119,8 +122,8 @@ class OECompass : ProcessingView {
 		drawMarker()
 		popMatrix()
 		popMatrix()
-		calcWave()
-		drawWave()
+//		calcWave()
+//		drawWave()
 	}
 	
 	///------------------------------------------------------------------------------------------

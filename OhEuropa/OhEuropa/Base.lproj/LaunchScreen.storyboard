@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="CooperHewitt-Heavy.otf">
+            <string>CooperHewitt-Heavy</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
@@ -18,24 +23,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oh Europa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bhb-O6-3Gu">
-                                <rect key="frame" x="75.5" y="303" width="224.5" height="60"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v1.0.82" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHk-OW-Rrv">
                                 <rect key="frame" x="160" y="373" width="55" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oh Europa" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bhb-O6-3Gu">
+                                <rect key="frame" x="55" y="305.5" width="265" height="56"/>
+                                <fontDescription key="fontDescription" name="CooperHewitt-Heavy" family="Cooper Hewitt" pointSize="56"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Bhb-O6-3Gu" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="5Cl-3c-H83"/>
                             <constraint firstItem="nHk-OW-Rrv" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="50" id="8J6-6R-zbl"/>
-                            <constraint firstItem="Bhb-O6-3Gu" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="wIu-WS-Ylt"/>
+                            <constraint firstItem="Bhb-O6-3Gu" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="NtP-8G-CZE"/>
+                            <constraint firstItem="Bhb-O6-3Gu" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="u1q-ss-cG1"/>
                             <constraint firstItem="nHk-OW-Rrv" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ymy-9T-Q8R"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

@@ -396,13 +396,13 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///   - sender: <#sender description#>
 	///------------------------------------------------------------------------------------------
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if segue.identifier == "showMap" {
-			let destinationVC = segue.destination as! OEMapViewController
-			destinationVC.beacons = self.beacons
-			print("Sending You Some Data \(self.beacons)")
-		}
-        else if segue.identifier == "showInformation" {
-            let destinationVC = segue.destination as! OEInformationViewController
-        }
+//		if segue.identifier == "showMap" {
+//			let destinationVC = segue.destination as! OEMapViewController
+//			destinationVC.beacons = self.beacons
+////			print("Sending You Some Data \(self.beacons)")
+//		}
+//        else if segue.identifier == "showInformation" {
+//            let destinationVC = segue.destination as! OEInformationViewController
+//        }
 	}
 }

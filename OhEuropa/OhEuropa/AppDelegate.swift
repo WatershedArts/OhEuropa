@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	var window: UIWindow?
 	
+	
 	///------------------------------------------------------------------------------------------
 	/// Generate a Random String as the Users ID
 	///
@@ -109,6 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		GMSServices.provideAPIKey(GOOGLE_API_KEY);
 		getUserIdentifier()
+		application.isStatusBarHidden = true
 		return true
 	}
 

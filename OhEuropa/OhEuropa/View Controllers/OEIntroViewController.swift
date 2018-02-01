@@ -14,7 +14,7 @@ class OEIntroViewController: UIViewController {
 	
 	func createGradientForBackground() {
 		gradientLayer = CAGradientLayer()
-		gradientLayer.colors = [DEFAULT_COLOR_OPPOSED.cgColor,DEFAULT_COLOR.cgColor]
+		gradientLayer.colors = [GRADIENT_COLOR_TOP.cgColor,GRADIENT_COLOR_BOTTOM.cgColor]
 		gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
 		gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
 		gradientLayer.frame = self.view.frame

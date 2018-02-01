@@ -34,14 +34,12 @@ class OECompass : ProcessingView {
 	var zoneData = [(false,0.0,UIColor.red),(false,0.0,UIColor.yellow),(false,0.0,UIColor.green)]
 	
 	// Rather than writing it out three times
-	
-	
 	// The colors are accordingly (DefaultState : CurrentState : ActiveState)
 	var centerBeaconAnimationColors = [
 		(UIColor.white,UIColor.white,UIColor.clear), // 1: is the marker triangle, outer lines and the North symbol
-		(DEFAULT_COLOR_OPPOSED,DEFAULT_COLOR_OPPOSED,DEFAULT_COLOR), // 2: is the outershell
-		(DEFAULT_COLOR,DEFAULT_COLOR,DEFAULT_COLOR_OPPOSED), // 3: is the center
-		(UIColor.clear,UIColor.clear,DEFAULT_COLOR_OPPOSED) // 4: is the centerimage
+		(ACTIVE_COMPASS_COLOR,ACTIVE_COMPASS_COLOR,INACTIVE_COMPASS_COLOR), // 2: is the outershell
+		(INACTIVE_COMPASS_COLOR,INACTIVE_COMPASS_COLOR,ACTIVE_COMPASS_COLOR), // 3: is the center
+		(UIColor.clear,UIColor.clear,INACTIVE_COMPASS_COLOR) // 4: is the centerimage
 	]
 	
 	///------------------------------------------------------------------------------------------
@@ -53,7 +51,7 @@ class OECompass : ProcessingView {
 		frameRate(60);
 		centerX = self.frame.width / 2
 		centerY = self.frame.height / 2
-		compassRadius = Double(centerX) - 40.0
+		compassRadius = Double(centerX) - 50.0
 	}
 	
 
@@ -72,18 +70,18 @@ class OECompass : ProcessingView {
 		translate(x: -centerX, y: -centerY)
 		
 		fill(centerBeaconAnimationColors[1].1)
-		ellipse(centerX, centerY, CGFloat((compassRadius*2)+20), CGFloat((compassRadius*2)+20))
+		ellipse(centerX, centerY, CGFloat((compassRadius*2)+10), CGFloat((compassRadius*2)+10))
 		
 		fill(centerBeaconAnimationColors[2].1)
-		ellipse(centerX, centerY, CGFloat((compassRadius*2)), CGFloat((compassRadius*2)))
+		ellipse(centerX, centerY, CGFloat((compassRadius*2)-10), CGFloat((compassRadius*2)-10))
 		
-		strokeWeight(1.5)
+		strokeWeight(2.5)
 		
 		for i in stride(from: 0, to: 360, by: 10) {
-			let rx = CGFloat(Double(centerX) + ((compassRadius + 7.0) * sin(Double(i).toRadians())))
-			let ry = CGFloat(Double(centerY) - ((compassRadius + 7.0) * cos(Double(i).toRadians())))
-			let drx = CGFloat(Double(centerX) + ((compassRadius) * sin(Double(i).toRadians())))
-			let dry = CGFloat(Double(centerY) - ((compassRadius) * cos(Double(i).toRadians())))
+			let rx = CGFloat(Double(centerX) + ((compassRadius - 5.0) * sin(Double(i).toRadians())))
+			let ry = CGFloat(Double(centerY) - ((compassRadius - 5.0) * cos(Double(i).toRadians())))
+			let drx = CGFloat(Double(centerX) + ((compassRadius + 2.5) * sin(Double(i).toRadians())))
+			let dry = CGFloat(Double(centerY) - ((compassRadius + 2.5) * cos(Double(i).toRadians())))
 
 			fill(centerBeaconAnimationColors[0].1)
 			stroke(centerBeaconAnimationColors[0].1)
@@ -91,6 +89,7 @@ class OECompass : ProcessingView {
 				textFont(UIFont(name: "Nimbus Sans L", size: 20)!)
 				textAlign(.center)
 				text("N", rx, ry+40)
+				line(rx, ry, drx, dry);
 			}
 			else {
 				line(rx, ry, drx, dry);
@@ -130,7 +129,7 @@ class OECompass : ProcessingView {
 	///------------------------------------------------------------------------------------------
 	public func drawMarker() {
 		
-		let tmpRadius = CGFloat(compassRadius + 30)
+		let tmpRadius = CGFloat(compassRadius + 10)
 		let tmpX = CGFloat(centerX)
 		
 		pushMatrix()
@@ -142,7 +141,7 @@ class OECompass : ProcessingView {
 		stroke(centerBeaconAnimationColors[0].1)
 		strokeWeight(2)
 		beginShape()
-		vertex(centerX, CGFloat(compassRadius + 30 - 20))
+		vertex(centerX, CGFloat(compassRadius + 10 - 20))
 		vertex(tmpX + 10.0, tmpRadius)
 		vertex(tmpX - 10.0, tmpRadius)
 		endShape(EndShapeMode.close)

@@ -13,6 +13,9 @@ import GameKit
 
 class OECompass : ProcessingView {
 
+	let easingType = Easing.exponentialInOut
+	let easingTime = 2.0
+	
 	var markers = [OEBeaconMarker]()
 	var currentAngle: Double = 0.0
 
@@ -30,52 +33,29 @@ class OECompass : ProcessingView {
 	
 	var zoneData = [(false,0.0,UIColor.red),(false,0.0,UIColor.yellow),(false,0.0,UIColor.green)]
 	
-	var line = [Dictionary<Double,Double>]()
+	// Rather than writing it out three times
 	
-	var theta = 0.0
-	var amplitude = 75.0
-	var period = 500.0
-	var dx = 0.0
-	var yValues = [Double]()
-	var xspacing = 10.0
-	var w = 0.0
+	
+	// The colors are accordingly (DefaultState : CurrentState : ActiveState)
+	var centerBeaconAnimationColors = [
+		(UIColor.white,UIColor.white,UIColor.clear), // 1: is the marker triangle, outer lines and the North symbol
+		(DEFAULT_COLOR_OPPOSED,DEFAULT_COLOR_OPPOSED,DEFAULT_COLOR), // 2: is the outershell
+		(DEFAULT_COLOR,DEFAULT_COLOR,DEFAULT_COLOR_OPPOSED), // 3: is the center
+		(UIColor.clear,UIColor.clear,DEFAULT_COLOR_OPPOSED) // 4: is the centerimage
+	]
 	
 	///------------------------------------------------------------------------------------------
 	/// Setup
 	///
 	///------------------------------------------------------------------------------------------
 	func setup() {
-		
 		background(UIColor.clear)
 		frameRate(60);
 		centerX = self.frame.width / 2
 		centerY = self.frame.height / 2
 		compassRadius = Double(centerX) - 40.0
-		w = Double(self.frame.width)
-		dx = (Double(TWO_PI) / Double(period)) * xspacing
-		let t = Int(w / xspacing)
-		for i in 0...t {
-			yValues.append(0.0)
-		}
 	}
 	
-	func calcWave() {
-		theta += 0.002
-		var x = theta
-		for i in 0...yValues.count-1 {
-			yValues[i] = cos(Double(x)) * amplitude
-			x+=dx
-		}
-	}
-	
-	func drawWave() {
-		noStroke()
-		fill(UIColor.black)
-		
-		for i in 0...yValues.count-1 {
-			ellipse(CGFloat(i) * CGFloat(xspacing), CGFloat(centerY) + CGFloat(yValues[i]), 4, 4)
-		}
-	}
 
 	///------------------------------------------------------------------------------------------
 	/// Draw the Context View
@@ -91,12 +71,11 @@ class OECompass : ProcessingView {
 		pushMatrix()
 		translate(x: -centerX, y: -centerY)
 		
-		fill(DEFAULT_COLOR_OPPOSED)
+		fill(centerBeaconAnimationColors[1].1)
 		ellipse(centerX, centerY, CGFloat((compassRadius*2)+20), CGFloat((compassRadius*2)+20))
 		
-		fill(DEFAULT_COLOR)
+		fill(centerBeaconAnimationColors[2].1)
 		ellipse(centerX, centerY, CGFloat((compassRadius*2)), CGFloat((compassRadius*2)))
-		
 		
 		strokeWeight(1.5)
 		
@@ -106,11 +85,10 @@ class OECompass : ProcessingView {
 			let drx = CGFloat(Double(centerX) + ((compassRadius) * sin(Double(i).toRadians())))
 			let dry = CGFloat(Double(centerY) - ((compassRadius) * cos(Double(i).toRadians())))
 
-			fill(UIColor.white)
-			stroke(UIColor.white)
+			fill(centerBeaconAnimationColors[0].1)
+			stroke(centerBeaconAnimationColors[0].1)
 			if i == 0 {
-				textFont(UIFont.systemFont(ofSize: 15.0))
-				
+				textFont(UIFont(name: "Nimbus Sans L", size: 20)!)
 				textAlign(.center)
 				text("N", rx, ry+40)
 			}
@@ -122,8 +100,6 @@ class OECompass : ProcessingView {
 		drawMarker()
 		popMatrix()
 		popMatrix()
-//		calcWave()
-//		drawWave()
 	}
 	
 	///------------------------------------------------------------------------------------------
@@ -154,7 +130,7 @@ class OECompass : ProcessingView {
 	///------------------------------------------------------------------------------------------
 	public func drawMarker() {
 		
-		let tmpRadius = CGFloat(compassRadius+30)
+		let tmpRadius = CGFloat(compassRadius + 30)
 		let tmpX = CGFloat(centerX)
 		
 		pushMatrix()
@@ -163,10 +139,10 @@ class OECompass : ProcessingView {
 		pushMatrix()
 		translate(x: -centerX, y: -centerY)
 		noFill()
-		stroke(UIColor.black)
+		stroke(centerBeaconAnimationColors[0].1)
 		strokeWeight(2)
 		beginShape()
-		vertex(centerX, CGFloat(compassRadius+30 - 20))
+		vertex(centerX, CGFloat(compassRadius + 30 - 20))
 		vertex(tmpX + 10.0, tmpRadius)
 		vertex(tmpX - 10.0, tmpRadius)
 		endShape(EndShapeMode.close)
@@ -186,65 +162,73 @@ class OECompass : ProcessingView {
 	}
 	
 	///------------------------------------------------------------------------------------------
-	/// <#Description#>
+	/// If the User Enters the Beacon Zone
 	///
-	/// - Parameter zonetype: <#zonetype description#>
-	///------------------------------------------------------------------------------------------
-	func deactivateIndicator(zonetype: String) {
-		if zonetype == "O" {
-			zoneData[0].0 = false
-		}
-		else if zonetype == "I" {
-			zoneData[1].0 = false
-		}
-		else if zonetype == "C" {
-			zoneData[2].0 = false
-		}
-	}
-	
-	///------------------------------------------------------------------------------------------
-	/// <#Description#>
-	///
-	/// - Parameter zonetype: <#zonetype description#>
+	/// - Parameter zonetype: zone id
 	///------------------------------------------------------------------------------------------
 	public func enteredBeaconZone(zonetype:String) {
-		if zonetype == "O" {
-			zoneData[0].0 = true
-			let move = InterpolationAction(from: fromSize, to: toSize, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.zoneData[0].1 = $0 }
-			scheduler.run(action: move)
+		
+		if zonetype == "C" {
+			let set1 = InterpolationAction(from: centerBeaconAnimationColors[0].0,
+										   to: centerBeaconAnimationColors[0].2,
+										   duration: easingTime,
+										   easing: easingType) { [unowned self] in self.centerBeaconAnimationColors[0].1 = $0 }
+			
+			let set2 = InterpolationAction(from: centerBeaconAnimationColors[1].0,
+										   to: centerBeaconAnimationColors[1].2,
+										   duration: easingTime,
+										   easing: easingType) { [unowned self] in self.centerBeaconAnimationColors[1].1 = $0 }
+			
+			let set3 = InterpolationAction(from: centerBeaconAnimationColors[2].0,
+										   to: centerBeaconAnimationColors[2].2,
+										   duration: easingTime,
+										   easing: easingType) { [unowned self] in self.centerBeaconAnimationColors[2].1 = $0 }
+			
+			let set4 = InterpolationAction(from: centerBeaconAnimationColors[3].0,
+										   to: centerBeaconAnimationColors[3].2,
+										   duration: easingTime,
+										   easing: easingType) { [unowned self] in self.centerBeaconAnimationColors[3].1 = $0 }
+			
+			let actions = ActionGroup(actions: set1,set2,set3,set4)
+			scheduler.run(action: actions)
 		}
-		else if zonetype == "I" {
-			zoneData[1].0 = true
-			let move = InterpolationAction(from: fromSize, to: toSize, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.zoneData[1].1 = $0 }
-			scheduler.run(action: move)
-		}
-		else if zonetype == "C" {
-			zoneData[2].0 = true
-			let move = InterpolationAction(from: fromSize, to: toSize, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.zoneData[2].1 = $0 }
-			scheduler.run(action: move)
+		else {
+			
 		}
 	}
 	
 	///------------------------------------------------------------------------------------------
-	/// <#Description#>
+	/// If user Exits the Beacon Zone
 	///
-	/// - Parameter zonetype: <#zonetype description#>
+	/// - Parameter zonetype: Zone id
 	///------------------------------------------------------------------------------------------
 	public func exittedBeaconZone(zonetype:String) {
-		if zonetype == "O" {
-			let move = InterpolationAction(from: toSize, to: fromSize, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.zoneData[0].1 = $0 }
-			move.onBecomeInactive = { self.deactivateIndicator(zonetype: "O") }
-			scheduler.run(action: move)
+		if zonetype == "C" {
+			let set1 = InterpolationAction(from: centerBeaconAnimationColors[0].2,
+										   to: centerBeaconAnimationColors[0].0,
+										   duration: easingTime,
+										   easing: easingType) { [unowned self] in self.centerBeaconAnimationColors[0].1 = $0 }
+			
+			let set2 = InterpolationAction(from: centerBeaconAnimationColors[1].2,
+										   to: centerBeaconAnimationColors[1].0,
+										   duration: easingTime,
+										   easing: easingType) { [unowned self] in self.centerBeaconAnimationColors[1].1 = $0 }
+			
+			let set3 = InterpolationAction(from: centerBeaconAnimationColors[2].2,
+										   to: centerBeaconAnimationColors[2].0,
+										   duration: easingTime,
+										   easing: easingType) { [unowned self] in self.centerBeaconAnimationColors[2].1 = $0 }
+			
+			let set4 = InterpolationAction(from: centerBeaconAnimationColors[3].2,
+										   to: centerBeaconAnimationColors[3].0,
+										   duration: easingTime,
+										   easing: easingType) { [unowned self] in self.centerBeaconAnimationColors[3].1 = $0 }
+			
+			let actions = ActionGroup(actions: set1,set2,set3,set4)
+			scheduler.run(action: actions)
 		}
-		else if zonetype == "I" {
-			let move = InterpolationAction(from: toSize, to: fromSize, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.zoneData[1].1 = $0 }
-			move.onBecomeInactive = { self.deactivateIndicator(zonetype: "I") }
-			scheduler.run(action: move)
-		}
-		else if zonetype == "C" {
-			let move = InterpolationAction(from: toSize, to: fromSize, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.zoneData[2].1 = $0 }
-			move.onBecomeInactive = { self.deactivateIndicator(zonetype: "C") }
-			scheduler.run(action: move)
+		else {
+			
 		}
 	}
 }

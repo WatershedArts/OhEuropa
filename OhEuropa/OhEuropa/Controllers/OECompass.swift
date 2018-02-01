@@ -46,7 +46,7 @@ class OECompass : ProcessingView {
 	///------------------------------------------------------------------------------------------
 	func setup() {
 		
-		background(UIColor.white)
+		background(UIColor.clear)
 		frameRate(60);
 		centerX = self.frame.width / 2
 		centerY = self.frame.height / 2
@@ -81,7 +81,7 @@ class OECompass : ProcessingView {
 	/// Draw the Context View
 	///------------------------------------------------------------------------------------------
 	func draw() {
-		background(UIColor.white)
+		background(UIColor.clear)
 	
 		noStroke()
 		strokeWeight(3.0)

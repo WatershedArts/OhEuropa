@@ -29,6 +29,21 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	var scrollingLabel: MarqueeLabel!
 	let scheduler = ActionScheduler()
 	
+	var gradientLayer: CAGradientLayer!
+	
+
+	///------------------------------------------------------------------------------------------
+	/// Create the Gradient for the Background
+	///------------------------------------------------------------------------------------------
+	func createGradientForBackground() {
+		gradientLayer = CAGradientLayer()
+		gradientLayer.colors = [DEFAULT_COLOR_OPPOSED.cgColor,DEFAULT_COLOR.cgColor]
+		gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+		gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
+		gradientLayer.frame = self.view.frame
+		self.view.layer.insertSublayer(gradientLayer,at: 0)
+	}
+	
 	///------------------------------------------------------------------------------------------
 	/// Setup View Controller
 	///------------------------------------------------------------------------------------------
@@ -63,7 +78,8 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	func parseBeacons(com:[OEMapBeacon]!) {
 		print("Got Beacons")
 		beacons = com
-		
+		let dvc = tabBarController?.viewControllers![1] as! OEMapViewController
+		dvc.beacons = beacons
 	}
 	
 	///------------------------------------------------------------------------------------------
@@ -344,7 +360,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
 		setup()
 		
-
+		
     }
 
 	///------------------------------------------------------------------------------------------
@@ -362,6 +378,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		scrollingLabel.type = .left
 		scrollingLabel.text = ""
 		self.view.addSubview(scrollingLabel)
+		createGradientForBackground()
 		getTrackName()
 	}
 	

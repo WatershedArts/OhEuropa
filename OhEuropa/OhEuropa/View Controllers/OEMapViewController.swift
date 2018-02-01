@@ -51,7 +51,7 @@ class OEMapViewController: UIViewController, CLLocationManagerDelegate {
 			let innerCirle = GMSMarker(position: beacon.beaconData.centercoordinate)
             innerCirle.title = beacon.beaconData.name
 			innerCirle.isFlat = true
-			innerCirle.icon = UIImage(named: "OhEuropaMarker.png")
+			innerCirle.icon = UIImage(named: "MarkerIcon")
             innerCirle.map = mapView
         }
     }

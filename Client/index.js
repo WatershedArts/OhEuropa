@@ -53,7 +53,7 @@ function createMarkerInfoWindow(data) {
  * Get Places from the Server
 */
 function getBeacons(map) {
-    var image = './marker.png';
+    var image = './OhEuropaMarker.png';
     $.getJSON("https://www.davidhaylock.co.uk/oheuropa/getdata.php?getplaces", function(json) {
         $.each(json['data'], function(key,data){
 
@@ -70,7 +70,7 @@ function getBeacons(map) {
                 map: map,
                 animation: google.maps.Animation.DROP,
                 title: data['name'],
-                icon: image
+		icon: image
             });
 
             marker.addListener('click',function(){
@@ -87,7 +87,6 @@ function getBeacons(map) {
 function initializeMap() {
 
     map = new google.maps.Map(document.getElementById('map'), {
-        styles: contraststyle,
         minZone: 4,
         maxZone: 20,
         center: {

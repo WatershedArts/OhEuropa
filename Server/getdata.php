@@ -1,29 +1,43 @@
 <?php
-    if(isset($_GET['getplaces'])) {
+
+    if(isset($_GET['getplaces']))
+    {
         include('dev_oheuropa.php');
 
         postMessageToSlack("ATTEMPT","getdata.php",__LINE__,"Attempting to Get GPS Zones");
      
         $query = "
-                SELECT
-                    COUNT( interactions.id ) AS radioplays,
-                    interactions.placeid,
-                    places.name,
-                    places.lat,
-                    places.lng,
-                    places.datecreated
-                FROM  `interactions` AS interactions
-                INNER JOIN  `places` AS places
-                ON interactions.placeid = places.placeid
-                WHERE zoneid =  'C'
-                    AND ACTION =  'enter'
-                GROUP BY placeid
+            SELECT
+                id,
+                name,
+                placeid,
+                lat,
+                lng,
+                datecreated,
+                centerradius,
+                innerradius,
+                outerradius,
+                (
+                    SELECT
+                        COUNT(id)
+                    FROM `interactions`
+                    WHERE zoneid = 'C'
+                    AND action = 'enter'
+                    AND placeid = places.placeid
+                ) as radioplays,
+                (
+                    SELECT
+                        COUNT(id)
+                    FROM `interactions`
+                    WHERE (zoneid = 'I' OR zoneid = 'O')
+                    AND action = 'enter'
+                    AND placeid = places.placeid
+                ) as nearbys
+                FROM `places` as places
             ";
-
 
         $results = $DBH->prepare($query);
         $results->execute();
-
 
         if (!$results) {
             $feedback = array( "success" => false, "message" => "Error: " . $idsResult->errorCode());
@@ -89,7 +103,9 @@
         header("Cache-Control: no-cache, must-revalidate");
         header("Pragma: no-cache");
         header("Content-type: application/json");
+        // header("Access-Control-Allow-Origin: *");
         $feedback = array( "success" => true, "numberofsongs" => count($songs) , "data" => $songs );
+        //postMessageToSlack("SUCCESS","getdata.php",__LINE__,json_encode($feedback));
         echo json_encode($feedback);
         exit;
     }

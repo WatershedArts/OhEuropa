@@ -1,7 +1,7 @@
 <?php
-    header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); 
-    header("Last-Modified: " . gmdate( "D, d M Y H:i:s" ) . "GMT"); 
-    header("Cache-Control: no-cache, must-revalidate"); 
+    header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+    header("Last-Modified: " . gmdate( "D, d M Y H:i:s" ) . "GMT");
+    header("Cache-Control: no-cache, must-revalidate");
     header("Pragma: no-cache");
     header("Content-type: application/json");
     header("Access-Control-Allow-Origin: *");
@@ -9,16 +9,18 @@
     //----------------------------------------------------------------------------
     // * This is where we upload new data from the Client Application
     //----------------------------------------------------------------------------
-    if(isset($_GET['newuser'])) {
-        if (!isset($_GET['userid'])) {
+    if(isset($_POST['newuser']))
+    {
+        // function postMessageToSlack($type,$file,$line,$message) {
+        if (!isset($_POST['userid'])) {
             $feedback = array( "success" => false, "message" => "No User Id Attached!" );
             postMessageToSlack("FAILURE","userinteration.php",__LINE__,"No User Id Attached!");
             echo json_encode($feedback);
             exit;
         }
 
-        $userid = $_GET['userid'];
-      
+        $userid = $_POST['userid'];
+
         // Insert New Item into Users
         $query = "INSERT INTO `users` ( `userid` ) VALUES( :userid )";
         $insert = $DBH->prepare($query);
@@ -40,46 +42,47 @@
     //----------------------------------------------------------------------------
     // * This is where we tell the server a user has performed an action
     //----------------------------------------------------------------------------
-    else if(isset($_GET['newevent'])) {
-        if (!isset($_GET['userid'])) {
+    else if(isset($_POST['newevent']))
+    {
+        if (!isset($_POST['userid'])) {
             $feedback = array( "success" => false, "message" => "No User Id Attached!" );
             echo json_encode($feedback);
             exit;
         }
 
-        if (!isset($_GET['placeid'])) {
+        if (!isset($_POST['placeid'])) {
             $feedback = array( "success" => false, "message" => "No Place ID!" );
             echo json_encode($feedback);
             exit;
         }
 
-        if (!isset($_GET['zoneid'])) {
+        if (!isset($_POST['zoneid'])) {
             $feedback = array( "success" => false, "message" => "No Zone ID!" );
             echo json_encode($feedback);
             exit;
         }
-        
-        if (!isset($_GET['action'])) {
+
+        if (!isset($_POST['action'])) {
             $feedback = array( "success" => false, "message" => "No Action!" );
             echo json_encode($feedback);
             exit;
         }
 
-        $userid = $_GET['userid'];
-        $placeid = $_GET['placeid'];
-        $zoneid = $_GET['zoneid'];
-        $action = $_GET['action'];
-      
+        $userid = $_POST['userid'];
+        $placeid = $_POST['placeid'];
+        $zoneid = $_POST['zoneid'];
+        $action = $_POST['action'];
+
         // Insert New Item into Users
-        $query = "INSERT INTO `interactions` 
-                ( 
-                    `userid`, 
+        $query = "INSERT INTO `interactions`
+                (
+                    `userid`,
                     `placeid`,
                     `zoneid`,
                     `action`
-                ) 
-                VALUES( 
-                    :userid, 
+                )
+                VALUES(
+                    :userid,
                     :placeid,
                     :zoneid,
                     :action
@@ -102,7 +105,7 @@
         }
 
         $feedback = array( "success" => true, "message" => "Success" );
+        // Encode feedback as JSON & output:
         echo json_encode($feedback);
         exit;
     }
-

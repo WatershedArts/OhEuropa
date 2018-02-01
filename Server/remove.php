@@ -1,6 +1,7 @@
 <?php
 
-    if(isset($_POST['delete'])) {
+    if(isset($_POST['delete']))
+    {
         include('dev_oheuropa.php');
         if (!isset($_POST['placeid'])) {
             $feedback = array( "success" => false, "message" => "No Place ID Specified!" );
@@ -29,6 +30,7 @@
             exit;
         }
 
+        // var_dump($insert->errorInfo());
         $feedback = array( "success" => true, "message" => "Successfully Deleted Data!" );
         echo json_encode($feedback);
         exit;

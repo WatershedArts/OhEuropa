@@ -24,14 +24,20 @@
             exit;
         }
 
-        if (!isset($_POST['area']) || $_POST['area'] == "") {
-            $feedback = array( "success" => false, "message" => "No Area Size Specified!" );
+        if (!isset($_POST['centerradius']) || $_POST['centerradius'] == "") {
+            $feedback = array( "success" => false, "message" => "No Center Area Size Specified!" );
             echo json_encode($feedback);
             exit;
         }
 
-        if (!isset($_POST['zonenum']) || $_POST['zonenum'] == "") {
-            $feedback = array( "success" => false, "message" => "No Number of Zones Specified!" );
+        if (!isset($_POST['innerradius']) || $_POST['innerradius'] == "") {
+            $feedback = array( "success" => false, "message" => "No Inner Area Size Specified!" );
+            echo json_encode($feedback);
+            exit;
+        }
+
+        if (!isset($_POST['outerradius']) || $_POST['outerradius'] == "") {
+            $feedback = array( "success" => false, "message" => "No Outer Area Size Specified!" );
             echo json_encode($feedback);
             exit;
         }
@@ -40,8 +46,9 @@
         $name = $_POST['placename'];
         $long = $_POST['lng'];
         $lat = $_POST['lat'];
-        $areasize = $_POST['area'];
-        $zonenumber = $_POST['zonenum'];
+        $center_radius = $_POST['centerradius'];
+        $inner_radius = $_POST['innerradius'];
+        $outer_radius = $_POST['outerradius'];
 
         // Insert New Item into Users
         $query = "
@@ -51,8 +58,9 @@
                 `lng`,
                 `lat`,
                 `name`,
-                `areasize`,
-                `zonenumber`
+                `centerradius`,
+                `innerradius`,
+                `outerradius`
             )
             VALUES
             (
@@ -60,20 +68,24 @@
                 :lng,
                 :lat,
                 :name,
-                :areasize,
-                :zonenumber
+                :centerradius,
+                :innerradius,
+                :outerradius
             )
         ";
 
         $insert = $DBH->prepare($query);
-        $insert->execute(array(
-            ":placeid" => $placeid,
-            ":lng" => $long,
-            ":lat" => $lat,
-            ":name" => $name,
-            ":areasize" => $areasize,
-            ":zonenumber" => $zonenumber,
-        ));
+        $insert->execute(
+            array(
+                ":placeid" => $placeid,
+                ":lng" => $long,
+                ":lat" => $lat,
+                ":name" => $name,
+                ":centerradius" => $center_radius,
+                ":innerradius" => $inner_radius,
+                ":outerradius" => $outer_radius
+            )
+        );
 
         if (!$insert) {
             echo "Error: " .$insert->getMessage();

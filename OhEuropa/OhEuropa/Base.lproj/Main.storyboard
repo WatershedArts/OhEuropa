@@ -27,7 +27,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="black-waves.png" translatesAutoresizingMaskIntoConstraints="NO" id="XnN-cH-MJn">
-                                <rect key="frame" x="0.0" y="216" width="375" height="235"/>
+                                <rect key="frame" x="-157.5" y="44.5" width="690" height="578"/>
                                 <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oh Europa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N5d-DD-zQ2">
@@ -36,21 +36,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="center" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="udF-5B-5CD">
-                                <rect key="frame" x="0.0" y="459" width="375" height="150"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="uLO-Ep-lQB"/>
-                                </constraints>
-                                <string key="text">Please be aware that this application uses your GPS and your 3G Data.
-	
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam quam, lacinia et purus commodo, faucibus rhoncus velit.</string>
-                                <fontDescription key="fontDescription" name="NimbusSanL-Reg" family="Nimbus Sans L" pointSize="18"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" shipmentTrackingNumber="YES"/>
-                            </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f1c-f6-1VM">
-                                <rect key="frame" x="113" y="596" width="151" height="51"/>
+                                <rect key="frame" x="113" y="610" width="151" height="37"/>
                                 <fontDescription key="fontDescription" name="CooperHewitt-Heavy" family="Cooper Hewitt" pointSize="25"/>
                                 <state key="normal" title="Continue">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -59,22 +46,23 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam quam, lacinia
                                     <segue destination="lsg-kC-RTH" kind="show" id="FUh-iR-6hM"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mc9-cR-Vm0">
+                                <rect key="frame" x="101" y="553" width="172" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="NimbusSanL-Reg" family="Nimbus Sans L" pointSize="20"/>
+                                <state key="normal" title="oheuropa.com">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="f1c-f6-1VM" firstAttribute="centerX" secondItem="N5d-DD-zQ2" secondAttribute="centerX" id="6KK-qY-SZx"/>
                             <constraint firstItem="N5d-DD-zQ2" firstAttribute="centerY" secondItem="XnN-cH-MJn" secondAttribute="centerY" id="6lh-wS-vdw"/>
                             <constraint firstItem="f1c-f6-1VM" firstAttribute="leading" secondItem="FfQ-rJ-aby" secondAttribute="leading" constant="113" id="COk-R5-dI0"/>
-                            <constraint firstItem="udF-5B-5CD" firstAttribute="centerX" secondItem="00T-jB-77x" secondAttribute="centerX" id="Ecj-Qt-Bd2"/>
-                            <constraint firstItem="f1c-f6-1VM" firstAttribute="top" secondItem="udF-5B-5CD" secondAttribute="bottom" constant="-13" id="VvJ-bm-gy4"/>
                             <constraint firstItem="N5d-DD-zQ2" firstAttribute="centerX" secondItem="XnN-cH-MJn" secondAttribute="centerX" id="blC-Pk-liD"/>
-                            <constraint firstAttribute="bottom" secondItem="udF-5B-5CD" secondAttribute="bottom" constant="58" id="gPv-Qy-8TG"/>
                             <constraint firstAttribute="bottom" secondItem="f1c-f6-1VM" secondAttribute="bottom" constant="20" symbolic="YES" id="hqY-e5-JSp"/>
-                            <constraint firstItem="udF-5B-5CD" firstAttribute="leading" secondItem="XnN-cH-MJn" secondAttribute="leading" id="kum-OE-D5X"/>
-                            <constraint firstItem="udF-5B-5CD" firstAttribute="trailing" secondItem="FfQ-rJ-aby" secondAttribute="trailing" id="nkg-yO-wLp"/>
-                            <constraint firstItem="udF-5B-5CD" firstAttribute="leading" secondItem="FfQ-rJ-aby" secondAttribute="leading" id="oeR-0O-pIh"/>
                             <constraint firstItem="N5d-DD-zQ2" firstAttribute="centerY" secondItem="00T-jB-77x" secondAttribute="centerY" id="qGN-5p-GMd"/>
-                            <constraint firstItem="udF-5B-5CD" firstAttribute="top" secondItem="XnN-cH-MJn" secondAttribute="bottom" constant="8" symbolic="YES" id="szr-Sj-4S9"/>
                             <constraint firstItem="N5d-DD-zQ2" firstAttribute="top" secondItem="FfQ-rJ-aby" secondAttribute="top" constant="278" id="t9G-rG-2dM"/>
                             <constraint firstItem="N5d-DD-zQ2" firstAttribute="centerX" secondItem="00T-jB-77x" secondAttribute="centerX" id="xWx-Vn-oWd"/>
                         </constraints>
@@ -83,7 +71,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam quam, lacinia
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VMz-BR-Wes" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1279" y="215"/>
+            <point key="canvasLocation" x="-1279.2" y="214.54272863568218"/>
         </scene>
         <!--Compass View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -194,54 +182,31 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam quam, lacinia
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oh Europa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2OV-bh-asG">
-                                <rect key="frame" x="16" y="20" width="343" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <rect key="frame" x="16" y="80" width="343" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="xPq-P0-4k7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="CooperHewitt-Heavy" family="Cooper Hewitt" pointSize="32"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Oh Europa is ... Info on project" textAlignment="center" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3AY-jk-zht">
-                                <rect key="frame" x="16" y="60" width="343" height="300"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="7Hb-by-fLx"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                            </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attention" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O7Q-2C-273">
-                                <rect key="frame" x="16" y="368" width="343" height="28"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="28" id="o9c-jM-CrW"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                                <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Please be aware this application uses the phone's GPS and Data Services" textAlignment="center" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kOv-ml-yXa">
-                                <rect key="frame" x="16" y="404" width="343" height="49.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="loU-TN-gW1"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="443-o7-Sc9">
+                                <rect key="frame" x="44" y="138" width="287" height="348"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" name="NimbusSanL-Reg" family="Nimbus Sans L" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="O7Q-2C-273" firstAttribute="leading" secondItem="R87-7a-wVa" secondAttribute="leading" constant="16" id="3uf-EC-KqT"/>
-                            <constraint firstItem="R87-7a-wVa" firstAttribute="trailing" secondItem="kOv-ml-yXa" secondAttribute="trailing" constant="16" id="4iO-Wy-HPR"/>
-                            <constraint firstItem="kOv-ml-yXa" firstAttribute="top" secondItem="O7Q-2C-273" secondAttribute="bottom" constant="8" id="K5s-5b-pxo"/>
-                            <constraint firstItem="R87-7a-wVa" firstAttribute="trailing" secondItem="3AY-jk-zht" secondAttribute="trailing" constant="16" id="O2O-Rc-Qu0"/>
-                            <constraint firstItem="2OV-bh-asG" firstAttribute="leading" secondItem="R87-7a-wVa" secondAttribute="leading" constant="16" id="S4F-QA-CcI"/>
-                            <constraint firstItem="2OV-bh-asG" firstAttribute="top" secondItem="R87-7a-wVa" secondAttribute="top" id="VF9-iw-ww7"/>
-                            <constraint firstItem="R87-7a-wVa" firstAttribute="trailing" secondItem="O7Q-2C-273" secondAttribute="trailing" constant="16" id="ZlO-Cz-nbo"/>
-                            <constraint firstItem="kOv-ml-yXa" firstAttribute="leading" secondItem="R87-7a-wVa" secondAttribute="leading" constant="16" id="c2l-AU-WD5"/>
-                            <constraint firstItem="R87-7a-wVa" firstAttribute="trailing" secondItem="2OV-bh-asG" secondAttribute="trailing" constant="16" id="hbM-GP-4ld"/>
-                            <constraint firstItem="3AY-jk-zht" firstAttribute="leading" secondItem="R87-7a-wVa" secondAttribute="leading" constant="16" id="hiL-g4-5zC"/>
-                            <constraint firstItem="3AY-jk-zht" firstAttribute="top" secondItem="2OV-bh-asG" secondAttribute="bottom" constant="10" id="kkp-r5-cef"/>
-                            <constraint firstItem="O7Q-2C-273" firstAttribute="top" secondItem="3AY-jk-zht" secondAttribute="bottom" constant="8" id="qnZ-rw-qfN"/>
+                            <constraint firstItem="R87-7a-wVa" firstAttribute="trailing" secondItem="443-o7-Sc9" secondAttribute="trailing" constant="44" id="ACv-fK-0N7"/>
+                            <constraint firstItem="R87-7a-wVa" firstAttribute="bottom" secondItem="443-o7-Sc9" secondAttribute="bottom" constant="132" id="Owo-1S-zsc"/>
+                            <constraint firstItem="443-o7-Sc9" firstAttribute="top" secondItem="2OV-bh-asG" secondAttribute="bottom" constant="8" id="RjP-OP-uSX"/>
+                            <constraint firstItem="2OV-bh-asG" firstAttribute="leading" secondItem="R87-7a-wVa" secondAttribute="leading" constant="16" id="V0D-yL-AeM"/>
+                            <constraint firstItem="R87-7a-wVa" firstAttribute="trailing" secondItem="2OV-bh-asG" secondAttribute="trailing" constant="16" id="YK7-xM-xvB"/>
+                            <constraint firstItem="2OV-bh-asG" firstAttribute="top" secondItem="R87-7a-wVa" secondAttribute="top" constant="60" id="ZEc-9C-IuO"/>
+                            <constraint firstItem="443-o7-Sc9" firstAttribute="leading" secondItem="R87-7a-wVa" secondAttribute="leading" constant="44" id="ag6-g9-S1h"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="R87-7a-wVa"/>
                     </view>
@@ -251,7 +216,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam quam, lacinia
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HMt-XT-BAP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1710" y="630"/>
+            <point key="canvasLocation" x="1709.5999999999999" y="629.2353823088456"/>
         </scene>
     </scenes>
     <resources>

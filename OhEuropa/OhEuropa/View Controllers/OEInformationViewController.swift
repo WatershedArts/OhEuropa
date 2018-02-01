@@ -8,9 +8,11 @@
 
 import UIKit
 import AVFoundation
+import FontAwesome_swift
 
 class OEInformationViewController: UIViewController {
 
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 		

@@ -21,7 +21,7 @@ class OECompass : ProcessingView {
 
 	var centerX: CGFloat!
 	var centerY: CGFloat!
-	var compassRadius: Double!
+	var compassRadius: CGFloat!
 	var time = Timer()
 	var beaconMarker: Double = 0.0
 	
@@ -30,6 +30,8 @@ class OECompass : ProcessingView {
 	let toSize = 1000.0
 	var value = 0.0
 	let scheduler = ActionScheduler()
+	
+	var centerImage: UIImageView!
 	
 	var zoneData = [(false,0.0,UIColor.red),(false,0.0,UIColor.yellow),(false,0.0,UIColor.green)]
 	
@@ -51,10 +53,18 @@ class OECompass : ProcessingView {
 		frameRate(60);
 		centerX = self.frame.width / 2
 		centerY = self.frame.height / 2
-		compassRadius = Double(centerX) - 50.0
+		compassRadius = centerX - 50.0
+		let tmpRadius = compassRadius - 5
+		
+		centerImage = UIImageView(frame: CGRect(x: centerX-tmpRadius, y: centerY-tmpRadius, width: CGFloat(tmpRadius*2), height: CGFloat(tmpRadius*2)))
+		centerImage.backgroundColor = UIColor.clear
+		centerImage.image = UIImage(named:"InfoPageWaves")!.maskWithColor(color: INACTIVE_COMPASS_COLOR)
+		
+		centerImage.layer.cornerRadius = centerImage.frame.width/2
+		centerImage.layer.masksToBounds = true
+		self.addSubview(centerImage)
 	}
 	
-
 	///-----------------------------------------------------------------------------
 	/// Draw the Context View
 	///-----------------------------------------------------------------------------
@@ -78,15 +88,15 @@ class OECompass : ProcessingView {
 		strokeWeight(2.5)
 		
 		for i in stride(from: 0, to: 360, by: 10) {
-			let rx = CGFloat(Double(centerX) + ((compassRadius - 5.0) * sin(Double(i).toRadians())))
-			let ry = CGFloat(Double(centerY) - ((compassRadius - 5.0) * cos(Double(i).toRadians())))
-			let drx = CGFloat(Double(centerX) + ((compassRadius + 2.5) * sin(Double(i).toRadians())))
-			let dry = CGFloat(Double(centerY) - ((compassRadius + 2.5) * cos(Double(i).toRadians())))
+			let rx = centerX + (compassRadius - 5.0) * CGFloat(sin(Double(i).toRadians()))
+			let ry = centerY - (compassRadius - 5.0) * CGFloat(cos(Double(i).toRadians()))
+			let drx = centerX + (compassRadius + 2.5) * CGFloat(sin(Double(i).toRadians()))
+			let dry = centerY - (compassRadius + 2.5) * CGFloat(cos(Double(i).toRadians()))
 
 			fill(centerBeaconAnimationColors[0].1)
 			stroke(centerBeaconAnimationColors[0].1)
 			if i == 0 {
-				textFont(UIFont(name: "Nimbus Sans L", size: 20)!)
+				textFont(UIFont.boldSystemFont(ofSize: 20))
 				textAlign(.center)
 				text("N", rx, ry+40)
 				line(rx, ry, drx, dry);
@@ -99,6 +109,7 @@ class OECompass : ProcessingView {
 		drawMarker()
 		popMatrix()
 		popMatrix()
+		
 	}
 	
 	///-----------------------------------------------------------------------------
@@ -129,7 +140,7 @@ class OECompass : ProcessingView {
 	///-----------------------------------------------------------------------------
 	public func drawMarker() {
 		
-		let tmpRadius = CGFloat(compassRadius + 10)
+		let tmpRadius = CGFloat(compassRadius+30)
 		let tmpX = CGFloat(centerX)
 		
 		pushMatrix()
@@ -141,7 +152,7 @@ class OECompass : ProcessingView {
 		stroke(centerBeaconAnimationColors[0].1)
 		strokeWeight(2)
 		beginShape()
-		vertex(centerX, CGFloat(compassRadius + 10 - 20))
+		vertex(centerX, CGFloat(compassRadius + 30 - 20))
 		vertex(tmpX + 10.0, tmpRadius)
 		vertex(tmpX - 10.0, tmpRadius)
 		endShape(EndShapeMode.close)

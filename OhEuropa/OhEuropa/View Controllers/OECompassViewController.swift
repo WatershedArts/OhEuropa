@@ -12,7 +12,6 @@ import Foundation
 import CoreLocation
 import FontAwesome_swift
 import ProcessingKit
-import MarqueeLabel
 import TweenKit
 
 class OECompassViewController: UIViewController, CLLocationManagerDelegate {
@@ -25,7 +24,6 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	var beacons = [OEMapBeacon]()
 	let audioManager = OEAudioController()
 	var trackTimer: Timer!
-	var scrollingLabel: MarqueeLabel!
 	let scheduler = ActionScheduler()
 	
 	var gradientLayer: CAGradientLayer!
@@ -358,25 +356,12 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 		setup()
-		
-		
     }
 
 	///-----------------------------------------------------------------------------
 	/// Waited for the Views to properly scale before creating the compass elements
 	///-----------------------------------------------------------------------------
 	override func viewDidLayoutSubviews() {
-		
-//		scrollingLabel = MarqueeLabel.init(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50),duration:8.0,fadeLength:10.0)
-//		scrollingLabel.backgroundColor = UIColor.clear
-//		scrollingLabel.textColor = UIColor.clear
-//		scrollingLabel.font = UIFont.systemFont(ofSize: 20)
-//		scrollingLabel.animationDelay = 1.0
-//		scrollingLabel.textAlignment = .left
-//		scrollingLabel.fadeLength = 15
-//		scrollingLabel.type = .left
-//		scrollingLabel.text = ""
-//		self.view.addSubview(scrollingLabel)
 		createGradientForBackground()
 		getTrackName()
 	}
@@ -393,8 +378,6 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///-----------------------------------------------------------------------------
 	func setScrollBarText(name: String) {
 		print("Setting Scrollbar to \(name)")
-//		self.scrollingLabel.resetLabel()
-//		self.scrollingLabel.text = name
 	}
 	
 	///-----------------------------------------------------------------------------
@@ -402,23 +385,5 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///-----------------------------------------------------------------------------
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }	
-	
-	///-----------------------------------------------------------------------------
-	/// <#Description#>
-	///
-	/// - Parameters:
-	///   - segue: <#segue description#>
-	///   - sender: <#sender description#>
-	///-----------------------------------------------------------------------------
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//		if segue.identifier == "showMap" {
-//			let destinationVC = segue.destination as! OEMapViewController
-//			destinationVC.beacons = self.beacons
-////			print("Sending You Some Data \(self.beacons)")
-//		}
-//        else if segue.identifier == "showInformation" {
-//            let destinationVC = segue.destination as! OEInformationViewController
-//        }
-	}
+    }
 }

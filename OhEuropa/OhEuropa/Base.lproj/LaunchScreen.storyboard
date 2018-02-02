@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -13,9 +13,6 @@
         <array key="CooperHewitt-Heavy.otf">
             <string>CooperHewitt-Heavy</string>
         </array>
-        <array key="NimbusSanL-Reg.otf">
-            <string>NimbusSanL-Reg</string>
-        </array>
     </customFonts>
     <scenes>
         <!--View Controller-->
@@ -23,17 +20,11 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v1.1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHk-OW-Rrv">
-                                <rect key="frame" x="174" y="600" width="28" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FrontPageWaves" translatesAutoresizingMaskIntoConstraints="NO" id="WzY-Fr-aO5">
-                                <rect key="frame" x="0.0" y="183.5" width="375" height="300"/>
+                                <rect key="frame" x="0.0" y="134" width="320" height="300"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -41,7 +32,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oh Europa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q7d-Wf-ltl">
-                                <rect key="frame" x="59" y="293" width="255.5" height="80"/>
+                                <rect key="frame" x="32.5" y="244" width="255.5" height="80"/>
                                 <color key="tintColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="rxO-zb-SLo"/>
@@ -50,36 +41,34 @@
                                 <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rgm-eG-bpo">
-                                <rect key="frame" x="123" y="490" width="128" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v1.11" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHk-OW-Rrv">
+                                <rect key="frame" x="132" y="528" width="56" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="ax1-l4-Ab6"/>
+                                    <constraint firstAttribute="height" constant="20" id="2Ir-Vy-dHo"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="NimbusSanL-Reg" family="Nimbus Sans L" pointSize="20"/>
-                                <state key="normal" title="oheuropa.com">
-                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                            </button>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="nHk-OW-Rrv" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="277" id="8J6-6R-zbl"/>
-                            <constraint firstItem="nHk-OW-Rrv" firstAttribute="top" secondItem="rgm-eG-bpo" secondAttribute="bottom" constant="80" id="9OZ-i0-hHi"/>
                             <constraint firstAttribute="trailing" secondItem="WzY-Fr-aO5" secondAttribute="trailing" id="Fkr-DA-ggH"/>
-                            <constraint firstItem="rgm-eG-bpo" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="KF2-Zi-Xnc"/>
                             <constraint firstItem="Q7d-Wf-ltl" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Kkv-xD-QRx"/>
+                            <constraint firstItem="nHk-OW-Rrv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="132" id="Nwv-cf-ME3"/>
                             <constraint firstItem="WzY-Fr-aO5" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="PEU-Ut-B5P"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="nHk-OW-Rrv" secondAttribute="trailing" constant="132" id="WyN-Po-63W"/>
                             <constraint firstItem="Q7d-Wf-ltl" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="YvU-MX-uIR"/>
                             <constraint firstItem="WzY-Fr-aO5" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="kKy-q2-tbx"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="nHk-OW-Rrv" secondAttribute="bottom" constant="20" id="pOl-sB-fUv"/>
                             <constraint firstItem="WzY-Fr-aO5" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="pr6-lT-jsT"/>
-                            <constraint firstItem="nHk-OW-Rrv" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ymy-9T-Q8R"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-370.39999999999998" y="323.38830584707648"/>
+            <point key="canvasLocation" x="-371.25" y="323.23943661971833"/>
         </scene>
     </scenes>
     <resources>

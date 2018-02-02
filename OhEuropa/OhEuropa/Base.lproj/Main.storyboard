@@ -26,14 +26,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="black-waves.png" translatesAutoresizingMaskIntoConstraints="NO" id="XnN-cH-MJn">
-                                <rect key="frame" x="-157.5" y="44.5" width="690" height="578"/>
-                                <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oh Europa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N5d-DD-zQ2">
                                 <rect key="frame" x="60.5" y="298" width="255.5" height="70"/>
+                                <color key="tintColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="CooperHewitt-Heavy" family="Cooper Hewitt" pointSize="54"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f1c-f6-1VM">
@@ -54,16 +51,24 @@
                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FrontWaves" translatesAutoresizingMaskIntoConstraints="NO" id="XnN-cH-MJn">
+                                <rect key="frame" x="0.0" y="193" width="375" height="280"/>
+                                <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="280" id="9tM-5X-edO"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="f1c-f6-1VM" firstAttribute="centerX" secondItem="N5d-DD-zQ2" secondAttribute="centerX" id="6KK-qY-SZx"/>
-                            <constraint firstItem="N5d-DD-zQ2" firstAttribute="centerY" secondItem="XnN-cH-MJn" secondAttribute="centerY" id="6lh-wS-vdw"/>
                             <constraint firstItem="f1c-f6-1VM" firstAttribute="leading" secondItem="FfQ-rJ-aby" secondAttribute="leading" constant="113" id="COk-R5-dI0"/>
-                            <constraint firstItem="N5d-DD-zQ2" firstAttribute="centerX" secondItem="XnN-cH-MJn" secondAttribute="centerX" id="blC-Pk-liD"/>
+                            <constraint firstItem="XnN-cH-MJn" firstAttribute="leading" secondItem="FfQ-rJ-aby" secondAttribute="leading" id="X0q-h3-4zI"/>
                             <constraint firstAttribute="bottom" secondItem="f1c-f6-1VM" secondAttribute="bottom" constant="20" symbolic="YES" id="hqY-e5-JSp"/>
                             <constraint firstItem="N5d-DD-zQ2" firstAttribute="centerY" secondItem="00T-jB-77x" secondAttribute="centerY" id="qGN-5p-GMd"/>
+                            <constraint firstItem="XnN-cH-MJn" firstAttribute="trailing" secondItem="FfQ-rJ-aby" secondAttribute="trailing" id="rhf-JA-ife"/>
                             <constraint firstItem="N5d-DD-zQ2" firstAttribute="top" secondItem="FfQ-rJ-aby" secondAttribute="top" constant="278" id="t9G-rG-2dM"/>
+                            <constraint firstItem="XnN-cH-MJn" firstAttribute="centerY" secondItem="00T-jB-77x" secondAttribute="centerY" id="x03-VH-dOp"/>
                             <constraint firstItem="N5d-DD-zQ2" firstAttribute="centerX" secondItem="00T-jB-77x" secondAttribute="centerX" id="xWx-Vn-oWd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FfQ-rJ-aby"/>
@@ -84,7 +89,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Lj-MX-Bsb" customClass="OECompass" customModule="OhEuropa" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="black-waves-main.png" translatesAutoresizingMaskIntoConstraints="NO" id="tti-qV-rtS">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CompassWave" translatesAutoresizingMaskIntoConstraints="NO" id="tti-qV-rtS">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="220"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="220" id="okO-8j-mQ6"/>
@@ -152,11 +157,11 @@
             </objects>
             <point key="canvasLocation" x="1710" y="-195"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tab Bar View Controller-->
         <scene sceneID="aEq-tZ-vb0">
             <objects>
-                <tabBarController id="lsg-kC-RTH" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" backgroundImage="tabbar.png" id="0Ci-ff-bGt">
+                <tabBarController id="lsg-kC-RTH" customClass="OETabBarViewController" customModule="OhEuropa" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="0Ci-ff-bGt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -181,6 +186,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InfoWave" translatesAutoresizingMaskIntoConstraints="NO" id="u4l-mA-wRA">
+                                <rect key="frame" x="0.0" y="418" width="375" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="sgf-Ff-2Ej"/>
+                                </constraints>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oh Europa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2OV-bh-asG">
                                 <rect key="frame" x="16" y="80" width="343" height="50"/>
                                 <constraints>
@@ -201,12 +212,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="R87-7a-wVa" firstAttribute="trailing" secondItem="443-o7-Sc9" secondAttribute="trailing" constant="44" id="ACv-fK-0N7"/>
+                            <constraint firstItem="u4l-mA-wRA" firstAttribute="trailing" secondItem="R87-7a-wVa" secondAttribute="trailing" id="EXZ-z3-hx9"/>
+                            <constraint firstItem="u4l-mA-wRA" firstAttribute="bottom" secondItem="R87-7a-wVa" secondAttribute="bottom" id="Erw-qr-DDa"/>
                             <constraint firstItem="R87-7a-wVa" firstAttribute="bottom" secondItem="443-o7-Sc9" secondAttribute="bottom" constant="132" id="Owo-1S-zsc"/>
                             <constraint firstItem="443-o7-Sc9" firstAttribute="top" secondItem="2OV-bh-asG" secondAttribute="bottom" constant="8" id="RjP-OP-uSX"/>
                             <constraint firstItem="2OV-bh-asG" firstAttribute="leading" secondItem="R87-7a-wVa" secondAttribute="leading" constant="16" id="V0D-yL-AeM"/>
                             <constraint firstItem="R87-7a-wVa" firstAttribute="trailing" secondItem="2OV-bh-asG" secondAttribute="trailing" constant="16" id="YK7-xM-xvB"/>
                             <constraint firstItem="2OV-bh-asG" firstAttribute="top" secondItem="R87-7a-wVa" secondAttribute="top" constant="60" id="ZEc-9C-IuO"/>
                             <constraint firstItem="443-o7-Sc9" firstAttribute="leading" secondItem="R87-7a-wVa" secondAttribute="leading" constant="44" id="ag6-g9-S1h"/>
+                            <constraint firstItem="u4l-mA-wRA" firstAttribute="leading" secondItem="R87-7a-wVa" secondAttribute="leading" id="hca-QZ-cYL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="R87-7a-wVa"/>
                     </view>
@@ -221,10 +235,10 @@
     </scenes>
     <resources>
         <image name="CompassIcon" width="25" height="25"/>
+        <image name="CompassWave" width="198" height="130"/>
+        <image name="FrontWaves" width="312" height="280"/>
         <image name="InfoIcon" width="25" height="25"/>
+        <image name="InfoWave" width="225" height="125"/>
         <image name="MapIcon" width="25" height="25"/>
-        <image name="black-waves-main.png" width="867" height="523"/>
-        <image name="black-waves.png" width="690" height="578"/>
-        <image name="tabbar.png" width="375" height="49"/>
     </resources>
 </document>

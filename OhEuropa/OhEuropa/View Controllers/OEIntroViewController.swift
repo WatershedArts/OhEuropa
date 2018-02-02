@@ -24,11 +24,12 @@ class OEIntroViewController: UIViewController {
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		createGradientForBackground()
 	}
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		createGradientForBackground()
+		
 		let currentRoute = AVAudioSession.sharedInstance().currentRoute
 		if currentRoute.outputs != nil {
 			for description in currentRoute.outputs {

@@ -4,8 +4,6 @@
 
 Oh Europa is an iOS application which checks the users current location against a list of defined beacons. If the User is inside one of the beacon zones the application begins to stream live audio to the device.
 
-### 
-
 ### Files
 
 * AppDelegate.swift
@@ -29,18 +27,45 @@ Oh Europa is an iOS application which checks the users current location against 
 
 | File | Purpose |
 | --- | --- |
-| OETabBarViewController.swift | |
-|OECustomTabBar.swift | |
-|OECustomTabBarItem.swift | |
-|OEMapViewController.swift | |
-|OECompassViewController.swift | |
-|OEInformationViewController.swift | |
-
-OEIntroViewController.swift
+| OETabBarViewController.swift | Handles the Custom Tab Bar Controller |
+| OECustomTabBar.swift | Creates the TaBar |
+| OECustomTabBarItem.swift | Custom Tab Bar Item Object |
+| OEMapViewController.swift | Handles the Map View |
+| OECompassViewController.swift | Handles the Compass and controls the audio and geolocation |
+| OEInformationViewController.swift | Information Handler |
+| OEIntroViewController.swift | Handles the intro view controller |
 
 ### Requirements
 
+The application uses the following additional libraries:
+
+* [Reachability](https://github.com/ashleymills/Reachability.swift)
+* [Google Maps](https://developers.google.com/maps/documentation/ios-sdk/code-samples)
+* [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
+* [Alamofire](https://github.com/Alamofire/Alamofire)
+* [Streaming Kit](https://github.com/tumtumtum/StreamingKit)
+* [Tween Kit](https://github.com/SteveBarnegren/TweenKit)
+* [Processing Kit](https://github.com/natmark/ProcessingKit)
+* [Font Awesome](https://github.com/thii/FontAwesome.swift)
+* [Sync](https://github.com/3lvis/Sync)
+
 ### Screens
+
+**Intro Screen**
+![Intro Screen](./images/oheuropaintro.png)
+
+**Permissions Screen**
+![Permissions Screen](./images/oheuropapermissions.png)
+
+**Compass Screen**
+![Compass Screen](./images/oheuropacompass.png)
+
+**Map Screen**
+![Map Screen](./images/oheuropamap.png)
+
+**Information Screen**
+![Information Screen](./images/oheuropainfo.png)
 
 ### Thanks
 
+* [Adam Bardon](http://http://blog.adambardon.com/how-to-create-custom-tab-bar-in-swift-part-1/) for the tutorial on how to create custom UITabBars.

@@ -12,11 +12,11 @@ import SwiftyJSON
 
 class OEHTTPController: NSObject {
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Post the User Id to the Server
 	///
 	/// - Parameter userid: the users randomely generated id string
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	public func uploadNewUserId(userid:String) {
 		let parameters = [
 			"userid": userid,
@@ -37,11 +37,11 @@ class OEHTTPController: NSObject {
 		}
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Post the User Id to the Server
 	///
 	/// - Parameter userid: the users randomely generated id string
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	public func uploadUserInteraction(userid:String,placeid:String,zoneid:String,action:String) {
 		let parameters = [
 			"newevent":"1",
@@ -65,11 +65,11 @@ class OEHTTPController: NSObject {
 		}
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Get Radio Track
 	///
 	/// - Returns: returns the current radio track
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	public func getCurrentRadioTrack(_ completion: @escaping (String) -> Void) {
 		var returnValue = ""
 		Alamofire.request("https://public.radio.co/stations/s02776f249/status", method: .get)

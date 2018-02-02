@@ -33,7 +33,7 @@ class OEMapBeacon {
 	
 	var beaconData = OEMapBeaconModel()
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Create New Beacon
 	///
 	/// - Parameters:
@@ -46,7 +46,7 @@ class OEMapBeacon {
 	///   - nearbys: how many times someone has been near the beacon
 	///   - placeid: the place id
 	///   - radioplays: how many times the radio has been played in this particular zone
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	init(centercoordinate: CLLocationCoordinate2D, centerradius: Double, innerradius: Double, outerradius: Double, datecreated: String, name: String, nearbys: Int, placeid: String, radioplays: Int) {
 		
 		beaconData.centercoordinate = centercoordinate
@@ -60,13 +60,13 @@ class OEMapBeacon {
 		beaconData.radioplays = Int(radioplays)
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Check the Distance from the Beacon to the Users Location
 	/// This will be as the crow flies distance
 	///
 	/// - Parameter coord: Users Location
 	/// - Returns: Distance in Meters
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	private func computeDistance(coord: CLLocationCoordinate2D) -> Double {
 		let userLat: Double = coord.latitude
 		let userLng: Double = coord.longitude
@@ -83,11 +83,11 @@ class OEMapBeacon {
 		return d
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Check to see if the User has entered any of the Zones
 	///
 	/// - Parameter userlocation: users location
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func checkBeaconDistance(userlocation: CLLocationCoordinate2D!) {
 		distanceFromUser = computeDistance(coord: userlocation)
 		
@@ -131,20 +131,20 @@ class OEMapBeacon {
 		}
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// <#Description#>
 	///
 	/// - Parameter angle: <#angle description#>
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func setHeading(angle:Double) {
 		heading = angle
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// <#Description#>
 	///
 	/// - Returns: <#return value description#>
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func getHeading() -> Double {
 		return heading
 	}

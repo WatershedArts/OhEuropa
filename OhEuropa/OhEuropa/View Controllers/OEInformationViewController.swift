@@ -14,9 +14,9 @@ class OEInformationViewController: UIViewController {
 
 	var gradientLayer: CAGradientLayer!
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Create the Gradient for the Background
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func createGradientForBackground() {
 		gradientLayer = CAGradientLayer()
 		gradientLayer.colors = [GRADIENT_COLOR_TOP.cgColor,GRADIENT_COLOR_BOTTOM.cgColor]
@@ -26,17 +26,17 @@ class OEInformationViewController: UIViewController {
 		self.view.layer.insertSublayer(gradientLayer,at: 0)
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
     /// View Did Load
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
 		createGradientForBackground()
     }
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Memory
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

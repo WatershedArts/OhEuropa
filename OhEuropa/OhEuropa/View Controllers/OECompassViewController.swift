@@ -32,9 +32,9 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	var gradientLayer: CAGradientLayer!
 	
 
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Create the Gradient for the Background
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func createGradientForBackground() {
 		gradientLayer = CAGradientLayer()
 		gradientLayer.colors = [GRADIENT_COLOR_TOP.cgColor,GRADIENT_COLOR_BOTTOM.cgColor]
@@ -44,9 +44,9 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		self.view.layer.insertSublayer(gradientLayer,at: 0)
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Setup View Controller
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func setup() {
 		
 		OEGetBeacons(parseBeacons)
@@ -70,11 +70,11 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Parse the Beacons
 	///
 	/// - Parameter com: the returning value from the async call
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func parseBeacons(com:[OEMapBeacon]!) {
 		print("Got Beacons")
 		beacons = com
@@ -82,16 +82,16 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		dvc.beacons = beacons
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 //	/// Timer Return Function
-//	///------------------------------------------------------------------------------------------
+//	///-----------------------------------------------------------------------------
 //	@objc func getTrackName(com:String!) {
 //		print("Get Track Name")
 //	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Enable the Location Services
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func enableLocationServices() {
 		print("Enabling Location Services")
 		locationManager.delegate = self
@@ -109,23 +109,23 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		}
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Should we show the compass calibration message
 	///
 	/// - Parameter manager: Location Manager Delegate
 	/// - Returns: boolean
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func locationManagerShouldDisplayHeadingCalibration(_ manager: CLLocationManager) -> Bool {
 		return true
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Update the Current Location
 	///
 	/// - Parameters:
 	///   - manager: Location Manager Delegate
 	///   - locations: Current Location
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		let userLocation:CLLocation = locations[0] as CLLocation
 		
@@ -153,38 +153,38 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		}
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Update the Heading
 	///
 	/// - Parameters:
 	///   - manager: Location Manager Delegate
 	///   - newHeading: Updated heading
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
 		if compassView != nil {
 			compassView.setCompassHeading(heading: newHeading.magneticHeading)
 		}
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Location Manager Error Delegate
 	///
 	/// - Parameters:
 	///   - manager: Location Manager
 	///   - error: Error
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 		print("Error \(error)")
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Calculate Relative Heading for beacon
 	///
 	/// - Parameters:
 	///   - userLocation: Current User Location
 	///   - beacons: Beacon Structure
 	/// - Returns: Heading relative to north
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func calculateRelativeHeading(userLocation: CLLocation!,beacons:CLLocationCoordinate2D!) -> Double {
 		
 		let userLocationLat = userLocation.coordinate.latitude.toRadians()
@@ -207,11 +207,11 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	
 	// MARK: Beacon Events.
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Event Observer from the Beacons
 	///
 	/// - Parameter n: <#n description#>
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	@objc func beaconEntered(_ n:Notification) {
 	
 		let move = InterpolationAction(from: UIColor.clear, to: UIColor.black, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.scrollingLabel.textColor = $0 }
@@ -233,11 +233,11 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		audioManager.fadeOutStaticAndFadeUpRadio()
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Event Observer from the Beacons
 	///
 	/// - Parameter n: <#n description#>
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	@objc func beaconExited(_ n:Notification) {
 		
 		let move = InterpolationAction(from: UIColor.black, to: UIColor.clear, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.scrollingLabel.textColor = $0 }
@@ -259,11 +259,11 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		audioManager.fadeOutRadioAndFadeUpStatic()
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Event Observer from the Beacons
 	///
 	/// - Parameter n: <#n description#>
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	@objc func outerBeaconPerimeterEntered(_ n:Notification) {
 
 		if compassView != nil {
@@ -281,11 +281,11 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		audioManager.startPlayingStatic()
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Event Observer from the Beacons
 	///
 	/// - Parameter n: <#n description#>
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	@objc func outerBeaconPerimeterExited(_ n:Notification) {
 		
 		if compassView != nil {
@@ -304,11 +304,11 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		audioManager.stopPlayingStatic()
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Event Observer from the Beacons
 	///
 	/// - Parameter n: <#n description#>
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	@objc func innerBeaconPerimeterEntered(_ n:Notification) {
 		
 		if compassView != nil {
@@ -327,11 +327,11 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		audioManager.crossFadeStaticAndRadio()
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Event Observer from the Beacons
 	///
 	/// - Parameter n: <#n description#>
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	@objc func innerBeaconPerimeterExited(_ n:Notification) {
 		
 		if compassView != nil {
@@ -353,9 +353,9 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	
 	// MARK: View Events.
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
     /// View Did Load
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
 		setup()
@@ -363,9 +363,9 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		
     }
 
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Waited for the Views to properly scale before creating the compass elements
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	override func viewDidLayoutSubviews() {
 		
 		scrollingLabel = MarqueeLabel.init(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50),duration:8.0,fadeLength:10.0)
@@ -382,36 +382,36 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		getTrackName()
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Get the track name for the scroll bar
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	@objc func getTrackName() {
 		httpController.getCurrentRadioTrack(setScrollBarText)
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Get the track name for the scroll bar
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func setScrollBarText(name: String) {
 		print("Setting Scrollbar to \(name)")
 		self.scrollingLabel.resetLabel()
 		self.scrollingLabel.text = name
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// View Did Load
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }	
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// <#Description#>
 	///
 	/// - Parameters:
 	///   - segue: <#segue description#>
 	///   - sender: <#sender description#>
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //		if segue.identifier == "showMap" {
 //			let destinationVC = segue.destination as! OEMapViewController

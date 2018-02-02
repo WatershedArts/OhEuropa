@@ -19,9 +19,9 @@ class OEMapViewController: UIViewController, CLLocationManagerDelegate {
 	var beacons = [OEMapBeacon]()
 	var camera = GMSCameraPosition.camera(withLatitude: 51.45105, longitude: -2.30456, zoom: 3.5)
 
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Load The View
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
 		
@@ -56,17 +56,17 @@ class OEMapViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Load The View
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Request Permission
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func determineMyCurrentLocation() {
 		locationManager.delegate = self
 		locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -77,13 +77,13 @@ class OEMapViewController: UIViewController, CLLocationManagerDelegate {
 		}
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// <#Description#>
 	///
 	/// - Parameters:
 	///   - manager: <#manager description#>
 	///   - locations: <#locations description#>
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		let userLocation:CLLocation = locations[0] as CLLocation
 		currentLocation = userLocation.coordinate
@@ -91,13 +91,13 @@ class OEMapViewController: UIViewController, CLLocationManagerDelegate {
 		mapView.animate(toLocation: userLocation.coordinate);
 	}
 
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// <#Description#>
 	///
 	/// - Parameters:
 	///   - manager: <#manager description#>
 	///   - error: <#error description#>
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 		print("Error \(error)")
 	}

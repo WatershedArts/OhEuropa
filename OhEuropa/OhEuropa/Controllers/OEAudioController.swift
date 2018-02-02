@@ -18,10 +18,10 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 	var vol = 0.0
 	private let scheduler = ActionScheduler()
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Initializer
 	///
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	override init() {
 		super.init()
 		
@@ -44,34 +44,34 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 		}
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Start Playing the Live Stream from Radio.co
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	public func startPlayingRadio() {
 		streamer.clearQueue()
 		streamer.play(URL(string:"https://streams.radio.co/s02776f249/listen")!)
 		streamer.volume = 0.0
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Stop Playing the Live Stream from Radio.co
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	public func stopPlayingRadio() {
 		let action = InterpolationAction(from: self.streamer.volume, to: 0.00, duration: 5.0, easing: .sineInOut, update: { [unowned self] in self.streamer.volume = $0 })
 		action.onBecomeInactive = fadeOutComplete
 		scheduler.run(action: action)
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// When the user is inside the inner perimeter
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	public func crossFadeStaticAndRadio() {
 		startPlayingRadio()
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// When the user is inside the inner perimeter
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	public func fadeOutStaticAndFadeUpRadio() {
 		let streamingAction = InterpolationAction(from: self.streamer.volume, to: 0.75, duration: 5.0, easing: .sineInOut, update: { [unowned self] in self.streamer.volume = $0 })
 		let staticAction = InterpolationAction(from: self.staticAudio.volume, to: 0.0, duration: 5.0, easing: .sineInOut, update: { [unowned self] in self.staticAudio.volume = $0 })
@@ -79,9 +79,9 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 		scheduler.run(action: streamingAction)
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// When the user exits center and enters the inner perimeter
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	public func fadeOutRadioAndFadeUpStatic() {
 		let streamingAction = InterpolationAction(from: self.streamer.volume, to: 0.15, duration: 5.0, easing: .sineInOut, update: { [unowned self] in self.streamer.volume = $0 })
 		let staticAction = InterpolationAction(from: self.staticAudio.volume, to: 0.75, duration: 5.0, easing: .sineInOut, update: { [unowned self] in self.staticAudio.volume = $0 })
@@ -89,70 +89,70 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 		scheduler.run(action: streamingAction)
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Play Static Audio
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	public func startPlayingStatic() {
 		let action = InterpolationAction(from: 0.0, to: 0.75, duration: 5.0, easing: .sineInOut, update: { [unowned self] in self.staticAudio.volume = $0 })
 		self.staticAudio.play()
 		scheduler.run(action: action)
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Stop Static Audio
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	public func stopPlayingStatic() {
 		let action = InterpolationAction(from: self.staticAudio.volume, to: 0.00, duration: 5.0, easing: .sineInOut, update: { [unowned self] in self.staticAudio.volume = $0 })
 		action.onBecomeInactive = staticFadeOutComplete
 		scheduler.run(action: action)
 	}
 	
-	///------------------------------------------------------------------------------------------sou
+	///-----------------------------------------------------------------------------sou
 	/// Tween Call back to stop the Radio when finished fading
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	private func staticFadeOutComplete() {
 		print("Stopped Playing Static")
 		staticAudio.stop()
 	}
 	
-	///------------------------------------------------------------------------------------------sou
+	///-----------------------------------------------------------------------------sou
 	/// Tween Call back to stop the Radio when finished fading
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	private func fadeOutComplete() {
 		print("Stopped Playing Radio")
 		streamer.stop()
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Did we start playing a track
 	///
 	/// - Parameters:
 	///   - audioPlayer: Audio Player
 	///   - queueItemId: Queue Item
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func audioPlayer(_ audioPlayer: STKAudioPlayer, didStartPlayingQueueItemId queueItemId: NSObject) {
 		print("Started Playing")
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Has the Audio Player finished Buffering
 	///
 	/// - Parameters:
 	///   - audioPlayer: Audio Player
 	///   - queueItemId: Queue Item
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func audioPlayer(_ audioPlayer: STKAudioPlayer, didFinishBufferingSourceWithQueueItemId queueItemId: NSObject) {
 		print("Finished Buffering")
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Audio Player State Change
 	///
 	/// - Parameters:
 	///   - audioPlayer: Audio Player
 	///   - state: new state
 	///   - previousState: previous state
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func audioPlayer(_ audioPlayer: STKAudioPlayer, stateChanged state: STKAudioPlayerState, previousState: STKAudioPlayerState) {
 		switch state {
 		case STKAudioPlayerState.stopped:
@@ -174,7 +174,7 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 		}
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Stopped Playing Track Manager
 	///
 	/// - Parameters:
@@ -183,18 +183,18 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 	///   - stopReason: Why did we stop playing
 	///   - progress:
 	///   - duration:
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func audioPlayer(_ audioPlayer: STKAudioPlayer, didFinishPlayingQueueItemId queueItemId: NSObject, with stopReason: STKAudioPlayerStopReason, andProgress progress: Double, andDuration duration: Double) {
 		print("Finished Playing \(queueItemId) \(stopReason)")
 	}
 	
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	/// Audio Player Error
 	///
 	/// - Parameters:
 	///   - audioPlayer: Audio Player
 	///   - errorCode: What type of Error
-	///------------------------------------------------------------------------------------------
+	///-----------------------------------------------------------------------------
 	func audioPlayer(_ audioPlayer: STKAudioPlayer, unexpectedError errorCode: STKAudioPlayerErrorCode) {
 		print("Error: \(errorCode)")
 	}

@@ -29,13 +29,12 @@ Oh Europa is an iOS application which checks the users current location against 
 
 | File | Purpose |
 | --- | --- |
-
-OETabBarViewController.swift
-OECustomTabBar.swift
-OECustomTabBarItem.swift
-OEMapViewController.swift
-OECompassViewController.swift
-OEInformationViewController.swift
+| OETabBarViewController.swift | |
+|OECustomTabBar.swift | |
+|OECustomTabBarItem.swift | |
+|OEMapViewController.swift | |
+|OECompassViewController.swift | |
+|OEInformationViewController.swift | |
 
 OEIntroViewController.swift
 

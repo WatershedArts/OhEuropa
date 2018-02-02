@@ -1,152 +1,152 @@
 [
-	{
-		"featureType": "administrative",
-		"elementType": "labels",
-		"stylers": [
-			{
-				"visibility": "off"
-			}
-		]
-	},
-	{
-		"featureType": "administrative",
-		"elementType": "labels.text",
-		"stylers": [
-			{
-			"visibility": "off"
-			}
-		]
-	},
-	{
-	"featureType": "administrative.country",
-	"elementType": "geometry.stroke",
-	"stylers": [
-	{
-	"visibility": "off"
-	}
-	]
-	},
-	{
-	"featureType": "administrative.land_parcel",
-	"elementType": "geometry",
-	"stylers": [
-	{
-	"visibility": "off"
-	}
-	]
-	},
-	{
-	"featureType": "landscape",
-	"elementType": "geometry",
-	"stylers": [
-	{
-	"visibility": "on"
-	},
-	{
-	"color": "#ffddb4"
-	}
-	]
-	},
-	{
-	"featureType": "poi.park",
-	"elementType": "geometry",
-	"stylers": [
-	{
-	"visibility": "off"
-	}
-	]
-	},
-	{
-	"featureType": "poi.park",
-	"elementType": "labels.text",
-	"stylers": [
-	{
-	"visibility": "off"
-	}
-	]
-	},
-	{
-	"featureType": "road.highway",
-	"elementType": "geometry",
-	"stylers": [
-	{
-	"visibility": "off"
-	}
-	]
-	},
-	{
-	"featureType": "road.highway",
-	"elementType": "labels",
-	"stylers": [
-	{
-	"visibility": "off"
-	}
-	]
-	},
-	{
-	"featureType": "road.highway",
-	"elementType": "labels.text",
-	"stylers": [
-	{
-	"visibility": "off"
-	}
-	]
-	},
-	{
-	"featureType": "road.arterial",
-	"elementType": "geometry",
-	"stylers": [
-	{
-	"visibility": "off"
-	}
-	]
-	},
-	{
-	"featureType": "road.local",
-	"elementType": "geometry",
-	"stylers": [
-	{
-	"visibility": "simplified"
-	}
-	]
-	},
-	{
-	"featureType": "road.local",
-	"elementType": "geometry.fill",
-	"stylers": [
-	{
-	"visibility": "off"
-	}
-	]
-	},
-	{
-	"featureType": "road.local",
-	"elementType": "labels",
-	"stylers": [
-	{
-	"visibility": "off"
-	}
-	]
-	},
-	{
-	"featureType": "water",
-	"elementType": "geometry",
-	"stylers": [
-	{
-	"visibility": "on"
-	},
-	{
-	"color": "#49a2b7"
-	}
-	]
-	},
-	{
-	"featureType": "water",
-	"elementType": "labels.text",
-	"stylers": [
-	{
-	"visibility": "off"
-	}
-	]
-	}
+  {
+    "featureType": "administrative",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.country",
+    "elementType": "geometry.stroke",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "visibility": "on"
+      },
+      {
+        "color": "#ffddb4"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi.park",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road.arterial",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road.local",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "visibility": "simplified"
+      }
+    ]
+  },
+  {
+    "featureType": "road.local",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road.local",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "visibility": "on"
+      },
+      {
+        "color": "#49a2b7"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "elementType": "labels.text",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  }
 ]

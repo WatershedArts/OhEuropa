@@ -16,7 +16,6 @@ class OECompass : ProcessingView {
 	let easingType = Easing.exponentialInOut
 	let easingTime = 2.0
 	
-	var markers = [OEBeaconMarker]()
 	var currentAngle: Double = 0.0
 
 	var centerX: CGFloat!

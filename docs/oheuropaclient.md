@@ -46,4 +46,16 @@ electron-packager . OhEuropa darwin
 
 ### Screens
 
+**Main Application Window**
+
+![Client Front Page](./images/clientfrontpage.png)
+
+**Add Beacon**
+
+![Add Beacon Window](./images/clientaddbeacon.png)
+
+**Remove Beacon**
+
+![Remove Beacon Window](./images/clientremovebeacon.png)
+
 ### Thanks

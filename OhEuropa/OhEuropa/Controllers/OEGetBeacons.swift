@@ -124,8 +124,7 @@ class OEGetBeacons  {
 		}
 		else {
 			beacons = getBeaconsFromLocalServer()
+			completion(beacons)
 		}
-		
-		completion(beacons)
 	}
 };

@@ -81,8 +81,6 @@ class OEHTTPController: NSObject {
 						completion(returnValue)
 						break;
 					case .success(let data):
-						print("Got Radio Track")
-						
 						if let data = response.result.value {
 							let json = JSON(data)
 							returnValue = json["current_track"]["title"].string!
@@ -94,7 +92,5 @@ class OEHTTPController: NSObject {
 						break;
 				}
 		}
-		completion(returnValue)
 	}
-	
 }

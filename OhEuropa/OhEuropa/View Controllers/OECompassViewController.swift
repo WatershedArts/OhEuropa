@@ -17,9 +17,11 @@ import TweenKit
 class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	
 	@IBOutlet weak var compassView: OECompass!
-	@IBOutlet weak var nearestMarkerNameLabel: UILabel!
 	@IBOutlet weak var nearestMarkerDistanceLabel: UILabel!
 
+	@IBOutlet weak var TitleOfSong: UILabel!
+	@IBOutlet weak var PerformersNames: UILabel!
+	
 	var locationManager = CLLocationManager()
 	var beacons = [OEMapBeacon]()
 	let audioManager = OEAudioController()
@@ -28,6 +30,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	
 	var gradientLayer: CAGradientLayer!
 	
+	var labelColorChanges = [(UIColor.black,UIColor.black,UIColor.clear),(UIColor.clear,UIColor.clear,UIColor.black)]
 
 	///-----------------------------------------------------------------------------
 	/// Create the Gradient for the Background
@@ -49,9 +52,8 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		OEGetBeacons(parseBeacons)
 		
 		enableLocationServices()
-//		getTrackName()
 		
-		trackTimer = Timer.scheduledTimer(timeInterval: 30.0, target: self, selector: #selector(getTrackName), userInfo: nil, repeats: true)
+		trackTimer = Timer.scheduledTimer(timeInterval: 15.0, target: self, selector: #selector(getTrackName), userInfo: nil, repeats: true)
 		
 		// Center of the Beacon
 		NotificationCenter.default.addObserver(self, selector: #selector(beaconEntered(_:)), name: NSNotification.Name.EnteredBeacon, object: nil)
@@ -64,7 +66,6 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		// Outer Area of the Beacon
 		NotificationCenter.default.addObserver(self, selector: #selector(outerBeaconPerimeterEntered(_:)), name: NSNotification.Name.EnteredBeaconOuterPerimeter, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(outerBeaconPerimeterExited(_:)), name: NSNotification.Name.ExitedBeaconOuterPerimeter, object: nil)
-		
 	}
 	
 	///-----------------------------------------------------------------------------
@@ -78,13 +79,6 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		let dvc = tabBarController?.viewControllers![1] as! OEMapViewController
 		dvc.beacons = beacons
 	}
-	
-	///-----------------------------------------------------------------------------
-//	/// Timer Return Function
-//	///-----------------------------------------------------------------------------
-//	@objc func getTrackName(com:String!) {
-//		print("Get Track Name")
-//	}
 	
 	///-----------------------------------------------------------------------------
 	/// Enable the Location Services
@@ -211,8 +205,15 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///-----------------------------------------------------------------------------
 	@objc func beaconEntered(_ n:Notification) {
 	
-//		let move = InterpolationAction(from: UIColor.clear, to: UIColor.black, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.scrollingLabel.textColor = $0 }
-//		scheduler.run(action: move)
+		let set1 = InterpolationAction(from: labelColorChanges[1].0, to: labelColorChanges[1].2, duration: 1.5, easing: .exponentialInOut) { [unowned self] in self.PerformersNames.textColor = $0 }
+		let set2 = InterpolationAction(from: labelColorChanges[1].0, to: labelColorChanges[1].2, duration: 1.5, easing: .exponentialInOut) { [unowned self] in self.TitleOfSong.textColor = $0 }
+		
+		let set3 = InterpolationAction(from: labelColorChanges[0].0, to: labelColorChanges[0].2, duration: 1.5, easing: .exponentialInOut) { [unowned self] in self.nearestMarkerDistanceLabel.textColor = $0 }
+		
+		let actions = ActionGroup(actions: set1,set2,set3)
+//		let sequence = ActionSequence(actions:set3,actions)
+		
+		scheduler.run(action: actions)
 		
 		if compassView != nil {
 			compassView.enteredBeaconZone(zonetype: "C")
@@ -237,8 +238,15 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///-----------------------------------------------------------------------------
 	@objc func beaconExited(_ n:Notification) {
 		
-//		let move = InterpolationAction(from: UIColor.black, to: UIColor.clear, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.scrollingLabel.textColor = $0 }
-//		scheduler.run(action: move)
+		let set1 = InterpolationAction(from: labelColorChanges[1].2, to: labelColorChanges[1].0, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.PerformersNames.textColor = $0 }
+		let set2 = InterpolationAction(from: labelColorChanges[1].2, to: labelColorChanges[1].0, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.TitleOfSong.textColor = $0 }
+
+		let set3 = InterpolationAction(from: labelColorChanges[0].2, to: labelColorChanges[0].0, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.nearestMarkerDistanceLabel.textColor = $0 }
+		
+		let actions = ActionGroup(actions: set1,set2,set3)
+		//		let sequence = ActionSequence(actions:set3,actions)
+		
+		scheduler.run(action: actions)
 		
 		if compassView != nil {
 			compassView.exittedBeaconZone(zonetype: "C")
@@ -356,6 +364,11 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 		setup()
+		
+		PerformersNames.textColor = labelColorChanges[1].1
+		TitleOfSong.textColor = labelColorChanges[1].1
+		nearestMarkerDistanceLabel.textColor = labelColorChanges[0].1
+		getTrackName()
     }
 
 	///-----------------------------------------------------------------------------
@@ -363,7 +376,6 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///-----------------------------------------------------------------------------
 	override func viewDidLayoutSubviews() {
 		createGradientForBackground()
-		getTrackName()
 	}
 	
 	///-----------------------------------------------------------------------------
@@ -378,6 +390,11 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///-----------------------------------------------------------------------------
 	func setScrollBarText(name: String) {
 		print("Setting Scrollbar to \(name)")
+		
+		var trackInfo = name.components(separatedBy: " - ")
+		print(trackInfo)
+		self.TitleOfSong.text = trackInfo[1]
+		self.PerformersNames.text = trackInfo[0]
 	}
 	
 	///-----------------------------------------------------------------------------

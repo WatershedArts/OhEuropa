@@ -15,8 +15,8 @@ let GOOGLE_API_KEY = "AIzaSyB07Q_QcWvaIc9mMm1DN-hPM-_Rl2CpO18"
 
 let reachability = Reachability()!
 
-let GRADIENT_COLOR_TOP = UIColor(red:0.12, green:0.55, blue:0.67, alpha:1.0)
-let GRADIENT_COLOR_BOTTOM = UIColor(red:1.00, green:0.84, blue:0.65, alpha:1.0)
+let GRADIENT_COLOR_BOTTOM = UIColor(red:0.12, green:0.55, blue:0.67, alpha:1.0)
+let GRADIENT_COLOR_TOP = UIColor(red:1.00, green:0.84, blue:0.65, alpha:1.0)
 let ICON_BAR_DEFAULT_COLOR = UIColor(red:0.13, green:0.13, blue:0.13, alpha:1.0)
 let ICON_BAR_SELECTED_COLOR = UIColor(red:0.15, green:0.66, blue:0.79, alpha:1.0)
 let ACTIVE_COMPASS_COLOR = UIColor(red:0.98, green:0.84, blue:0.65, alpha:1.0)

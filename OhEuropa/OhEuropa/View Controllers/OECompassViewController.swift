@@ -10,7 +10,6 @@ import UIKit
 import AVFoundation
 import Foundation
 import CoreLocation
-import Floaty
 import FontAwesome_swift
 import ProcessingKit
 import MarqueeLabel
@@ -214,8 +213,8 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///-----------------------------------------------------------------------------
 	@objc func beaconEntered(_ n:Notification) {
 	
-		let move = InterpolationAction(from: UIColor.clear, to: UIColor.black, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.scrollingLabel.textColor = $0 }
-		scheduler.run(action: move)
+//		let move = InterpolationAction(from: UIColor.clear, to: UIColor.black, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.scrollingLabel.textColor = $0 }
+//		scheduler.run(action: move)
 		
 		if compassView != nil {
 			compassView.enteredBeaconZone(zonetype: "C")
@@ -240,8 +239,8 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///-----------------------------------------------------------------------------
 	@objc func beaconExited(_ n:Notification) {
 		
-		let move = InterpolationAction(from: UIColor.black, to: UIColor.clear, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.scrollingLabel.textColor = $0 }
-		scheduler.run(action: move)
+//		let move = InterpolationAction(from: UIColor.black, to: UIColor.clear, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.scrollingLabel.textColor = $0 }
+//		scheduler.run(action: move)
 		
 		if compassView != nil {
 			compassView.exittedBeaconZone(zonetype: "C")
@@ -368,16 +367,16 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///-----------------------------------------------------------------------------
 	override func viewDidLayoutSubviews() {
 		
-		scrollingLabel = MarqueeLabel.init(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50),duration:8.0,fadeLength:10.0)
-		scrollingLabel.backgroundColor = UIColor.clear
-		scrollingLabel.textColor = UIColor.clear
-		scrollingLabel.font = UIFont.systemFont(ofSize: 20)
-		scrollingLabel.animationDelay = 1.0
-		scrollingLabel.textAlignment = .left
-		scrollingLabel.fadeLength = 15
-		scrollingLabel.type = .left
-		scrollingLabel.text = ""
-		self.view.addSubview(scrollingLabel)
+//		scrollingLabel = MarqueeLabel.init(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50),duration:8.0,fadeLength:10.0)
+//		scrollingLabel.backgroundColor = UIColor.clear
+//		scrollingLabel.textColor = UIColor.clear
+//		scrollingLabel.font = UIFont.systemFont(ofSize: 20)
+//		scrollingLabel.animationDelay = 1.0
+//		scrollingLabel.textAlignment = .left
+//		scrollingLabel.fadeLength = 15
+//		scrollingLabel.type = .left
+//		scrollingLabel.text = ""
+//		self.view.addSubview(scrollingLabel)
 		createGradientForBackground()
 		getTrackName()
 	}
@@ -394,8 +393,8 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///-----------------------------------------------------------------------------
 	func setScrollBarText(name: String) {
 		print("Setting Scrollbar to \(name)")
-		self.scrollingLabel.resetLabel()
-		self.scrollingLabel.text = name
+//		self.scrollingLabel.resetLabel()
+//		self.scrollingLabel.text = name
 	}
 	
 	///-----------------------------------------------------------------------------

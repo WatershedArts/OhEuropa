@@ -59,7 +59,6 @@ class OECompass : ProcessingView {
 		centerImage = UIImageView(frame: CGRect(x: centerX-tmpRadius, y: centerY-tmpRadius, width: CGFloat(tmpRadius*2), height: CGFloat(tmpRadius*2)))
 		centerImage.backgroundColor = UIColor.clear
 		centerImage.image = UIImage(named:"InfoPageWaves")!.maskWithColor(color: INACTIVE_COMPASS_COLOR)
-		
 		centerImage.layer.cornerRadius = centerImage.frame.width/2
 		centerImage.layer.masksToBounds = true
 		self.addSubview(centerImage)
@@ -140,19 +139,19 @@ class OECompass : ProcessingView {
 	///-----------------------------------------------------------------------------
 	public func drawMarker() {
 		
-		let tmpRadius = CGFloat(compassRadius+30)
+		let tmpRadius = CGFloat(compassRadius+40)
 		let tmpX = CGFloat(centerX)
 		
 		pushMatrix()
 		translate(x: centerX, y: centerY)
-		rotate(angle: CGFloat(beaconMarker)) //CGFloat(Double(180.0 + 180.0 * sin(Double(millis()/100))).toRadians()))
+		rotate(angle: CGFloat(beaconMarker))
 		pushMatrix()
 		translate(x: -centerX, y: -centerY)
 		noFill()
 		stroke(centerBeaconAnimationColors[0].1)
 		strokeWeight(2)
 		beginShape()
-		vertex(centerX, CGFloat(compassRadius + 30 - 20))
+		vertex(centerX, CGFloat(compassRadius + 40 - 20))
 		vertex(tmpX + 10.0, tmpRadius)
 		vertex(tmpX - 10.0, tmpRadius)
 		endShape(EndShapeMode.close)

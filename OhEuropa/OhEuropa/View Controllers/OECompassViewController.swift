@@ -368,6 +368,13 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		PerformersNames.textColor = labelColorChanges[1].1
 		TitleOfSong.textColor = labelColorChanges[1].1
 		nearestMarkerDistanceLabel.textColor = labelColorChanges[0].1
+		
+		var center = CGPoint(x: (self.view.frame.size.width / 2.0),y: (self.view.frame.size.height / 2.0))
+		
+		self.view.createCircle(center: CGPoint(x:16,y:150), radius: 10, color: INACTIVE_COMPASS_COLOR)
+		self.view.createCircle(center: CGPoint(x:self.view.frame.size.width-16,y:50), radius: 10, color: INACTIVE_COMPASS_COLOR)
+		self.view.createCircle(center: CGPoint(x:50,y:35), radius: 10, color: INACTIVE_COMPASS_COLOR)
+	
 		getTrackName()
     }
 

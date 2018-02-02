@@ -38,6 +38,14 @@ class OEIntroViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		createGradientForBackground()
+		
+		var center = CGPoint(x: (self.view.frame.size.width / 2.0),y: (self.view.frame.size.height / 2.0))
+		
+		self.view.createCircle(center: CGPoint(x:16,y:center.y-10), radius: 10, color: ACTIVE_COMPASS_COLOR)
+		self.view.createCircle(center: CGPoint(x:self.view.frame.size.width-16,y:center.y+50), radius: 10, color: ACTIVE_COMPASS_COLOR)
+		self.view.createCircle(center: CGPoint(x:center.x-100,y:center.y-100), radius: 10, color: ACTIVE_COMPASS_COLOR)
+		self.view.createCircle(center: CGPoint(x:center.x-50,y:center.y+50), radius: 10, color: ACTIVE_COMPASS_COLOR)
+		self.view.createCircle(center: CGPoint(x:center.x+50,y:center.y-50), radius: 10, color: ACTIVE_COMPASS_COLOR)
 	}
 
 	///-----------------------------------------------------------------------------
@@ -72,7 +80,6 @@ class OEIntroViewController: UIViewController {
 		self.InfoLabel.text = introText[index]
 		
 		timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(nextInformation), userInfo: nil, repeats: false)
-		
 		
 //		let currentRoute = AVAudioSession.sharedInstance().currentRoute
 //		if currentRoute.outputs != nil {

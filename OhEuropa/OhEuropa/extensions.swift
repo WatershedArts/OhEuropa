@@ -35,6 +35,18 @@ extension NSNotification.Name {
 	static let ExitedBeaconOuterPerimeter = NSNotification.Name("ExitedBeaconOuterPerimeter")
 }
 
+extension UIView {
+	
+	func createCircle(center: CGPoint, radius:CGFloat, color: UIColor) {
+		let shapeLayer = CAShapeLayer()
+		shapeLayer.fillColor! = color.cgColor
+		
+		let path = UIBezierPath(ovalIn: CGRect(x: center.x-radius/2, y: center.y-radius/2, width: radius, height: radius))
+		shapeLayer.path = path.cgPath
+	
+		self.layer.addSublayer(shapeLayer)
+	}
+}
 
 extension UIImage {
 	

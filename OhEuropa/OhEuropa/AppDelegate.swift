@@ -21,6 +21,7 @@ let ICON_BAR_DEFAULT_COLOR = UIColor(red:0.13, green:0.13, blue:0.13, alpha:1.0)
 let ICON_BAR_SELECTED_COLOR = UIColor(red:0.15, green:0.66, blue:0.79, alpha:1.0)
 let ACTIVE_COMPASS_COLOR = UIColor(red:0.98, green:0.84, blue:0.65, alpha:1.0)
 let INACTIVE_COMPASS_COLOR = UIColor(red:0.15, green:0.66, blue:0.79, alpha:1.0)
+let LINE_COLOR = UIColor(red:0.30, green:0.30, blue:0.30, alpha:1.0)
 
 let httpController = OEHTTPController()
 

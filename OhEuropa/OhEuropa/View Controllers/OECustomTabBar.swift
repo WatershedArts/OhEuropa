@@ -30,6 +30,32 @@ class OECustomTabBar: UIView {
 	var colorMask: UIView!
 
 	///-----------------------------------------------------------------------------
+	/// Make the Line in the Tab Bar
+	///
+	/// https://stackoverflow.com/questions/26662415/draw-a-line-with-uibezierpath
+	/// - Parameters:
+	///   - startX: where the line should startfrom in x terms
+	///   - endX: where the line should end in x terms
+	///   - startY: where the line should start from in y terms
+	///   - endY: where the line should end in y terms
+	///   - lineColor: line color
+	///   - lineWidth: line Width
+	///-----------------------------------------------------------------------------
+	func drawLineFromPointToPoint(startX: Int, toEndingX endX: Int, startingY startY: Int, toEndingY endY: Int, ofColor lineColor: UIColor, widthOfLine lineWidth: CGFloat) {
+		
+		let path = UIBezierPath()
+		path.move(to: CGPoint(x: startX, y: startY))
+		path.addLine(to: CGPoint(x: endX, y: endY))
+		
+		let shapeLayer = CAShapeLayer()
+		shapeLayer.path = path.cgPath
+		shapeLayer.strokeColor = lineColor.cgColor
+		shapeLayer.lineWidth = lineWidth
+		
+		self.layer.addSublayer(shapeLayer)
+	}
+	
+	///-----------------------------------------------------------------------------
 	/// Setup the Bar Items
 	///-----------------------------------------------------------------------------
 	func setup() {
@@ -43,6 +69,11 @@ class OECustomTabBar: UIView {
 		selectedTabBarItemIndex = initialTabBarItemIndex
 		
 		tabBarItemWidth = self.frame.width / CGFloat(tabBarItems.count)
+		
+		// Make the Lines
+		drawLineFromPointToPoint(startX: Int(tabBarItemWidth * 1.0), toEndingX: Int(tabBarItemWidth*1), startingY: Int(self.frame.height / 4), toEndingY: Int((self.frame.height / 4) * 3), ofColor: LINE_COLOR, widthOfLine: 1.0)
+		
+		drawLineFromPointToPoint(startX: Int(tabBarItemWidth * 2.0), toEndingX: Int(tabBarItemWidth*2), startingY: Int(self.frame.height / 4), toEndingY: Int((self.frame.height / 4) * 3), ofColor: LINE_COLOR, widthOfLine: 1.0)
 		
 		let containers = createTabBarItemContainers()
 		colorMask = UIView(frame: containers[0])

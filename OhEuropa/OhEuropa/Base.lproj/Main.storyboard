@@ -66,11 +66,11 @@
                                 </state>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EgX-Uv-vUg" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                <rect key="frame" x="150.5" y="496" width="75" height="75"/>
+                                <rect key="frame" x="155.5" y="506" width="65" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="75" id="bNs-fY-ko6"/>
-                                    <constraint firstAttribute="height" constant="75" id="iZG-GC-0tc"/>
+                                    <constraint firstAttribute="width" constant="65" id="bNs-fY-ko6"/>
+                                    <constraint firstAttribute="height" constant="65" id="iZG-GC-0tc"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="color">

@@ -13,26 +13,28 @@ import GameKit
 
 class OECompass : ProcessingView {
 
+	// Animation Easing Type and Timing
 	let easingType = Easing.exponentialInOut
 	let easingTime = 2.0
 	
+	// What angle the compass is currently rotated to
 	var currentAngle: Double = 0.0
 
+	// Center of the View Controller for drawing
 	var centerX: CGFloat!
 	var centerY: CGFloat!
-	var compassRadius: CGFloat!
-	var time = Timer()
-	var beaconMarker: Double = 0.0
 	
-	var circleSize = 0.0
-	let fromSize = 0.0
-	let toSize = 1000.0
-	var value = 0.0
+	// How Big the compass should be
+	var compassRadius: CGFloat!
+	
+	// What angle the beacon marker should be at
+	var beaconAngle: Double = 0.0
+	
+	// Animation Handler
 	let scheduler = ActionScheduler()
 	
+	// An image that appears when the user enters the center zone of the beacon
 	var centerImage: UIImageView!
-	
-	var zoneData = [(false,0.0,UIColor.red),(false,0.0,UIColor.yellow),(false,0.0,UIColor.green)]
 	
 	// Rather than writing it out three times
 	// The colors are accordingly (DefaultState : CurrentState : ActiveState)
@@ -45,16 +47,23 @@ class OECompass : ProcessingView {
 	
 	///-----------------------------------------------------------------------------
 	/// Setup
-	///
 	///-----------------------------------------------------------------------------
 	func setup() {
+		
+		// Set Background to clear so we can see the gradient
 		background(UIColor.clear)
+		
 		frameRate(60);
+		
+		// Calculate the Center Point
 		centerX = self.frame.width / 2
 		centerY = self.frame.height / 2
-		compassRadius = centerX - 50.0
-		let tmpRadius = compassRadius - 5
 		
+		// Define the Radius
+		compassRadius = centerX - 50.0
+		
+		// Offset Radius for the Image and add to the Main controller
+		let tmpRadius = compassRadius - 5
 		centerImage = UIImageView(frame: CGRect(x: centerX-tmpRadius, y: centerY-tmpRadius, width: CGFloat(tmpRadius*2), height: CGFloat(tmpRadius*2)))
 		centerImage.backgroundColor = UIColor.clear
 		centerImage.image = UIImage(named:"InfoPageWaves")!.maskWithColor(color: INACTIVE_COMPASS_COLOR)
@@ -71,26 +80,39 @@ class OECompass : ProcessingView {
 	
 		noStroke()
 		strokeWeight(3.0)
+		
+		// Move the context
 		pushMatrix()
 		translate(x: centerX, y: centerY)
+		
+		// Rotate the context
 		rotate(angle: CGFloat(currentAngle))
+		
+		// Move the context back
 		pushMatrix()
 		translate(x: -centerX, y: -centerY)
 		
+		// Draw the Compass outer ring
 		fill(centerBeaconAnimationColors[1].1)
 		ellipse(centerX, centerY, CGFloat((compassRadius*2)+10), CGFloat((compassRadius*2)+10))
 		
+		// Draw the Compass inner ring
 		fill(centerBeaconAnimationColors[2].1)
 		ellipse(centerX, centerY, CGFloat((compassRadius*2)-10), CGFloat((compassRadius*2)-10))
 		
+		// Draw the outer ring white marks
 		strokeWeight(2.5)
-		
 		for i in stride(from: 0, to: 360, by: 10) {
+			
+			// Calculate the Inner Start Point
 			let rx = centerX + (compassRadius - 5.0) * CGFloat(sin(Double(i).toRadians()))
 			let ry = centerY - (compassRadius - 5.0) * CGFloat(cos(Double(i).toRadians()))
+			
+			// Calculate the Outer End Point
 			let drx = centerX + (compassRadius + 2.5) * CGFloat(sin(Double(i).toRadians()))
 			let dry = centerY - (compassRadius + 2.5) * CGFloat(cos(Double(i).toRadians()))
 
+			// Draw the North Marker
 			fill(centerBeaconAnimationColors[0].1)
 			stroke(centerBeaconAnimationColors[0].1)
 			if i == 0 {
@@ -107,16 +129,6 @@ class OECompass : ProcessingView {
 		drawMarker()
 		popMatrix()
 		popMatrix()
-		
-	}
-	
-	///-----------------------------------------------------------------------------
-	/// Set the Compass Heading
-	///
-	/// - Parameter heading: Compass Heading
-	///-----------------------------------------------------------------------------
-	func setAngle(newAngle: Double) {
-		currentAngle = newAngle
 	}
 	
 	///-----------------------------------------------------------------------------
@@ -128,7 +140,6 @@ class OECompass : ProcessingView {
 		
 		// Convert Angle and Switch to Radians
 		currentAngle = (360 - heading).toRadians()
-		print(currentAngle)
 	}
 	
 	///-----------------------------------------------------------------------------
@@ -143,7 +154,7 @@ class OECompass : ProcessingView {
 		
 		pushMatrix()
 		translate(x: centerX, y: centerY)
-		rotate(angle: CGFloat(beaconMarker))
+		rotate(angle: CGFloat(beaconAngle))
 		pushMatrix()
 		translate(x: -centerX, y: -centerY)
 		noFill()
@@ -159,14 +170,13 @@ class OECompass : ProcessingView {
 	}
 	
 	///-----------------------------------------------------------------------------
-	/// <#Description#>
+	/// Set what angle the beacon should be at
 	///
 	/// - Parameters:
-	///   - index: <#index description#>
-	///   - angle: <#angle description#>
+	///   - beaconAngle: angle of the beacon
 	///-----------------------------------------------------------------------------
 	public func setBeaconRotation(beaconAngle:Double) {
-		beaconMarker = beaconAngle
+		self.beaconAngle = beaconAngle
 	}
 	
 	///-----------------------------------------------------------------------------
@@ -176,6 +186,7 @@ class OECompass : ProcessingView {
 	///-----------------------------------------------------------------------------
 	public func enteredBeaconZone(zonetype:String) {
 		
+		// If we enter the C zone start the animations active
 		if zonetype == "C" {
 			let set1 = InterpolationAction(from: centerBeaconAnimationColors[0].0,
 										   to: centerBeaconAnimationColors[0].2,
@@ -199,9 +210,6 @@ class OECompass : ProcessingView {
 			
 			let actions = ActionGroup(actions: set1,set2,set3,set4)
 			scheduler.run(action: actions)
-		}
-		else {
-			
 		}
 	}
 	
@@ -234,9 +242,6 @@ class OECompass : ProcessingView {
 			
 			let actions = ActionGroup(actions: set1,set2,set3,set4)
 			scheduler.run(action: actions)
-		}
-		else {
-			
 		}
 	}
 }

@@ -25,19 +25,22 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 	override init() {
 		super.init()
 		
+		// Setup the Audio Streamer: IMPORTANT: enable the mixer otherwise you cant fade the track
 		var options = STKAudioPlayerOptions()
 		options.enableVolumeMixer = true
 		
+		// Create the streamer
 		streamer = STKAudioPlayer(options: options)
 		streamer.delegate = self
 		
+		// Load the Static Audio File
 		let audioPath = Bundle.main.path(forResource: "static.mp3", ofType: nil)!
 		let url = URL(fileURLWithPath: audioPath)
 		
 		do {
 			staticAudio = try AVAudioPlayer(contentsOf: url)
 			staticAudio.volume = 0.0
-			staticAudio.numberOfLoops = 10
+			staticAudio.numberOfLoops = 50
 		}
 		catch {
 			print("Can't Load Static.mp3")
@@ -49,7 +52,7 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 	///-----------------------------------------------------------------------------
 	public func startPlayingRadio() {
 		streamer.clearQueue()
-		streamer.play(URL(string:"https://streams.radio.co/s02776f249/listen")!)
+		streamer.play(URL(string:RADIO_STREAM_URL)!)
 		streamer.volume = 0.0
 	}
 	
@@ -57,7 +60,7 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 	/// Stop Playing the Live Stream from Radio.co
 	///-----------------------------------------------------------------------------
 	public func stopPlayingRadio() {
-		let action = InterpolationAction(from: self.streamer.volume, to: 0.00, duration: 5.0, easing: .sineInOut, update: { [unowned self] in self.streamer.volume = $0 })
+		let action = InterpolationAction(from: self.streamer.volume, to: 0.00, duration: FADE_TIME, easing: .sineInOut, update: { [unowned self] in self.streamer.volume = $0 })
 		action.onBecomeInactive = fadeOutComplete
 		scheduler.run(action: action)
 	}
@@ -73,8 +76,8 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 	/// When the user is inside the inner perimeter
 	///-----------------------------------------------------------------------------
 	public func fadeOutStaticAndFadeUpRadio() {
-		let streamingAction = InterpolationAction(from: self.streamer.volume, to: 0.75, duration: 5.0, easing: .sineInOut, update: { [unowned self] in self.streamer.volume = $0 })
-		let staticAction = InterpolationAction(from: self.staticAudio.volume, to: 0.0, duration: 5.0, easing: .sineInOut, update: { [unowned self] in self.staticAudio.volume = $0 })
+		let streamingAction = InterpolationAction(from: self.streamer.volume, to: 0.75, duration: FADE_TIME, easing: .sineInOut, update: { [unowned self] in self.streamer.volume = $0 })
+		let staticAction = InterpolationAction(from: self.staticAudio.volume, to: 0.0, duration: FADE_TIME, easing: .sineInOut, update: { [unowned self] in self.staticAudio.volume = $0 })
 		scheduler.run(action: staticAction)
 		scheduler.run(action: streamingAction)
 	}
@@ -83,8 +86,8 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 	/// When the user exits center and enters the inner perimeter
 	///-----------------------------------------------------------------------------
 	public func fadeOutRadioAndFadeUpStatic() {
-		let streamingAction = InterpolationAction(from: self.streamer.volume, to: 0.15, duration: 5.0, easing: .sineInOut, update: { [unowned self] in self.streamer.volume = $0 })
-		let staticAction = InterpolationAction(from: self.staticAudio.volume, to: 0.75, duration: 5.0, easing: .sineInOut, update: { [unowned self] in self.staticAudio.volume = $0 })
+		let streamingAction = InterpolationAction(from: self.streamer.volume, to: 0.15, duration: FADE_TIME, easing: .sineInOut, update: { [unowned self] in self.streamer.volume = $0 })
+		let staticAction = InterpolationAction(from: self.staticAudio.volume, to: 0.75, duration: FADE_TIME, easing: .sineInOut, update: { [unowned self] in self.staticAudio.volume = $0 })
 		scheduler.run(action: staticAction)
 		scheduler.run(action: streamingAction)
 	}
@@ -93,7 +96,7 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 	/// Play Static Audio
 	///-----------------------------------------------------------------------------
 	public func startPlayingStatic() {
-		let action = InterpolationAction(from: 0.0, to: 0.75, duration: 5.0, easing: .sineInOut, update: { [unowned self] in self.staticAudio.volume = $0 })
+		let action = InterpolationAction(from: 0.0, to: 0.75, duration: FADE_TIME, easing: .sineInOut, update: { [unowned self] in self.staticAudio.volume = $0 })
 		self.staticAudio.play()
 		scheduler.run(action: action)
 	}
@@ -102,7 +105,7 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 	/// Stop Static Audio
 	///-----------------------------------------------------------------------------
 	public func stopPlayingStatic() {
-		let action = InterpolationAction(from: self.staticAudio.volume, to: 0.00, duration: 5.0, easing: .sineInOut, update: { [unowned self] in self.staticAudio.volume = $0 })
+		let action = InterpolationAction(from: self.staticAudio.volume, to: 0.00, duration: FADE_TIME, easing: .sineInOut, update: { [unowned self] in self.staticAudio.volume = $0 })
 		action.onBecomeInactive = staticFadeOutComplete
 		scheduler.run(action: action)
 	}
@@ -166,7 +169,7 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 			break;
 		case STKAudioPlayerState.playing:
 			print("Audio Player Playing")
-			let action = InterpolationAction(from: 0.00, to: 0.15, duration: 5.0, easing: .sineInOut, update: { [unowned self] in self.streamer.volume = $0 })
+			let action = InterpolationAction(from: 0.00, to: 0.15, duration: FADE_TIME, easing: .sineInOut, update: { [unowned self] in self.streamer.volume = $0 })
 			scheduler.run(action: action)
 			break;
 		default:

@@ -10,10 +10,14 @@ import UIKit
 import GoogleMaps
 import Reachability
 
+
+///------------------------------------------------------------------------------------------
 var USER_ID: String = ""
 let GOOGLE_API_KEY = "AIzaSyB07Q_QcWvaIc9mMm1DN-hPM-_Rl2CpO18"
 
-let reachability = Reachability()!
+let RADIO_STREAM_URL = "https://streams.radio.co/s02776f249/listen"
+
+let FADE_TIME = 5.0
 
 let GRADIENT_COLOR_BOTTOM = UIColor(red:0.12, green:0.55, blue:0.67, alpha:1.0)
 let GRADIENT_COLOR_TOP = UIColor(red:1.00, green:0.84, blue:0.65, alpha:1.0)
@@ -22,7 +26,9 @@ let ICON_BAR_SELECTED_COLOR = UIColor(red:0.15, green:0.66, blue:0.79, alpha:1.0
 let ACTIVE_COMPASS_COLOR = UIColor(red:0.98, green:0.84, blue:0.65, alpha:1.0)
 let INACTIVE_COMPASS_COLOR = UIColor(red:0.15, green:0.66, blue:0.79, alpha:1.0)
 let LINE_COLOR = UIColor(red:0.30, green:0.30, blue:0.30, alpha:1.0)
+///------------------------------------------------------------------------------------------
 
+let reachability = Reachability()!
 let httpController = OEHTTPController()
 
 @UIApplicationMain

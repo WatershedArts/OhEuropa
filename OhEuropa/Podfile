@@ -17,6 +17,7 @@ target 'OhEuropa' do
   pod "ProcessingKit"
   pod 'FontAwesome.swift'
   pod 'Sync', '~> 4'
+  pod 'NVActivityIndicatorView'
   
   target 'OhEuropaTests' do
     inherit! :search_paths

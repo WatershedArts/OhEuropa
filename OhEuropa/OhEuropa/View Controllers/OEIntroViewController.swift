@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import NVActivityIndicatorView
 
 class OEIntroViewController: UIViewController {
 	
@@ -15,6 +16,8 @@ class OEIntroViewController: UIViewController {
 	var introText = ["Welcome","Finding Nearby Beacons","Loading Compass"]
 	var timer: Timer!
 	
+	
+	@IBOutlet weak var activityIcon: NVActivityIndicatorView!
 	@IBOutlet weak var InfoLabel: UILabel!
 	
 	///-----------------------------------------------------------------------------
@@ -24,6 +27,12 @@ class OEIntroViewController: UIViewController {
 	///-----------------------------------------------------------------------------
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		
+		if activityIcon != nil {
+			activityIcon.type = .lineScalePulseOut
+			activityIcon.startAnimating()
+		}
+		
 		self.view.createGradientBackground()
 		
 		var center = CGPoint(x: (self.view.frame.size.width / 2.0),y: (self.view.frame.size.height / 2.0))
@@ -63,6 +72,9 @@ class OEIntroViewController: UIViewController {
 	///-----------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+//		activityIcon.type = NVActivityIndicatorType.lineScalePulseOut
+//		activityIcon.startAnimating()
 		
 		self.InfoLabel.text = introText[index]
 		timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(nextInformation), userInfo: nil, repeats: false)

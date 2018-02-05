@@ -36,6 +36,9 @@ class OECompass : ProcessingView {
 	// An image that appears when the user enters the center zone of the beacon
 	var centerImage: UIImageView!
 	
+	// The Y offset of the marker
+	var offsetY = CGFloat(15.0)
+	
 	// Rather than writing it out three times
 	// The colors are accordingly (DefaultState : CurrentState : ActiveState)
 	var centerBeaconAnimationColors = [
@@ -61,6 +64,13 @@ class OECompass : ProcessingView {
 		
 		// Define the Radius
 		compassRadius = centerX - 50.0
+		
+		// Check the Phone Version if its the X
+		// then you need to do another calculation to account for the
+		// screen size.
+		if UIDevice().userInterfaceIdiom == .phone && UIScreen.main.nativeBounds.height == 2436 {
+			offsetY = (145 / 2.0) + 15
+		}
 		
 		// Offset Radius for the Image and add to the Main controller
 		let tmpRadius = compassRadius - 5
@@ -149,22 +159,38 @@ class OECompass : ProcessingView {
 	///-----------------------------------------------------------------------------
 	public func drawMarker() {
 		
-		let tmpRadius = CGFloat(compassRadius+40)
-		let tmpX = CGFloat(centerX)
+		// Bare with me here
+		let markerSize = CGFloat(10.0)
 		
+		// Move the Context to the center and offset Upwards
+		// This moves the triangle to the top of the compass
 		pushMatrix()
-		translate(x: centerX, y: centerY)
+		translate(x: centerX, y: compassRadius + offsetY)
+		
+		// Move the context the difference between the original move and the center of the frame
+		// which essentially is the center of the frame.
+		// This will be our rotation matrix position
+		pushMatrix()
+		translate(x: 0.0, y: (centerY - (compassRadius + offsetY)))
 		rotate(angle: CGFloat(beaconAngle))
+		
+		// Shift the context back to the original position.
 		pushMatrix()
-		translate(x: -centerX, y: -centerY)
+		translate(x: 0.0, y: -(centerY - (compassRadius + offsetY)))
+		
 		noFill()
 		stroke(centerBeaconAnimationColors[0].1)
 		strokeWeight(2)
+		
+		// Draw Shape
 		beginShape()
-		vertex(centerX, CGFloat(compassRadius + 40 - 20))
-		vertex(tmpX + 10.0, tmpRadius)
-		vertex(tmpX - 10.0, tmpRadius)
+		vertex(0.0, CGFloat(markerSize - 20))
+		vertex(0.0 + markerSize, markerSize)
+		vertex(0.0 - markerSize, markerSize)
 		endShape(EndShapeMode.close)
+		
+		// Return the context
+		popMatrix()
 		popMatrix()
 		popMatrix()
 	}

@@ -9,21 +9,40 @@
 import Foundation
 import UIKit
 
+///-----------------------------------------------------------------------------
 extension Double {
+	
+	///-----------------------------------------------------------------------------
+	/// Convert Degrees to Radians
+	///
+	/// - Returns: Converted Value
+	///-----------------------------------------------------------------------------
 	func toRadians() -> Double {
 		return self * .pi / 180.0
 	}
 	
+	///-----------------------------------------------------------------------------
+	/// Convert Radians to Degrees
+	///
+	/// - Returns: Converted Value
+	///-----------------------------------------------------------------------------
 	func toDegrees() -> Double {
 		return self * 180.0 / .pi
 	}
 	
+	///-----------------------------------------------------------------------------
+	/// Round a Double to a number of Decimal Places
+	///
+	/// - Parameter fractionDigits: how many digits
+	/// - Returns: rounded number
+	///-----------------------------------------------------------------------------
 	func roundToDecimal(_ fractionDigits: Int) -> Double {
 		let multiplier = pow(10,Double(fractionDigits))
 		return Darwin.round(self * multiplier) / multiplier
 	}
 }
 
+///-----------------------------------------------------------------------------
 extension NSNotification.Name {
 	static let EnteredBeacon = NSNotification.Name("EnteredBeacon")
 	static let ExitedBeacon = NSNotification.Name("ExitedBeacon")
@@ -35,8 +54,17 @@ extension NSNotification.Name {
 	static let ExitedBeaconOuterPerimeter = NSNotification.Name("ExitedBeaconOuterPerimeter")
 }
 
+///-----------------------------------------------------------------------------
 extension UIView {
 	
+	///-----------------------------------------------------------------------------
+	/// Create a Circle in the View
+	///
+	/// - Parameters:
+	///   - center: center of the Circle
+	///   - radius: how big is the Circle
+	///   - color: what color
+	///-----------------------------------------------------------------------------
 	func createCircle(center: CGPoint, radius:CGFloat, color: UIColor) {
 		let shapeLayer = CAShapeLayer()
 		shapeLayer.fillColor! = color.cgColor
@@ -46,10 +74,29 @@ extension UIView {
 	
 		self.layer.addSublayer(shapeLayer)
 	}
+	
+	///-----------------------------------------------------------------------------
+	/// Make A Gradient Background
+	///-----------------------------------------------------------------------------
+	func createGradientBackground() {
+		let gradientLayer = CAGradientLayer()
+		gradientLayer.colors = [GRADIENT_COLOR_TOP.cgColor,GRADIENT_COLOR_BOTTOM.cgColor]
+		gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+		gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
+		gradientLayer.frame = self.frame
+		self.layer.insertSublayer(gradientLayer,at: 0)
+	}
 }
 
+///-----------------------------------------------------------------------------
 extension UIImage {
 	
+	///-----------------------------------------------------------------------------
+	/// Mask Image with Color
+	///
+	/// - Parameter color: what color
+	/// - Returns: UIImage
+	///-----------------------------------------------------------------------------
 	func maskWithColor(color: UIColor) -> UIImage? {
 		let maskImage = cgImage!
 		
@@ -72,5 +119,4 @@ extension UIImage {
 			return nil
 		}
 	}
-	
 }

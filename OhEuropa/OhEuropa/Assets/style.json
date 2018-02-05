@@ -1,7 +1,7 @@
 [
   {
     "featureType": "administrative",
-    "elementType": "labels",
+    "elementType": "all",
     "stylers": [
       {
         "visibility": "off"
@@ -10,33 +10,6 @@
   },
   {
     "featureType": "administrative",
-    "elementType": "labels.text",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative.country",
-    "elementType": "geometry.stroke",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative.land_parcel",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "featureType": "landscape",
     "elementType": "geometry",
     "stylers": [
       {
@@ -48,17 +21,110 @@
     ]
   },
   {
-    "featureType": "poi.park",
+    "featureType": "administrative",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape",
+    "elementType": "all",
+    "stylers": [
+      {
+        "color": "#ffddb4"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#ffddb4"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape",
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "visibility": "on"
+      },
+      {
+        "color": "#ffddb4"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.man_made",
+    "elementType": "all",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.man_made",
     "elementType": "geometry",
     "stylers": [
       {
         "visibility": "off"
+      },
+      {
+        "color": "#ffddb4"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.natural",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "visibility": "on"
+      },
+      {
+        "color": "#ffddb4"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.natural.landcover",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "visibility": "on"
+      },
+      {
+        "color": "#ffddb4"
+      }
+    ]
+  },
+  {
+    "featureType": "landscape.natural.terrain",
+    "elementType": "all",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "poi",
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
       }
     ]
   },
   {
     "featureType": "poi.park",
-    "elementType": "labels.text",
+    "elementType": "all",
     "stylers": [
       {
         "visibility": "off"
@@ -66,16 +132,25 @@
     ]
   },
   {
-    "featureType": "road.highway",
+    "featureType": "road",
+    "elementType": "all",
+    "stylers": [
+      {
+        "visibility": "simplified"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
     "elementType": "geometry",
     "stylers": [
       {
-        "visibility": "off"
+        "visibility": "simplified"
       }
     ]
   },
   {
-    "featureType": "road.highway",
+    "featureType": "road",
     "elementType": "labels",
     "stylers": [
       {
@@ -85,7 +160,16 @@
   },
   {
     "featureType": "road.highway",
-    "elementType": "labels.text",
+    "elementType": "all",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road.highway",
+    "elementType": "labels",
     "stylers": [
       {
         "visibility": "off"
@@ -106,21 +190,21 @@
     "elementType": "geometry",
     "stylers": [
       {
-        "visibility": "simplified"
-      }
-    ]
-  },
-  {
-    "featureType": "road.local",
-    "elementType": "geometry.fill",
-    "stylers": [
-      {
         "visibility": "off"
       }
     ]
   },
   {
-    "featureType": "road.local",
+    "featureType": "transit",
+    "elementType": "all",
+    "stylers": [
+      {
+        "visibility": "simplified"
+      }
+    ]
+  },
+  {
+    "featureType": "transit",
     "elementType": "labels",
     "stylers": [
       {
@@ -142,7 +226,7 @@
   },
   {
     "featureType": "water",
-    "elementType": "labels.text",
+    "elementType": "labels",
     "stylers": [
       {
         "visibility": "off"

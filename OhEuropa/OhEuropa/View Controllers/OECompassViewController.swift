@@ -35,12 +35,16 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///-----------------------------------------------------------------------------
 	func setup() {
 		
+		// Get the Beacons from the Server / Local Hosts
 		OEGetBeacons(parseBeacons)
 		
+		// As it sounds
 		enableLocationServices()
 		
+		// Setup the Timer for getting the track name
 		trackTimer = Timer.scheduledTimer(timeInterval: 15.0, target: self, selector: #selector(getTrackName), userInfo: nil, repeats: true)
 		
+		// Setup Notifications
 		// Center of the Beacon
 		NotificationCenter.default.addObserver(self, selector: #selector(beaconEntered(_:)), name: NSNotification.Name.EnteredBeacon, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(beaconExited(_:)), name: NSNotification.Name.ExitedBeacon, object: nil)
@@ -60,8 +64,10 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// - Parameter com: the returning value from the async call
 	///-----------------------------------------------------------------------------
 	func parseBeacons(com:[OEMapBeacon]!) {
-		print("Got Beacons")
 		beacons = com
+		
+		// When we launch the application we want to send the beacons in to the second view
+		// This is a dirty way of doing that
 		let dvc = tabBarController?.viewControllers![1] as! OEMapViewController
 		dvc.beacons = beacons
 	}
@@ -70,19 +76,21 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// Enable the Location Services
 	///-----------------------------------------------------------------------------
 	func enableLocationServices() {
-		print("Enabling Location Services")
+		
 		locationManager.delegate = self
 		locationManager.desiredAccuracy = kCLLocationAccuracyBest
 		locationManager.requestAlwaysAuthorization()
 		
 		if CLLocationManager.locationServicesEnabled() {
-			print("Location Services Enabled")
 			locationManager.startUpdatingLocation()
 			locationManager.startUpdatingHeading()
-			locationManager.headingFilter = 2
+			locationManager.headingFilter = 1
 		}
 		else {
-			print("Location Services Disabled")
+			// If we dont have permissions display this error
+			let alert = UIAlertController(title: "Warning!", message: "Location Services are Currently Inactive. Please go to Settings and Enable." , preferredStyle: .alert)
+			alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+			self.present(alert, animated: true, completion: nil)
 		}
 	}
 	
@@ -104,6 +112,8 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///   - locations: Current Location
 	///-----------------------------------------------------------------------------
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+		
+		// Get the users location
 		let userLocation:CLLocation = locations[0] as CLLocation
 		
 		// Check the Distance from the Beacon
@@ -122,6 +132,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		// Update the Compass View
 		for (index, beacon) in beacons.enumerated() {
 			let newHeading = calculateRelativeHeading(userLocation: userLocation, beacons: beacon.beaconData.centercoordinate)
+			// Only send the nearest beacon
 			if index == 0 {
 				if compassView != nil {
 					compassView.setBeaconRotation(beaconAngle: newHeading)
@@ -164,13 +175,16 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///-----------------------------------------------------------------------------
 	func calculateRelativeHeading(userLocation: CLLocation!,beacons:CLLocationCoordinate2D!) -> Double {
 		
+		// Convert Degrees
 		let userLocationLat = userLocation.coordinate.latitude.toRadians()
 		let userLocationLng = userLocation.coordinate.longitude.toRadians()
 		let targetPointLat = beacons.latitude.toRadians()
 		let targetPointLng = beacons.longitude.toRadians()
 		
+		// Difference the Degrees
 		let longitudeDiff = targetPointLng - userLocationLng
 		
+		// Calculate the angle
 		let y = sin(longitudeDiff) * cos(targetPointLat)
 		let x = cos(userLocationLat) * sin(targetPointLat) - sin(userLocationLat) * cos(targetPointLat) * cos(longitudeDiff)
 		var radiansValue = atan2(y, x)
@@ -191,14 +205,22 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///-----------------------------------------------------------------------------
 	@objc func beaconEntered(_ n:Notification) {
 	
-		let set1 = InterpolationAction(from: labelColorChanges[1].0, to: labelColorChanges[1].2, duration: 1.5, easing: .exponentialInOut) { [unowned self] in self.PerformersNames.textColor = $0 }
-		let set2 = InterpolationAction(from: labelColorChanges[1].0, to: labelColorChanges[1].2, duration: 1.5, easing: .exponentialInOut) { [unowned self] in self.TitleOfSong.textColor = $0 }
+		let set1 = InterpolationAction(from: labelColorChanges[1].0,
+									   to: labelColorChanges[1].2,
+									   duration: 1.5,
+									   easing: .exponentialInOut) { [unowned self] in self.PerformersNames.textColor = $0 }
 		
-		let set3 = InterpolationAction(from: labelColorChanges[0].0, to: labelColorChanges[0].2, duration: 1.5, easing: .exponentialInOut) { [unowned self] in self.nearestMarkerDistanceLabel.textColor = $0 }
+		let set2 = InterpolationAction(from: labelColorChanges[1].0,
+									   to: labelColorChanges[1].2,
+									   duration: 1.5,
+									   easing: .exponentialInOut) { [unowned self] in self.TitleOfSong.textColor = $0 }
+		
+		let set3 = InterpolationAction(from: labelColorChanges[0].0,
+									   to: labelColorChanges[0].2,
+									   duration: 1.5,
+									   easing: .exponentialInOut) { [unowned self] in self.nearestMarkerDistanceLabel.textColor = $0 }
 		
 		let actions = ActionGroup(actions: set1,set2,set3)
-//		let sequence = ActionSequence(actions:set3,actions)
-		
 		scheduler.run(action: actions)
 		
 		if compassView != nil {
@@ -224,14 +246,22 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///-----------------------------------------------------------------------------
 	@objc func beaconExited(_ n:Notification) {
 		
-		let set1 = InterpolationAction(from: labelColorChanges[1].2, to: labelColorChanges[1].0, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.PerformersNames.textColor = $0 }
-		let set2 = InterpolationAction(from: labelColorChanges[1].2, to: labelColorChanges[1].0, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.TitleOfSong.textColor = $0 }
+		let set1 = InterpolationAction(from: labelColorChanges[1].2,
+									   to: labelColorChanges[1].0,
+									   duration: 1.5,
+									   easing: .exponentialIn) { [unowned self] in self.PerformersNames.textColor = $0 }
 
-		let set3 = InterpolationAction(from: labelColorChanges[0].2, to: labelColorChanges[0].0, duration: 1.5, easing: .exponentialIn) { [unowned self] in self.nearestMarkerDistanceLabel.textColor = $0 }
+		let set2 = InterpolationAction(from: labelColorChanges[1].2,
+									   to: labelColorChanges[1].0,
+									   duration: 1.5,
+									   easing: .exponentialIn) { [unowned self] in self.TitleOfSong.textColor = $0 }
+
+		let set3 = InterpolationAction(from: labelColorChanges[0].2,
+									   to: labelColorChanges[0].0,
+									   duration: 1.5,
+									   easing: .exponentialIn) { [unowned self] in self.nearestMarkerDistanceLabel.textColor = $0 }
 		
 		let actions = ActionGroup(actions: set1,set2,set3)
-		//		let sequence = ActionSequence(actions:set3,actions)
-		
 		scheduler.run(action: actions)
 		
 		if compassView != nil {
@@ -382,16 +412,13 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// Get the track name for the scroll bar
 	///-----------------------------------------------------------------------------
 	func setScrollBarText(name: String) {
-		print("Setting Scrollbar to \(name)")
-		
 		var trackInfo = name.components(separatedBy: " - ")
-		print(trackInfo)
 		self.TitleOfSong.text = trackInfo[1]
 		self.PerformersNames.text = trackInfo[0]
 	}
 	
 	///-----------------------------------------------------------------------------
-	/// View Did Load
+	/// Memory
 	///-----------------------------------------------------------------------------
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

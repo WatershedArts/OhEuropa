@@ -10,7 +10,6 @@ import UIKit
 import AVFoundation
 
 class OEIntroViewController: UIViewController {
-	var gradientLayer: CAGradientLayer!
 	
 	var index = 0
 	var introText = ["Welcome","Finding Nearby Beacons","Loading Compass"]
@@ -19,25 +18,13 @@ class OEIntroViewController: UIViewController {
 	@IBOutlet weak var InfoLabel: UILabel!
 	
 	///-----------------------------------------------------------------------------
-	/// Create Gradient
-	///-----------------------------------------------------------------------------
-	func createGradientForBackground() {
-		gradientLayer = CAGradientLayer()
-		gradientLayer.colors = [GRADIENT_COLOR_TOP.cgColor,GRADIENT_COLOR_BOTTOM.cgColor]
-		gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-		gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
-		gradientLayer.frame = self.view.frame
-		self.view.layer.insertSublayer(gradientLayer,at: 0)
-	}
-	
-	///-----------------------------------------------------------------------------
 	/// View Will Appear
 	///
 	/// - Parameter animated: <#animated description#>
 	///-----------------------------------------------------------------------------
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		createGradientForBackground()
+		self.view.createGradientBackground()
 		
 		var center = CGPoint(x: (self.view.frame.size.width / 2.0),y: (self.view.frame.size.height / 2.0))
 		
@@ -78,21 +65,7 @@ class OEIntroViewController: UIViewController {
         super.viewDidLoad()
 		
 		self.InfoLabel.text = introText[index]
-		
 		timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(nextInformation), userInfo: nil, repeats: false)
-		
-//		let currentRoute = AVAudioSession.sharedInstance().currentRoute
-//		if currentRoute.outputs != nil {
-//			for description in currentRoute.outputs {
-//				if description.portType == AVAudioSessionPortHeadphones {
-//					print("Headphones Plugged In")
-//				} else {
-//					print("Headphones Not Plugged In")
-//				}
-//			}
-//		} else {
-//			print("Requires connection to device")
-//		}
     }
 
 	///-----------------------------------------------------------------------------

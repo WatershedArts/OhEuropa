@@ -30,7 +30,6 @@ class OEMapViewController: UIViewController, CLLocationManagerDelegate {
         mapView = GMSMapView.map(withFrame: .zero, camera: camera)
         mapView.isMyLocationEnabled = true
 		
-		
 		do {
 			if let styleURL = Bundle.main.url(forResource: "style", withExtension: "json") {
 				mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
@@ -41,8 +40,6 @@ class OEMapViewController: UIViewController, CLLocationManagerDelegate {
 		} catch {
 			print("Style Failed")
 		}
-		
-		
 		
 		// Set the main view to be the map view
         self.view = mapView

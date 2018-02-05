@@ -28,21 +28,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	var trackTimer: Timer!
 	let scheduler = ActionScheduler()
 	
-	var gradientLayer: CAGradientLayer!
-	
 	var labelColorChanges = [(UIColor.black,UIColor.black,UIColor.clear),(UIColor.clear,UIColor.clear,UIColor.black)]
-
-	///-----------------------------------------------------------------------------
-	/// Create the Gradient for the Background
-	///-----------------------------------------------------------------------------
-	func createGradientForBackground() {
-		gradientLayer = CAGradientLayer()
-		gradientLayer.colors = [GRADIENT_COLOR_TOP.cgColor,GRADIENT_COLOR_BOTTOM.cgColor]
-		gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-		gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
-		gradientLayer.frame = self.view.frame
-		self.view.layer.insertSublayer(gradientLayer,at: 0)
-	}
 	
 	///-----------------------------------------------------------------------------
 	/// Setup View Controller
@@ -382,7 +368,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// Waited for the Views to properly scale before creating the compass elements
 	///-----------------------------------------------------------------------------
 	override func viewDidLayoutSubviews() {
-		createGradientForBackground()
+		self.view.createGradientBackground()
 	}
 	
 	///-----------------------------------------------------------------------------

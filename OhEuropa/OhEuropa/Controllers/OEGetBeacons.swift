@@ -20,8 +20,7 @@ class OEGetBeacons  {
 	var items = [NSManagedObject]()
 	
 	///-----------------------------------------------------------------------------
-	/// Get data from the Core Data Solutions
-	///
+	/// Get data from the Core Data Solution
 	///-----------------------------------------------------------------------------
 	private func getBeaconsFromLocalServer() -> [OEMapBeacon] {
 		

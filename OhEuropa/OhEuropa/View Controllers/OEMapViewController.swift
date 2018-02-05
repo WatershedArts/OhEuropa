@@ -54,7 +54,7 @@ class OEMapViewController: UIViewController, CLLocationManagerDelegate {
     }
 	
 	///-----------------------------------------------------------------------------
-	/// Load The View
+	/// Memory
 	///-----------------------------------------------------------------------------
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -75,25 +75,28 @@ class OEMapViewController: UIViewController, CLLocationManagerDelegate {
 	}
 	
 	///-----------------------------------------------------------------------------
-	/// <#Description#>
+	/// Have we got an update from the location manager
 	///
 	/// - Parameters:
-	///   - manager: <#manager description#>
-	///   - locations: <#locations description#>
+	///   - manager: locations manager
+	///   - locations: return locations
 	///-----------------------------------------------------------------------------
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		let userLocation:CLLocation = locations[0] as CLLocation
 		currentLocation = userLocation.coordinate
 		
+		// This will probably go but every time we make a significant
+		// move the map view will update with the user
+		// more likely to add button to allow users the choice
 		mapView.animate(toLocation: userLocation.coordinate);
 	}
 
 	///-----------------------------------------------------------------------------
-	/// <#Description#>
+	/// Have we had an issue with the location manager
 	///
 	/// - Parameters:
-	///   - manager: <#manager description#>
-	///   - error: <#error description#>
+	///   - manager: location manager
+	///   - error: whats the error mr wolf
 	///-----------------------------------------------------------------------------
 	func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 		print("Error \(error)")

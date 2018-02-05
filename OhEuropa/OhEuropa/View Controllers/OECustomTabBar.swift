@@ -32,7 +32,7 @@ class OECustomTabBar: UIView {
 	///-----------------------------------------------------------------------------
 	/// Make the Line in the Tab Bar
 	///
-	/// https://stackoverflow.com/questions/26662415/draw-a-line-with-uibezierpath
+	///  https://stackoverflow.com/questions/26662415/draw-a-line-with-uibezierpath
 	/// - Parameters:
 	///   - startX: where the line should startfrom in x terms
 	///   - endX: where the line should end in x terms

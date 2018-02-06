@@ -13,13 +13,13 @@ import NVActivityIndicatorView
 class OEIntroViewController: UIViewController {
 	
 	var index = 0
-	var introText = ["Welcome","Finding Nearby Beacons","Loading Compass"]
+	var introText = ["finding nearby beacons","loading compass"]
 	var timer: Timer!
 	
 	
 	@IBOutlet weak var activityIcon: NVActivityIndicatorView!
 	@IBOutlet weak var InfoLabel: UILabel!
-	
+		
 	///-----------------------------------------------------------------------------
 	/// View Will Appear
 	///

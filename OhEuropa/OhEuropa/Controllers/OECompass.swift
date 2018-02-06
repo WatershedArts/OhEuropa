@@ -34,10 +34,10 @@ class OECompass : ProcessingView {
 	let scheduler = ActionScheduler()
 	
 	// An image that appears when the user enters the center zone of the beacon
-	var centerImage: UIImageView!
+	var centerImage: UIImage!
 	
 	// The Y offset of the marker
-	var offsetY = CGFloat(15.0)
+	var offsetY = CGFloat(40.0)
 	
 	// Rather than writing it out three times
 	// The colors are accordingly (DefaultState : CurrentState : ActiveState)
@@ -72,14 +72,8 @@ class OECompass : ProcessingView {
 			offsetY = (145 / 2.0) + 15
 		}
 		
-		// Offset Radius for the Image and add to the Main controller
-		let tmpRadius = compassRadius - 5
-		centerImage = UIImageView(frame: CGRect(x: centerX-tmpRadius, y: centerY-tmpRadius, width: CGFloat(tmpRadius*2), height: CGFloat(tmpRadius*2)))
-		centerImage.backgroundColor = UIColor.clear
-		centerImage.image = UIImage(named:"InfoPageWaves")!.maskWithColor(color: INACTIVE_COMPASS_COLOR)
-		centerImage.layer.cornerRadius = centerImage.frame.width/2
-		centerImage.layer.masksToBounds = true
-		self.addSubview(centerImage)
+		// Load the Image
+		centerImage = UIImage(named: "CompassInnerWaves")!.maskWithColor(color: INACTIVE_COMPASS_COLOR)
 	}
 	
 	///-----------------------------------------------------------------------------
@@ -109,6 +103,10 @@ class OECompass : ProcessingView {
 		// Draw the Compass inner ring
 		fill(centerBeaconAnimationColors[2].1)
 		ellipse(centerX, centerY, CGFloat((compassRadius*2)-10), CGFloat((compassRadius*2)-10))
+		
+		// Draw the image here now instead
+		fill(centerBeaconAnimationColors[3].1)
+		image(centerImage!, centerX-(compassRadius - 5), centerY-(compassRadius - 5), CGFloat((compassRadius - 5)*2), CGFloat((compassRadius - 5)*2))
 		
 		// Draw the outer ring white marks
 		strokeWeight(2.5)

@@ -88,7 +88,7 @@ class OEMapViewController: UIViewController, CLLocationManagerDelegate {
 		// This will probably go but every time we make a significant
 		// move the map view will update with the user
 		// more likely to add button to allow users the choice
-		mapView.animate(toLocation: userLocation.coordinate);
+//		mapView.animate(toLocation: userLocation.coordinate);
 	}
 
 	///-----------------------------------------------------------------------------

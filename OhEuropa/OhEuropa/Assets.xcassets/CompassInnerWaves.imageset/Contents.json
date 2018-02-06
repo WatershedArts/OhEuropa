@@ -2,25 +2,22 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "OhEuropaMarker@1x.png",
+      "filename" : "CompassInnerWaves.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "OhEuropaMarker@2x.png",
+      "filename" : "CompassInnerWaves-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "OhEuropaMarker@3x.png",
+      "filename" : "CompassInnerWaves-2.png",
       "scale" : "3x"
     }
   ],
   "info" : {
     "version" : 1,
     "author" : "xcode"
-  },
-  "properties" : {
-    "preserves-vector-representation" : true
   }
 }

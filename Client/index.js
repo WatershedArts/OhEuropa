@@ -4,17 +4,6 @@ var contraststyle = [{"featureType":"administrative","elementType":"labels.text.
 var beacons = [];
 
 /**
- * Get the Songs from the Server
-*/
-function getSongs() {
-    // $.getJSON("https://www.davidhaylock.co.uk/oheuropa/getdata.php?getsongs", function(json){
-    //     $.each(json['data'], function(key,data){
-    //         $("#songlist").append('<tr><td>'+data.id+'</td><td>'+data.songname+'</td><td>'+data.recorded+'</td><td><button style="margin-right:5px;" class="btn btn-primary">Misc</button><button style="margin-right:5px;" class="btn btn-success">Edit</button><button style="margin-right:5px;" class="btn btn-danger">Delete</button></td></tr>');
-    //     });
-    // });
-}
-
-/**
  * Get an Overview from the Server
 */
 function getOverview() {
@@ -62,6 +51,33 @@ function getBeacons(map) {
                 content: infoWindowContent
             });
 
+            var outercircle = new google.maps.Circle({
+                fillColor: '#FF0000',
+                fillOpacity: '1.0',
+                strokeColor: '#FF0000',
+                map: map,
+                center: { 'lat': parseFloat(data['lat']), 'lng':parseFloat(data['lng'])}, 
+                radius: parseFloat(data["outerradius"])
+            });
+
+            var innercircle = new google.maps.Circle({
+                fillColor: '#FFFF00',
+                fillOpacity: '1.0',
+                strokeColor: '#FFFF00',
+                map: map,
+                center: { 'lat': parseFloat(data['lat']), 'lng':parseFloat(data['lng'])}, 
+                radius: parseFloat(data["innerradius"])
+            });
+
+            var circle = new google.maps.Circle({
+                fillColor: '#00FF00',
+                fillOpacity: '1.0',
+                strokeColor: '#00FF00',
+                map: map,
+                center: { 'lat': parseFloat(data['lat']), 'lng':parseFloat(data['lng'])}, 
+                radius: parseFloat(data["centerradius"])
+            });
+
             var marker = new google.maps.Marker({
                 position: {
                     lat: parseFloat(data['lat']),
@@ -70,13 +86,14 @@ function getBeacons(map) {
                 map: map,
                 animation: google.maps.Animation.DROP,
                 title: data['name'],
-		icon: image
             });
 
             marker.addListener('click',function(){
                 infowindow.open(map,marker);
             });
-            beacons.push(marker);
+	    
+
+            beacons.push(circle);
         });
     });
 }

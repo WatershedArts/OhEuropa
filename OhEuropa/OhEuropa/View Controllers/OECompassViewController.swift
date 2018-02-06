@@ -126,7 +126,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		
 		// Show us the Nearest Marker in terms of distance
 		if beacons.count > 0 {
-			self.nearestMarkerDistanceLabel.text = String(format: "%.0f meters",((beacons.first?.distanceFromUser)! * 1000))
+			self.nearestMarkerDistanceLabel.text = String(format: "%.0f metres",((beacons.first?.distanceFromUser)! * 1000))
 		}
 		
 		// Update the Compass View

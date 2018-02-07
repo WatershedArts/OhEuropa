@@ -16,9 +16,9 @@ This page will detail some of the systems used to help create the project.
 ### Components
 Oh Europa is made of 4 components.
 
-* [Oh Europa Client]() (Made in NodeJS)
-* [OhEuropa]() (iOS Application)
-* [Server Systems]() (PHP)
+* [Oh Europa Client](./docs/oheuropaclient.md) (Made in NodeJS)
+* [OhEuropa](./docs/oheuropa.md) (iOS Application)
+* [Server Systems](./docs/server.md) (PHP)
 * Radio.co (PHP and cURL)
 
 We will detail the individual system in seperate pages.

@@ -37,7 +37,7 @@ class OECompass : ProcessingView {
 	var centerImage: UIImage!
 	
 	// The Y offset of the marker
-	var offsetY = CGFloat(40.0)
+	var offsetY = CGFloat(30.0)
 	
 	// Rather than writing it out three times
 	// The colors are accordingly (DefaultState : CurrentState : ActiveState)

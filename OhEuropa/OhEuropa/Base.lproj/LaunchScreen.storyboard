@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_0" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -20,29 +20,14 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FrontPageWaves" translatesAutoresizingMaskIntoConstraints="NO" id="WzY-Fr-aO5">
-                                <rect key="frame" x="0.0" y="134" width="320" height="300"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="PgB-Hz-hdG"/>
-                                </constraints>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FrontImage" translatesAutoresizingMaskIntoConstraints="NO" id="2DA-FN-qRt">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oh Europa" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q7d-Wf-ltl">
-                                <rect key="frame" x="32.5" y="244" width="255.5" height="80"/>
-                                <color key="tintColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="rxO-zb-SLo"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="CooperHewitt-Heavy" family="Cooper Hewitt" pointSize="54"/>
-                                <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v1.17" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHk-OW-Rrv">
-                                <rect key="frame" x="132" y="528" width="56" height="20"/>
+                                <rect key="frame" x="132" y="627" width="111" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="2Ir-Vy-dHo"/>
                                 </constraints>
@@ -50,28 +35,43 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Q2e-oS-wVg">
+                                <rect key="frame" x="43" y="298.5" width="289.5" height="70"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OH EUROPA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hEs-2K-zES">
+                                        <rect key="frame" x="0.0" y="0.0" width="289.5" height="70"/>
+                                        <color key="tintColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="70" id="FI7-5W-cCb"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="CooperHewitt-Heavy" family="Cooper Hewitt" pointSize="54"/>
+                                        <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="WzY-Fr-aO5" secondAttribute="trailing" id="Fkr-DA-ggH"/>
-                            <constraint firstItem="Q7d-Wf-ltl" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Kkv-xD-QRx"/>
+                            <constraint firstItem="2DA-FN-qRt" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="47d-zL-cni"/>
+                            <constraint firstItem="2DA-FN-qRt" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="GIT-8f-eue"/>
+                            <constraint firstItem="Q2e-oS-wVg" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Jvk-TJ-Am3"/>
                             <constraint firstItem="nHk-OW-Rrv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="132" id="Nwv-cf-ME3"/>
-                            <constraint firstItem="WzY-Fr-aO5" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="PEU-Ut-B5P"/>
+                            <constraint firstItem="2DA-FN-qRt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="T1w-72-hH5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="nHk-OW-Rrv" secondAttribute="trailing" constant="132" id="WyN-Po-63W"/>
-                            <constraint firstItem="Q7d-Wf-ltl" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="YvU-MX-uIR"/>
-                            <constraint firstItem="WzY-Fr-aO5" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="kKy-q2-tbx"/>
+                            <constraint firstItem="Q2e-oS-wVg" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Yo1-MG-iPP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="nHk-OW-Rrv" secondAttribute="bottom" constant="20" id="pOl-sB-fUv"/>
-                            <constraint firstItem="WzY-Fr-aO5" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="pr6-lT-jsT"/>
+                            <constraint firstItem="2DA-FN-qRt" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="uGY-Id-MbX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-371.25" y="323.23943661971833"/>
+            <point key="canvasLocation" x="-372" y="322.48875562218893"/>
         </scene>
     </scenes>
     <resources>
-        <image name="FrontPageWaves" width="1856" height="1670"/>
+        <image name="FrontImage" width="571" height="1104"/>
     </resources>
 </document>

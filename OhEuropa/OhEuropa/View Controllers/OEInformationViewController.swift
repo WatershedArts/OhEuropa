@@ -29,10 +29,10 @@ class OEInformationViewController: UIViewController {
         super.viewDidLoad()
 		self.view.createGradientBackground()
 		
-		let center = CGPoint(x: (self.view.frame.size.width / 2.0),y: (self.view.frame.size.height / 2.0))
-		self.view.createCircle(center: CGPoint(x:center.x+50,y:self.view.frame.height-(35+49)), radius: 10, color: ACTIVE_COMPASS_COLOR)
-		self.view.createCircle(center: CGPoint(x:self.view.frame.size.width-20,y:self.view.frame.height-(50+49)), radius: 10, color: ACTIVE_COMPASS_COLOR)
-		self.view.createCircle(center: CGPoint(x:40,y:self.view.frame.height-(25+49)), radius: 10, color: ACTIVE_COMPASS_COLOR)
+//		let center = CGPoint(x: (self.view.frame.size.width / 2.0),y: (self.view.frame.size.height / 2.0))
+//		self.view.createCircle(center: CGPoint(x:center.x+50,y:self.view.frame.height-(35+49)), radius: 10, color: ACTIVE_COMPASS_COLOR)
+//		self.view.createCircle(center: CGPoint(x:self.view.frame.size.width-20,y:self.view.frame.height-(50+49)), radius: 10, color: ACTIVE_COMPASS_COLOR)
+//		self.view.createCircle(center: CGPoint(x:40,y:self.view.frame.height-(25+49)), radius: 10, color: ACTIVE_COMPASS_COLOR)
     }
 	
 	///-----------------------------------------------------------------------------

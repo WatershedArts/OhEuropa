@@ -46,7 +46,6 @@ class OEMapViewController: UIViewController, CLLocationManagerDelegate {
 		
         for beacon in self.beacons {
 			let innerCirle = GMSMarker(position: beacon.beaconData.centercoordinate)
-            innerCirle.title = beacon.beaconData.name
 			innerCirle.isFlat = true
 			innerCirle.icon = UIImage(named: "MarkerIcon")
             innerCirle.map = mapView

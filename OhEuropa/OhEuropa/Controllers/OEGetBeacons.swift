@@ -58,12 +58,18 @@ class OEGetBeacons  {
 	///
 	/// - Parameter completion: return values
 	///-----------------------------------------------------------------------------
-	init(_ completion: @escaping ([OEMapBeacon]) -> Void) {
+	init(_ currentBeacons:[String], completion: @escaping ([OEMapBeacon]) -> Void) {
 
 		var beacons = [OEMapBeacon]()
 
+		let parameters = [
+			"beacons":currentBeacons
+		]
+		
+		print(parameters)
+		
 		// Get Request
-		Alamofire.request("https://www.davidhaylock.co.uk/oheuropa/getdata.php?getplaces")
+		Alamofire.request("https://www.davidhaylock.co.uk/oheuropa/getdata.php?getplaces",method: .get, parameters: parameters)
 			.responseJSON { response in
 
 				if response.error != nil || response.response?.statusCode != 200 {
@@ -79,6 +85,8 @@ class OEGetBeacons  {
 				if let data = response.result.value {
 					print("GETLOCATIONS: Got Return Data")
 					self.json = JSON(data)
+					
+					print(self.json)
 
 					// If we get data from the server update the core data for backup incase of connection issues.
 					if let newdata = self.json["data"].arrayObject as? [[String:Any]] {

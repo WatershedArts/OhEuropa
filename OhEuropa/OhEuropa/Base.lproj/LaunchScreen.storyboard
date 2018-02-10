@@ -9,11 +9,6 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="CooperHewitt-Heavy.otf">
-            <string>CooperHewitt-Heavy</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
@@ -26,42 +21,37 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FrontImage" translatesAutoresizingMaskIntoConstraints="NO" id="2DA-FN-qRt">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v1.17" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHk-OW-Rrv">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v1.19" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHk-OW-Rrv">
                                 <rect key="frame" x="132" y="627" width="111" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="2Ir-Vy-dHo"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Q2e-oS-wVg">
-                                <rect key="frame" x="43" y="298.5" width="289.5" height="70"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OH EUROPA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hEs-2K-zES">
-                                        <rect key="frame" x="0.0" y="0.0" width="289.5" height="70"/>
-                                        <color key="tintColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="70" id="FI7-5W-cCb"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="CooperHewitt-Heavy" family="Cooper Hewitt" pointSize="54"/>
-                                        <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OH EUROPA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hEs-2K-zES">
+                                <rect key="frame" x="143" y="601" width="90" height="18"/>
+                                <color key="tintColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="Amw-xB-WEc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="2DA-FN-qRt" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="47d-zL-cni"/>
                             <constraint firstItem="2DA-FN-qRt" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="GIT-8f-eue"/>
-                            <constraint firstItem="Q2e-oS-wVg" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Jvk-TJ-Am3"/>
                             <constraint firstItem="nHk-OW-Rrv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="132" id="Nwv-cf-ME3"/>
                             <constraint firstItem="2DA-FN-qRt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="T1w-72-hH5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="nHk-OW-Rrv" secondAttribute="trailing" constant="132" id="WyN-Po-63W"/>
-                            <constraint firstItem="Q2e-oS-wVg" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Yo1-MG-iPP"/>
+                            <constraint firstItem="hEs-2K-zES" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="bEs-uv-3uJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="nHk-OW-Rrv" secondAttribute="bottom" constant="20" id="pOl-sB-fUv"/>
                             <constraint firstItem="2DA-FN-qRt" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="uGY-Id-MbX"/>
+                            <constraint firstItem="nHk-OW-Rrv" firstAttribute="top" secondItem="hEs-2K-zES" secondAttribute="bottom" constant="8" id="vfd-oj-cZn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

@@ -255,7 +255,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="NimbusSanL-Reg" family="Nimbus Sans L" pointSize="16"/>
                                 <state key="normal" title="OHEUROPA.COM">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
                                     <action selector="showWebsite:" destination="ypD-bW-KxK" eventType="touchUpInside" id="6cd-Sl-LEB"/>

@@ -261,13 +261,15 @@
                                     <action selector="showWebsite:" destination="ypD-bW-KxK" eventType="touchUpInside" id="6cd-Sl-LEB"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="443-o7-Sc9">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="443-o7-Sc9">
                                 <rect key="frame" x="16" y="124" width="288" height="365"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <string key="text">This compass and map directs you to beacons placed throughout Europe transmitting an ever-evolving library of love songs. These love songs are being collected by two British artists Gemma Paintin and James Stenhouse as they travel over 30,000km, from the northern most tip of Norway to the southern coast of Greece, and everywhere in between. As they travel they invite the people they meet to sing for them inside their motorhome.
- 
-When you arrive at a beacon your compass will automatically pick up the transmission and play the songs through your device. Good luck!</string>
-                                <fontDescription key="fontDescription" name="NimbusSanL-Reg" family="Nimbus Sans L" pointSize="16"/>
+                                <mutableString key="text">This compass &amp; map directs you to beacons placed throughout Europe at its edges, junctures &amp; boundaries, transmitting an ever-evolving library of love songs, broadcasting 24/7. These love songs are being collected by Gemma Paintin &amp; James Stenhouse, two British artists who work together under the name Action Hero. 
+
+For 6 months during 2018, they are travelling the length and breadth of Europe, driving over 30,000km from North to South, East to West &amp; everywhere in between. As they travel, they will invite the people they meet to sing for them, inside their motorhome. 
+
+When you arrive at a beacon, your compass will automatically tune in to the broadcast. Listen with headphones for the best experience. Good luck!</mutableString>
+                                <fontDescription key="fontDescription" name="NimbusSanL-Reg" family="Nimbus Sans L" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>

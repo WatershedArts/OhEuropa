@@ -27,6 +27,8 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	let audioManager = OEAudioController()
 	var trackTimer: Timer!
 	let scheduler = ActionScheduler()
+
+	var getBeaconsTimer = Timer()
 	
 	var labelColorChanges = [(UIColor.black,UIColor.black,UIColor.clear),(UIColor.clear,UIColor.clear,UIColor.black)]
 	
@@ -36,7 +38,13 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	func setup() {
 		
 		// Get the Beacons from the Server / Local Hosts
-		OEGetBeacons(parseBeacons)
+		
+		let dev = [String]()
+		
+		OEGetBeacons(dev,completion:parseBeacons)
+		
+		// Check if we have New Beacons
+		getBeaconsTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(getNewBeacons), userInfo: nil, repeats: true)
 		
 		// As it sounds
 		enableLocationServices()
@@ -56,6 +64,21 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		// Outer Area of the Beacon
 		NotificationCenter.default.addObserver(self, selector: #selector(outerBeaconPerimeterEntered(_:)), name: NSNotification.Name.EnteredBeaconOuterPerimeter, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(outerBeaconPerimeterExited(_:)), name: NSNotification.Name.ExitedBeaconOuterPerimeter, object: nil)
+	}
+	
+	///-----------------------------------------------------------------------------
+	/// Get New Beacons that might exist on the Server
+	///-----------------------------------------------------------------------------
+	@objc func getNewBeacons() {
+		print("Checking if New Beacons Available")
+		
+		var listOfBeaconIds = [String]()
+		
+		for beacon in self.beacons {
+			listOfBeaconIds.append(beacon.beaconData.placeid)
+		}
+		
+		OEGetBeacons(listOfBeaconIds, completion: parseBeacons)
 	}
 	
 	///-----------------------------------------------------------------------------

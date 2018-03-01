@@ -48,7 +48,6 @@ class OEMapViewController: UIViewController, CLLocationManagerDelegate {
 		addBeaconsToMap(beacons: beacons)
     }
 	
-	
 	///-----------------------------------------------------------------------------
 	/// Add Beacons to the Map
 	///

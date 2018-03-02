@@ -7,6 +7,7 @@
         "install": "electron-rebuild"
     },
     "devDependencies": {
+        "electron": "^1.8.2",
         "electron-packager": "^10.1.0",
         "electron-prebuilt": "^1.4.13",
         "electron-rebuild": "^1.6.0"

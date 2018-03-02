@@ -22,7 +22,7 @@ class OEHTTPController: NSObject {
 			"userid": userid,
 			"newuser":"1"]
 		
-		Alamofire.request("https://www.davidhaylock.co.uk/oheuropa/userinteraction.php", method: .post, parameters: parameters)
+		Alamofire.request("http://oheuropa.com/api/userinteraction.php", method: .post, parameters: parameters)
 			.responseString { response in
 				switch response.result {
 				case .failure(let error):
@@ -50,7 +50,7 @@ class OEHTTPController: NSObject {
 			"zoneid":zoneid,
 			"action":action]
 		
-		Alamofire.request("https://www.davidhaylock.co.uk/oheuropa/userinteraction.php", method: .post, parameters: parameters, encoding: JSONEncoding.default)
+		Alamofire.request("http://oheuropa.com/api/userinteraction.php", method: .post, parameters: parameters, encoding: JSONEncoding.default)
 			.responseString { response in
 				switch response.result {
 				case .failure(let error):

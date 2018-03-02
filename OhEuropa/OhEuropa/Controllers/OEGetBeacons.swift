@@ -69,7 +69,7 @@ class OEGetBeacons  {
 		print(parameters)
 		
 		// Get Request
-		Alamofire.request("https://www.davidhaylock.co.uk/oheuropa/getdata.php?getplaces",method: .get, parameters: parameters)
+		Alamofire.request("http://oheuropa.com/api/getdata.php?getplaces",method: .get, parameters: parameters)
 			.responseJSON { response in
 
 				if response.error != nil || response.response?.statusCode != 200 {

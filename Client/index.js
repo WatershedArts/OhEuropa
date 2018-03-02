@@ -7,9 +7,8 @@ var beacons = [];
  * Get an Overview from the Server
 */
 function getOverview() {
-    $.getJSON("https://www.davidhaylock.co.uk/oheuropa/getdata.php?getoverview", function(json) {
+    $.getJSON("http://oheuropa.com/api/getdata.php?getoverview", function(json) {
         console.log(json);
-        document.getElementById("numberofsongs").innerHTML = json.data.numberofsongs;
         document.getElementById("numberofmarkers").innerHTML = json.data.numberofmarkers;
         document.getElementById("numberofusers").innerHTML = json.data.numberofusers;
         document.getElementById("numberofinteractions").innerHTML = json.data.numberofinteractions;
@@ -46,7 +45,7 @@ function createMarkerInfoWindow(data) {
         "<h4>Place ID: "+data.placeid+"</h4>" +
         "<h4>Radio Plays: "+data.radioplays+"</h4>" +
         "<h6>Date Created: "+data.datecreated+"</h6>" +
-        "<form method='POST' target='this-iframe' action='https://www.davidhaylock.co.uk/oheuropa/remove.php'>" +
+        "<form method='POST' target='this-iframe' action='http://oheuropa.com/api/remove.php'>" +
         "<input type='hidden' name='placeid' value='"+data.placeid+"'>"+
         "<input class='btn btn-danger' onclick=\"removeBeaconFromMap('" + data.placeid + "');\" type='submit' name='delete' value='Delete'>" +
         "</form>" +
@@ -59,7 +58,7 @@ function createMarkerInfoWindow(data) {
 */
 function getBeacons(map) {
     var image = './OhEuropaMarker.png';
-    $.getJSON("https://www.davidhaylock.co.uk/oheuropa/getdata.php?getplaces", function(json) {
+    $.getJSON("http://oheuropa.com/api/getdata.php?getplaces", function(json) {
         $.each(json['data'], function(key,data){
 
             var infoWindowContent = createMarkerInfoWindow(data);
@@ -72,7 +71,7 @@ function getBeacons(map) {
                 fillOpacity: '1.0',
                 strokeColor: '#FF0000',
                 map: map,
-                center: { 'lat': parseFloat(data['lat']), 'lng':parseFloat(data['lng'])}, 
+                center: { 'lat': parseFloat(data['lat']), 'lng':parseFloat(data['lng'])},
                 radius: parseFloat(data["outerradius"])
             });
 
@@ -81,7 +80,7 @@ function getBeacons(map) {
                 fillOpacity: '1.0',
                 strokeColor: '#FFFF00',
                 map: map,
-                center: { 'lat': parseFloat(data['lat']), 'lng':parseFloat(data['lng'])}, 
+                center: { 'lat': parseFloat(data['lat']), 'lng':parseFloat(data['lng'])},
                 radius: parseFloat(data["innerradius"])
             });
 
@@ -90,7 +89,7 @@ function getBeacons(map) {
                 fillOpacity: '1.0',
                 strokeColor: '#00FF00',
                 map: map,
-                center: { 'lat': parseFloat(data['lat']), 'lng':parseFloat(data['lng'])}, 
+                center: { 'lat': parseFloat(data['lat']), 'lng':parseFloat(data['lng'])},
                 radius: parseFloat(data["centerradius"])
             });
 
@@ -107,7 +106,7 @@ function getBeacons(map) {
             marker.addListener('click',function(){
                 infowindow.open(map,marker);
             });
-            
+
             var bData = { id: data['placeid'], outercircle: outercircle, innercircle: innercircle, circle: circle, marker: marker };
             beacons.push(bData);
         });
@@ -164,7 +163,7 @@ function loginToRadio() {
     $.ajax(
         {
             type: "POST",
-            url: 'https://davidhaylock.co.uk/oheuropa/test.php',
+            url: 'http://oheuropa.com/api/test.php',
             data: { 'login' : 1 },
             success: function(res) {
                 console.log(res);
@@ -218,7 +217,7 @@ function logoutOfRadio() {
     $.ajax(
         {
             type: "POST",
-            url: 'https://davidhaylock.co.uk/oheuropa/test.php',
+            url: 'http://oheuropa.com/api/test.php',
             data: { 'logout' : 1 },
             success: function(res) {
                 console.log(res);

@@ -5,10 +5,10 @@
                 <button id="closemodalx" type="button" class="close" data-dismiss="schmodal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="schmodal-title" id="titlelabel">Add New Song</h4>
             </div>
-            
+
             <div id="hotspot">
                 <div class="schmodal-body">
-                    <form id="myform" action="https://www.davidhaylock.co.uk/oheuropa/upload.php" method="POST" target="this-iframe" enctype="multipart/form-data">
+                    <form id="myform" action="http://oheuropa.com/api/upload.php" method="POST" target="this-iframe" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="placename">Place Name</label>
                             <input type="text" name="placename" id="placename" class="form-control" aria-describedby="placename" placeholder="Place Name">
@@ -19,7 +19,7 @@
                             <input type="text" name="placeid" id="placeid" class="form-control" aria-describedby="placeid" placeholder="Place Identifier">
                             <small id="placeinfo" class="form-text text-muted">This must be unique as it will be used to identify locations.</small>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="lat">Latitude</label>
                             <input type="text" name="lat" id="lat" class="form-control" aria-describedby="placeid">
@@ -34,7 +34,7 @@
                             <label for="centerradius">Center Area Size</label>
                             <input type="text" name="centerradius" id="centerradius" class="form-control" aria-describedby="centerradius">
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="innerradius">Inner Area Size</label>
                             <input type="text" name="innerradius" id="innerradius" class="form-control" aria-describedby="innerradius">
@@ -47,12 +47,12 @@
 
                         <input type="submit" name="submit" class="btn btn-primary"></button>
                     </form>
-                    
+
                 </div>
             </div>
             <div id="song">
                 <div class="schmodal-body">
-                    <form action="https://www.davidhaylock.co.uk/oheuropa/upload.php" method="POST" target="this-iframe" enctype="multipart/form-data">
+                    <form action="http://oheuropa.com/api/upload.php" method="POST" target="this-iframe" enctype="multipart/form-data">
                         <div class="form-group">
                                 <label for="songname">Song Name</label>
                                 <input type="text" name="songname" id="songname" class="form-control" aria-describedby="songname" placeholder="Song Name">
@@ -69,14 +69,14 @@
                                 <label for="file">Song</label>
                                 <input type="file" name="file" id="file" class="form-control" aria-describedby="file">
                         </div>
-                        
+
                         <input type="submit" name="uploadsong" class="btn btn-primary"></button>
                     </form>
                 </div>
             </div>
             <iframe style="display:none;" src="" name="this-iframe" id="this-iframe" onLoad="iframeChanged(this)" frameborder="0"></iframe>
             <div class="schmodal-footer">
-                <button id="closemodal" type="button" class="btn btn-default" data-dismiss="schmodal">Close</button>  
+                <button id="closemodal" type="button" class="btn btn-default" data-dismiss="schmodal">Close</button>
             </div>
         </div>
     </div>

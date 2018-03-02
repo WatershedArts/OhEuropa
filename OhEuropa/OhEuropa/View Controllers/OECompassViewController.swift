@@ -436,8 +436,10 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///-----------------------------------------------------------------------------
 	func setScrollBarText(name: String) {
 		var trackInfo = name.components(separatedBy: " - ")
-		self.TitleOfSong.text = trackInfo[1]
-		self.PerformersNames.text = trackInfo[0]
+		if trackInfo.count > 0 {
+			self.TitleOfSong.text = trackInfo[1]
+			self.PerformersNames.text = trackInfo[0]
+		}
 	}
 	
 	///-----------------------------------------------------------------------------

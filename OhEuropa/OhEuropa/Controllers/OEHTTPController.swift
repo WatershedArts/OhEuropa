@@ -50,7 +50,7 @@ class OEHTTPController: NSObject {
 			"zoneid":zoneid,
 			"action":action]
 		
-		Alamofire.request("http://oheuropa.com/api/userinteraction.php", method: .post, parameters: parameters, encoding: JSONEncoding.default)
+		Alamofire.request("http://oheuropa.com/api/userinteraction.php", method: .post, parameters: parameters)
 			.responseString { response in
 				switch response.result {
 				case .failure(let error):

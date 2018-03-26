@@ -34,7 +34,7 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 		streamer.delegate = self
 		
 		// Load the Static Audio File
-		let audioPath = Bundle.main.path(forResource: "static.mp3", ofType: nil)!
+		let audioPath = Bundle.main.path(forResource: "statictest_22khz_16bitloop.wav", ofType: nil)!
 		let url = URL(fileURLWithPath: audioPath)
 		
 		do {
@@ -43,7 +43,7 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 			staticAudio.numberOfLoops = 50
 		}
 		catch {
-			print("Can't Load Static.mp3")
+			print("Can't Load statictest_22khz_16bitloop.wav")
 		}
 	}
 	

@@ -87,7 +87,7 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 	///-----------------------------------------------------------------------------
 	public func fadeOutRadioAndFadeUpStatic() {
 		let streamingAction = InterpolationAction(from: self.streamer.volume, to: 0.15, duration: FADE_TIME, easing: .sineInOut, update: { [unowned self] in self.streamer.volume = $0 })
-		let staticAction = InterpolationAction(from: self.staticAudio.volume, to: 0.75, duration: FADE_TIME, easing: .sineInOut, update: { [unowned self] in self.staticAudio.volume = $0 })
+		let staticAction = InterpolationAction(from: self.staticAudio.volume, to: 0.15, duration: FADE_TIME, easing: .sineInOut, update: { [unowned self] in self.staticAudio.volume = $0 })
 		scheduler.run(action: staticAction)
 		scheduler.run(action: streamingAction)
 	}
@@ -96,7 +96,7 @@ class OEAudioController: NSObject, STKAudioPlayerDelegate {
 	/// Play Static Audio
 	///-----------------------------------------------------------------------------
 	public func startPlayingStatic() {
-		let action = InterpolationAction(from: 0.0, to: 0.75, duration: FADE_TIME, easing: .sineInOut, update: { [unowned self] in self.staticAudio.volume = $0 })
+		let action = InterpolationAction(from: 0.0, to: 0.15, duration: FADE_TIME, easing: .sineInOut, update: { [unowned self] in self.staticAudio.volume = $0 })
 		self.staticAudio.play()
 		scheduler.run(action: action)
 	}

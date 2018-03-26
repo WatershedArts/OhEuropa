@@ -435,8 +435,11 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// Get the track name for the scroll bar
 	///-----------------------------------------------------------------------------
 	func setScrollBarText(name: String) {
-		var trackInfo = name.components(separatedBy: " - ")
-		if trackInfo.count > 0 {
+		
+		let strippedname = name.replacingOccurrences(of: "\"", with: "");
+		let trackInfo = strippedname.components(separatedBy: " - ")
+		
+		if trackInfo.count >= 1 {
 			self.TitleOfSong.text = trackInfo[1]
 			self.PerformersNames.text = trackInfo[0]
 		}

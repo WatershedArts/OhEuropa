@@ -86,7 +86,7 @@ class OEGetBeacons  {
 					print("GETLOCATIONS: Got Return Data")
 					self.json = JSON(data)
 					
-					print(self.json)
+//					print(self.json)
 
 					// If we get data from the server update the core data for backup incase of connection issues.
 					if let newdata = self.json["data"].arrayObject as? [[String:Any]] {

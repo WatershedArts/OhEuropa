@@ -34,6 +34,15 @@ function removeBeaconFromMap(id) {
             beacons[i].marker.setMap(null);
         }
     }
+
+    $.ajax({
+        url: 'http://oheuropa.com/api/remove.php',
+        type: 'POST',
+        data: { "placeid" : id },
+        success: function(data) {
+            console.log("here" + data)
+        }
+    });
 }
 
 /**
@@ -45,10 +54,7 @@ function createMarkerInfoWindow(data) {
         "<h4>Place ID: "+data.placeid+"</h4>" +
         "<h4>Radio Plays: "+data.radioplays+"</h4>" +
         "<h6>Date Created: "+data.datecreated+"</h6>" +
-        "<form method='POST' target='this-iframe' action='http://oheuropa.com/api/remove.php'>" +
-        "<input type='hidden' name='placeid' value='"+data.placeid+"'>"+
-        "<input class='btn btn-danger' onclick=\"removeBeaconFromMap('" + data.placeid + "');\" type='submit' name='delete' value='Delete'>" +
-        "</form>" +
+        "<button class='btn btn-danger' onclick=\"removeBeaconFromMap('" + data.placeid + "');\" type='submit' name='delete' value='Delete'>Delete</button>" +
         "</div>";
     return html;
 }

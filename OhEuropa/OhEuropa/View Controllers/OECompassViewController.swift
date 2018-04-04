@@ -40,9 +40,11 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// Setup View Controller
 	///-----------------------------------------------------------------------------
 	func setup() {
+
+		
+	
 		
 		// Get the Beacons from the Server / Local Hosts
-		
 		let dev = [String]()
 		
 		OEGetBeacons(dev,completion:parseBeacons)
@@ -68,7 +70,15 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		// Outer Area of the Beacon
 		NotificationCenter.default.addObserver(self, selector: #selector(outerBeaconPerimeterEntered(_:)), name: NSNotification.Name.EnteredBeaconOuterPerimeter, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(outerBeaconPerimeterExited(_:)), name: NSNotification.Name.ExitedBeaconOuterPerimeter, object: nil)
+		
+
+//		let avsession = AVAudioSession.sharedInstance()
+//		print(avsession.outputVolume)
+		
+		
 	}
+	
+
 	
 	///-----------------------------------------------------------------------------
 	/// Get New Beacons that might exist on the Server
@@ -273,38 +283,16 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///-----------------------------------------------------------------------------
 	@objc func beaconExited(_ n:Notification) {
 		
-		let set1 = InterpolationAction(from: labelColorChanges[1].2,
-									   to: labelColorChanges[1].0,
-									   duration: 1.5,
-									   easing: .exponentialIn) { [unowned self] in self.PerformersNames.textColor = $0 }
-
-		let set2 = InterpolationAction(from: labelColorChanges[1].2,
-									   to: labelColorChanges[1].0,
-									   duration: 1.5,
-									   easing: .exponentialIn) { [unowned self] in self.TitleOfSong.textColor = $0 }
-
-		let set3 = InterpolationAction(from: labelColorChanges[0].2,
-									   to: labelColorChanges[0].0,
-									   duration: 1.5,
-									   easing: .exponentialIn) { [unowned self] in self.nearestMarkerDistanceLabel.textColor = $0 }
-		
-		let actions = ActionGroup(actions: set1,set2,set3)
-		scheduler.run(action: actions)
-		
-		if compassView != nil {
-			compassView.exittedBeaconZone(zonetype: "C")
-		}
-		
 		// Check if we have user info
-		if let userInfo = n.userInfo {
-			// Safely Unwrap the Value
-			if let placeId = userInfo["placeid"] as? String {
-				print("Beacon: \(placeId) Exited")
-				httpController.uploadUserInteraction(userid: USER_ID, placeid: placeId, zoneid: "C", action: "Exited")
-			}
-		}
-		
-		audioManager.fadeOutRadioAndFadeUpStatic()
+//		if let userInfo = n.userInfo {
+//			// Safely Unwrap the Value
+//			if let placeId = userInfo["placeid"] as? String {
+//				print("Beacon: \(placeId) Exited")
+//				httpController.uploadUserInteraction(userid: USER_ID, placeid: placeId, zoneid: "C", action: "Exited")
+//			}
+//		}
+//
+//		audioManager.fadeOutRadioAndFadeUpStatic()
 	}
 	
 	///-----------------------------------------------------------------------------
@@ -395,6 +383,28 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 			}
 		}
 		
+		let set1 = InterpolationAction(from: labelColorChanges[1].2,
+									   to: labelColorChanges[1].0,
+									   duration: 1.5,
+									   easing: .exponentialIn) { [unowned self] in self.PerformersNames.textColor = $0 }
+		
+		let set2 = InterpolationAction(from: labelColorChanges[1].2,
+									   to: labelColorChanges[1].0,
+									   duration: 1.5,
+									   easing: .exponentialIn) { [unowned self] in self.TitleOfSong.textColor = $0 }
+		
+		let set3 = InterpolationAction(from: labelColorChanges[0].2,
+									   to: labelColorChanges[0].0,
+									   duration: 1.5,
+									   easing: .exponentialIn) { [unowned self] in self.nearestMarkerDistanceLabel.textColor = $0 }
+		
+		let actions = ActionGroup(actions: set1,set2,set3)
+		scheduler.run(action: actions)
+		
+		if compassView != nil {
+			compassView.exittedBeaconZone(zonetype: "C")
+		}
+		
 		audioManager.stopPlayingRadio()
 		audioManager.startPlayingStatic()
 	}
@@ -406,6 +416,8 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///-----------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+	
 		setup()
 		
 		PerformersNames.textColor = labelColorChanges[1].1

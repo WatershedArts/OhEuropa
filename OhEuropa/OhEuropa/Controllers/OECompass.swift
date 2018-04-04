@@ -104,9 +104,12 @@ class OECompass : ProcessingView {
 		fill(centerBeaconAnimationColors[2].1)
 		ellipse(centerX, centerY, CGFloat((compassRadius*2)-10), CGFloat((compassRadius*2)-10))
 		
+		pushMatrix()
+		rotate(angle: 0.0)
 		// Draw the image here now instead
 		fill(centerBeaconAnimationColors[3].1)
 		image(centerImage!, centerX-(compassRadius - 5), centerY-(compassRadius - 5), CGFloat((compassRadius - 5)*2), CGFloat((compassRadius - 5)*2))
+		popMatrix()
 		
 		// Draw the outer ring white marks
 		strokeWeight(2.5)

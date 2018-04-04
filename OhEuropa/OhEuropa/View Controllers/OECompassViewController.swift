@@ -43,8 +43,8 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		
 		OEGetBeacons(dev,completion:parseBeacons)
 		
-		// Check if we have New Beacons
-		getBeaconsTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(getNewBeacons), userInfo: nil, repeats: true)
+//		// Check if we have New Beacons
+//		getBeaconsTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(getNewBeacons), userInfo: nil, repeats: true)
 		
 		// As it sounds
 		enableLocationServices()

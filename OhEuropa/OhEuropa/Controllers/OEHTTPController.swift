@@ -71,13 +71,12 @@ class OEHTTPController: NSObject {
 	/// - Returns: returns the current radio track
 	///-----------------------------------------------------------------------------
 	public func getCurrentRadioTrack(_ completion: @escaping (String) -> Void) {
-		var returnValue = ""
+		var returnValue = "No Track Found - Error"
 		Alamofire.request("https://public.radio.co/stations/s02776f249/status", method: .get)
 			.responseJSON { response in
 				switch response.result {
 					case .failure(let error):
 						print("Failed to Get Radio Song \(error)")
-						returnValue = "Failed to Get Song Name \(error)"
 						completion(returnValue)
 						break;
 					case .success(let data):

@@ -5,7 +5,7 @@
     header("Pragma: no-cache");
     header("Content-type: application/json");
     header("Access-Control-Allow-Origin: *");
-    include('dev_oheuropa.php');
+    include('/var/sites/o/oheuropa.com/keys/db_includes.php');
     //----------------------------------------------------------------------------
     // * This is where we upload new data from the Client Application
     //----------------------------------------------------------------------------
@@ -44,6 +44,7 @@
     //----------------------------------------------------------------------------
     else if(isset($_POST['newevent']))
     {
+        postMessageToSlack("SUCESSS","userinteration.php",__LINE__,"Adding New Interaction");
         if (!isset($_POST['userid'])) {
             $feedback = array( "success" => false, "message" => "No User Id Attached!" );
             echo json_encode($feedback);

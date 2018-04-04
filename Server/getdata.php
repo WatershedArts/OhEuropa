@@ -2,10 +2,8 @@
 
     if(isset($_GET['getplaces']))
     {
-        include('dev_oheuropa.php');
+        include('/var/sites/o/oheuropa.com/keys/db_includes.php');
 
-        postMessageToSlack("ATTEMPT","getdata.php",__LINE__,"Attempting to Get GPS Zones");
-     
         $query = "
             SELECT
                 id,
@@ -58,22 +56,23 @@
             $places[] = $row;
         }
 
-        header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-        header("Last-Modified: " . gmdate( "D, d M Y H:i:s" ) . "GMT");
-        header("Cache-Control: no-cache, must-revalidate");
-        header("Pragma: no-cache");
-        header("Content-type: application/json");
+        // header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+        // header("Last-Modified: " . gmdate( "D, d M Y H:i:s" ) . "GMT");
+        // header("Cache-Control: no-cache, must-revalidate");
+        // header("Pragma: no-cache");
         // header("Access-Control-Allow-Origin: *");
+        header("Content-type: application/json");
+        
         $feedback = array( "success" => true, "data" => $places );
-        //postMessageToSlack("SUCCESS","getdata.php",__LINE__,json_encode($feedback));
+        postMessageToSlack("SUCCESS","getdata.php",__LINE__, "Found ".count($places)." Beacons");
         echo json_encode($feedback);
         exit;
     }
     else if(isset($_GET['getsongs'])) {
 
-        include($_ENV['ONECOM_DOMAIN_ROOT'] . 'httpd.private/safe/dev_oheuropa.php');
+        include('/var/sites/o/oheuropa.com/keys/db_includes.php');
 
-        postMessageToSlack("ATTEMPT","getdata.php",__LINE__,"Attempting to Get Songs");
+        // postMessageToSlack("ATTEMPT","getdata.php",__LINE__,"Attempting to Get Songs");
 
         $query = "SELECT * FROM `songs`";
         $results = $DBH->prepare($query);
@@ -98,26 +97,18 @@
             $songs[] = $row;
         }
 
-        header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-        header("Last-Modified: " . gmdate( "D, d M Y H:i:s" ) . "GMT");
-        header("Cache-Control: no-cache, must-revalidate");
-        header("Pragma: no-cache");
         header("Content-type: application/json");
-        // header("Access-Control-Allow-Origin: *");
+
         $feedback = array( "success" => true, "numberofsongs" => count($songs) , "data" => $songs );
-        //postMessageToSlack("SUCCESS","getdata.php",__LINE__,json_encode($feedback));
         echo json_encode($feedback);
         exit;
     }
     else if(isset($_GET['getoverview'])) {
 
-        include($_ENV['ONECOM_DOMAIN_ROOT'] . 'httpd.private/safe/dev_oheuropa.php');
-
-        postMessageToSlack("ATTEMPT","getdata.php",__LINE__,"Attempting to Get Overview");
+        include('/var/sites/o/oheuropa.com/keys/db_includes.php');
 
         $query = "
             SELECT
-                (SELECT COUNT(id) FROM `songs`) as numberofsongs,
                 (SELECT COUNT(id) FROM `users`) as numberofusers,
                 (SELECT COUNT(id) FROM `places`) as numberofmarkers,
                 (SELECT COUNT(id) FROM `interactions`) as numberofinteractions
@@ -168,7 +159,7 @@
 
         $places = "";
         if ($results->rowCount() == 0) {
-            postMessageToSlack("FAILURE","getdata.php",__LINE__,"Error: No Rows!");
+            // postMessageToSlack("FAILURE","getdata.php",__LINE__,"Error: No Rows!");
             $places = "No Data";
 
         } else {
@@ -178,10 +169,6 @@
             }
         }
 
-        header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-        header("Last-Modified: " . gmdate( "D, d M Y H:i:s" ) . "GMT");
-        header("Cache-Control: no-cache, must-revalidate");
-        header("Pragma: no-cache");
         header("Content-type: application/json");
         // header("Access-Control-Allow-Origin: *");
         $feedback = array( "success" => true, "data" => $overview, "placedata" => $places );

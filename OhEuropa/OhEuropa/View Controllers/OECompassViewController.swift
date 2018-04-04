@@ -13,6 +13,8 @@ import CoreLocation
 import FontAwesome_swift
 import ProcessingKit
 import TweenKit
+import Reachability
+import MediaPlayer
 
 class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	
@@ -27,6 +29,8 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	let audioManager = OEAudioController()
 	var trackTimer: Timer!
 	let scheduler = ActionScheduler()
+	var showVolumeAlert = true
+	let reachability = Reachability()!
 
 	var getBeaconsTimer = Timer()
 	
@@ -415,7 +419,28 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 		self.view.createCircle(center: CGPoint(x:50,y:35), radius: 10, color: INACTIVE_COMPASS_COLOR)
 	
 		getTrackName()
+		
+		
     }
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+			let avsession = AVAudioSession.sharedInstance()
+			try? avsession.setActive(true)
+			
+			let vol = avsession.outputVolume
+			print(vol)
+			if vol < 0.2 {
+				if showVolumeAlert {
+					// If we dont have permissions display this error
+					let alert = UIAlertController(title: "WARNING!", message: "Your volume is low, for the best experience turn your volume up!" , preferredStyle: .alert)
+					alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+					present(alert, animated: true, completion: nil)
+					showVolumeAlert = false
+				}
+			}
+	}
 
 	///-----------------------------------------------------------------------------
 	/// Waited for the Views to properly scale before creating the compass elements

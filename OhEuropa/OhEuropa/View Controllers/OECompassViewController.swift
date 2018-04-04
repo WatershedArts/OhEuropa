@@ -428,7 +428,7 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	/// Get the track name for the scroll bar
 	///-----------------------------------------------------------------------------
 	@objc func getTrackName() {
-		httpController.getCurrentRadioTrack(setScrollBarText)
+		httpController.getCurrentRadioTrack(self.setScrollBarText)
 	}
 	
 	///-----------------------------------------------------------------------------
@@ -436,11 +436,12 @@ class OECompassViewController: UIViewController, CLLocationManagerDelegate {
 	///-----------------------------------------------------------------------------
 	func setScrollBarText(name: String) {
 		
+		print(name)
 		let strippedname = name.replacingOccurrences(of: "\"", with: "");
 		let trackInfo = strippedname.components(separatedBy: " - ")
 		
 		if trackInfo.count >= 1 {
-			self.TitleOfSong.text = trackInfo[1]
+			self.TitleOfSong.text = trackInfo[1] // TODO fix this crash 
 			self.PerformersNames.text = trackInfo[0]
 		}
 	}

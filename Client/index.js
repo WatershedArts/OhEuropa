@@ -121,6 +121,7 @@ function initializeMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         minZone: 4,
         maxZone: 20,
+        mapTypeId: 'satellite',
         center: {
             lat: 55.7727871,
             lng: 9.3665475

@@ -68,7 +68,7 @@ function getBeacons(map) {
 
             var outercircle = new google.maps.Circle({
                 fillColor: '#FF0000',
-                fillOpacity: '1.0',
+                fillOpacity: '0.5',
                 strokeColor: '#FF0000',
                 map: map,
                 center: { 'lat': parseFloat(data['lat']), 'lng':parseFloat(data['lng'])},
@@ -77,7 +77,7 @@ function getBeacons(map) {
 
             var innercircle = new google.maps.Circle({
                 fillColor: '#FFFF00',
-                fillOpacity: '1.0',
+                fillOpacity: '0.5',
                 strokeColor: '#FFFF00',
                 map: map,
                 center: { 'lat': parseFloat(data['lat']), 'lng':parseFloat(data['lng'])},
@@ -86,7 +86,7 @@ function getBeacons(map) {
 
             var circle = new google.maps.Circle({
                 fillColor: '#00FF00',
-                fillOpacity: '1.0',
+                fillOpacity: '0.5',
                 strokeColor: '#00FF00',
                 map: map,
                 center: { 'lat': parseFloat(data['lat']), 'lng':parseFloat(data['lng'])},
